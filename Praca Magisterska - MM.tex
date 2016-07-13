@@ -1,0 +1,604 @@
+\documentclass{pracamgr}
+
+\usepackage[latin2]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,polish]{babel}
+\usepackage{polski}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[boxed, onelanguage]{algorithm2e}
+
+\author{Marcin Mo¿ejko}
+\nralbumu{262793}
+\title{Podstawy metod g³êbokiego uczenia wraz z przyk³adami zastosowañ}
+
+\tytulang{Foundations od deep learning methods with examples of applications}
+
+\kierunek{Matematyka}
+
+% informatyka - nie okreslamy zakresu (opcja zakomentowana)
+% matematyka - zakres moze pozostac nieokreslony,
+% a jesli ma byc okreslony dla pracy mgr,
+% to przyjmuje jedna z wartosci:
+% {metod matematycznych w finansach}
+% {metod matematycznych w ubezpieczeniach}
+% {matematyki stosowanej}
+% {nauczania matematyki}
+% Dla pracy licencjackiej mamy natomiast
+% mozliwosc wpisania takiej wartosci zakresu:
+% {Jednoczesnych Studiow Ekonomiczno--Matematycznych}
+
+% \zakres{Tu wpisac, jesli trzeba, jedna z opcji podanych wyzej}
+
+% Praca wykonana pod kierunkiem:
+% (podaæ tytu³/stopieñ imiê i nazwisko opiekuna
+% Instytut
+% ew. Wydzia³ ew. Uczelnia (je¿eli nie MIM UW))
+\opiekun{Prof. dr. hab. Andrzeja Skowrona\\
+  }
+
+% miesi±c i~rok:
+\date{Czerwiec 2015}
+
+%Podaæ dziedzinê wg klasyfikacji Socrates-Erasmus:
+\dziedzina{ 
+11.4 Sztuczna inteligencja\\ 
+}
+
+%Klasyfikacja tematyczna wedlug AMS (matematyka) lub ACM (informatyka)
+\klasyfikacja{D. Software\\
+  D.127. Blabalgorithms\\
+  D.127.6. Numerical blabalysis}
+
+% S³owa kluczowe:
+\keywords{deep learning, machine learning, uczenie maszynowe, sztuczne sieci neuronowe, 
+sieci konwolucyjne}
+
+% Tu jest dobre miejsce na Twoje w³asne makra i~¶rodowiska:
+\newtheorem{defi}{Definicja}[section]
+\newtheorem{przyklad}{Przyk³ad}[section]
+\newtheorem{uwaga}{Uwaga}[section]
+\newtheorem{twierdzenie}{Twierdzenie}[section]
+
+% koniec definicji
+
+\begin{document}
+\maketitle
+
+%tu idzie streszczenie na strone poczatkowa
+\begin{abstract}
+W ostatnim czasie, w¶ród specjalistów zajmuj±cych siê uczeniem maszynowym, bardzo eksplorowanym tematem sta³o siê tzw. g³êbokie uczenie, czyli uczenie z wykorzystaniem g³êbokich (tzn. maj±cych wiele warstw) sieci neuronowych. W swojej pracy przedstawie matematyczne podstawy sukcesu stoj±cych za tym algorytmów.
+\end{abstract}
+
+\tableofcontents
+	%\listoffigures
+%\listoftables
+
+\chapter*{Wprowadzenie}
+
+W ostatnim czasie, jednym z tematów które najbardziej poch³aniaj± specjalistów od \textit{Machine Learningu} sta³y siê tzw. metody g³êbokiego uczenia (\textit{deep learning}). Co chwila mo¿emy us³yszeæ informacjê, ¿e wed³ug naukowców wykorzystuj±cych te metody, algorytmy przez nich otrzymane pokona³y cz³owieka w zagadnieniu, które do tej pory wydawa³o siê byæ tylko w zasiêgu ludzkiego umys³u (\cite{znaki}, \cite{droga}). To co ³±czy wiêkszo¶æ tych zagadnieñ i jest w mojej opinii kluczowe do zrozumienia fenomenu \textit{deep learningu} to :
+
+\begin{itemize}
+	\item ogromna ilo¶æ danych (czêsto bez ¿adnych etykiet),
+	\item du¿a problematyczno¶æ w zakodowaniu problemu w klasycznym jêzyku algorytmicznym,
+	\item zbiór interesuj±cych nas danych jest niezwykle ma³y w stosunku do przestrzeni z której pochodz± dane.
+\end{itemize}
+
+Spróbujmy przyjrzeæ siê tym podpunktom. Rozwa¿aj±c np. problem rozpoznawania przedmiotów na filmach, mo¿emy natrafiæ na ciekawy symptom. Dziêki wieloletniej historii zapisu cyfrowej, przez lata ludzko¶æ zebra³a na rozmaitych no¶nikach danych niezmierzone ilo¶ci danych z kamer. Dziêki temu wspó³cze¶ni badacze maj± u³atwione zadanie przy budowaniu algorytmów do rozpoznawania filmów - mog± wykorzystaæ tak zdobyta wiedzê do poprawienia rezultatów uzyskiwanych przez ich programy.
+
+Kolejny podpunkt, czyli problematyczno¶æ, mo?emy doskonale zobrazowaæ przez przyk³ad zaprojektowania sieci rozpoznaj±cej czy dana recenzja na portalu spo³eczno¶ciowym zawiera pozytywn± opiniê o temacie b±d¼ nie. Niech czytelnik pokusi siê o zapisanie na kartce rzeczy, które algorytm powinien sprawdziæ aby uzyskaæ poprawn± odpowied¼. Krótka inspekcja powinna u¶wiadomiæ jak karko³omne zadanie staje przed badaczami, którzy siê tym zajmuj±. Wyniki ostatnich algorytmów pokazuj± jednak, ¿e problem ten nie przekracza zasiegu wspó³czesnych technologii.
+
+Ostatnie zagadnienie - najlepiej zobrazowa? liczbami. Za³ó¿my, ¿e rozwa¿amy obraz który posiada 28 x 28 pikseli oraz, dla uproszczenia, jest czarnobia³y. Ilo¶æ wszystkich mo¿liwych obrazków tego typu przekracza niewyobra¿alnie liczbê atomów we wszech¶wiecie. Natomiast liczba obrazków które prezentuj± nam co¶ interesuj±cego (np. znany problem rozpoznawania cyfr \cite{mnist}) jest liczb± zdecydowanie mniejsz±. Mo¿na powiedzieæ, ¿e interesuj±cy nas zbiór jest niczym galaktyka po¶ród otaczaj±cego j± szumu i pustki.
+
+W swojej pracy chcia³bym przedstawiæ w jaki sposób poradzono sobie z powy¿szymi zagadnieniami. Zamierzam zacz±æ od historii powstania tych algorytmów, któr± uwa¿am za bardzo wa¿n± w zrozumieniu istoty ich dzia³ania, by potem zg³êbiæ podstawy matematycznych narzêdzi stoj±cych za sukcesem \textit{deep learningu}. W kolejnych rozmiarach zamierzam, na podstawie historycznych algorytmów, przedstawiæ to, co stanowi esencjê sukcesu metod g³êbokiego uczenia. Wydajê mi siê, ¿e ta droga wyt³umaczy najlepiej, dlaczego niemal ka¿dy szanuj±cy siê o¶rodek naukowy posiada dzi¶ grupê zajmuj±c± siê metodami g³êbokiego uczenia.
+
+\chapter{Historia}
+
+\section{Pocz±tki i perceptron}
+
+Aby dobrze zrozumieæ historiê metod \textit{deep learning} nale¿y w moim mniemaniu choæ pobie¿nie zg³êbiæ historiê powstania i rozwoju metod opartych na tym paradygmacie. Mo¿na powiedzieæ, ¿e historia ta zaczê³a siê w momencie odkrycia przez biologów neuronalnej natury mózgu \cite{neuron_biologia}, jednak pocz±tki algorytmicznych sieci neuronowych, których najwy¿sz± emanacj± s± g³êbokie sieci, datuje siê na koniec lat 60' XX w., gdy Frank Rosenblat przygotowa³ mechaniczno - elektryczny perceptron \cite{perceptron}, czyli realizacje modelu neuronu McCullocha-Pittsa \cite{mccul-pitts}. Choæ teoretyczne podstawy opracowane przez wspomniany duet naukowców powsta³y ponad 25 lat wcze¶niej, to rewolucyjnym rozwi±zaniem, zastosowanym w przypadku koncepcji Rosenblata by³ efektywny i skuteczny model uczenia, który przyczyni³ siê do wieloletniego, bujnego rozwoju zastosowañ opartych na tej koncepcji. Warto tutaj podkre¶liæ motyw, który bêdzie powtarza³ siê przy omawaniu kolejnych punktów, biologiczne inspiracje, które doprowadzi³y do rozwoju algorytmicznych rozwi±zañ.
+
+\section{Zima sztucznej inteligencji}
+
+I wtedy, gdy wydawa³o siê, ¿e perceptron to narzêdzie niemal idealne do wszystkich zadañ, na horyzoncie pojawi³ siê ogromny problem. Jako narzêdzie, wynalazek Rosenblata s³u¿y³ min. do rozpoznawania obiektów na obrazkach. Okaza³o siê jednak, ¿e mniemanie o jego  skuteczno¶ci jest znacznie przesadzone. W wiêkszo¶ci wypadków bowiem okaza³o siê, ¿e to co zostaje wykrywane to jaka¶ istotnie prosta cecha, która towarzyszy obrazom interesuj±cych badaczy, a nie obiekty obecno¶æ których algorytm mia³ wykrywaæ. I tak np. zamiast statków algorytm wykrywa³ ciemne plamy po ¶rodku zdjêcia, a zamiast czo³gów - zaciemnienia w kszta³cie lasu, w których najczê¶ciej maszyny by³y fotografowane. Co wiêcej, w Marvin Minsky oraz Seymour Papert pokazali du¿o mocniejsze ograniczenia na to, co mog³o byæ efektywnie rozpoznane przez perceptron. Okaza³o siê, ¿e wyuczenie prostej, logicznej funkcji XOR przekracza mo¿liwo¶ci wynalazku Rosenblata. Co wiêcej - uogólnienie tego wyniku pokaza³o, ¿e w szczególno¶ci, niezale¿enie od rozmiaru oraz typu zbioru treningowego, nie mo¿na perceptronu nauczyæ rozpoznawania wzoru, który by³by zamkniêty na wszystkie mo¿liwe translacje (przesuniêcia) na obrazku. Fakt ten wywo³a³ tak ogromny szok w¶ród badaczy, ¿e ilo¶æ naukowców oraz funduszy przeznaczonych na badania drastycznie zmala³a, a niski poziom zainteresowania utrzymywa³ siê przez kolejne 10 lat. Dlatego w³a¶nie ten okres nazywa siê w historii \textit{machine learningu} zim± sztucznej inteligencji.
+
+\section{Dlaczego perceptron zawiód³?}
+
+Odpowied¼ na pytanie dlaczego perceptron zawiód³, nale¿y podzieliæ na dwa fragmenty : jakie by³y matematyczne powody dla których algorytm nie podo³a³ oczekiwaniom oraz dlaczego oczekiwania które zawiód³ by³y tak ogromne. Odpowied¼ na pierwsz± czê¶æ jest prozaiczna. Model McCullocha-Pittsa zastosowany przez Rosenblata, ogranicza dzia³anie algorytmu do rozwa¿ania znaku jaki przyjmuje funkcjona³ afiniczny dla zadanego wektora w $\mathbb{R}^n$. Krótka inspekcja tego faktu pokazuje, ¿e istotnie rozró¿niane wedle tego algorytmu mog± byæ tylko zbioru, które s± separowalne liniowo, tzn. istnieje podprzestrzeñ kowymiaru 1, która je istotnie oddziela. Odpowied¼ na drug± czê¶æ, czyli spo³eczne rozczarowanie, które poci±gn±³ za sob± krach zaufania do perceptronu do dzi¶ ciê¿ko mi zrozumieæ. Byæ mo¿e jest to wynika³o to z ogólnego wówczas zachwytu nad nowymi technologiami wynikaj±cego z wynalezienia komputerów i ogólnie elektroniki? Z ca³± pewno¶ci± po latach - patrz±c na matematyczne podstawy algorytmu Rosenblata - mo¿emy stwierdziæ, ¿e nadmierne oczekiwania w stosunku do tak prostego narzêdzia okaza³y siê po prostu naiwne. Co wiêcej - naiwno¶æ ta nie le¿y tylko w matematycznej podstawie algorytmu, ale tak¿e w biologicznej nieadekwatno¶ci. Skoro naukowcy powo³ywali siê czê¶ciowo na na¶ladowanie mózgu nie sposób dostrzec prostego faktu : organ ten u cz³owieka posiada ok. $10^{11}$ neuronów i z tyle razy mniejszej liczby sk³ada siê perceptron. 
+
+\section{Algorytm wstecznej propagacji - odrodzenie i ponowna zima}
+
+Przez kolejne lata badacze rozwijaj±cy algorytmy zwi±zane z sieciami neuronowymi próbowali pokonaæ przedstawione powy¿ej przeszkody. Naturalnym rozwi±zaniem wydawa³o siê zbudowanie sieci sk³adaj±ce siê z wiêkszej ilo¶ci - tak neuronów, jak i ich warstw. Rozwi±zanie to napotka³o jednak na dosyæ powa¿ny problem - o ile uczenie perceptronu by³o zadaniem banalnie prostym, to wyuczenie sieci o wiêkszej ilo¶ci wartstw okaza³o siê zadaniem o wiele trudniejszym. Podstawowy problem wynika z tego, ¿e aby otrzymaæ now± jako¶æ i przezwyciê¿yæ stare problemy, nale¿y zastosowaæ inn± ni¿ liniow± funkcjê obliczaj±c± wynik neuronu w zale¿no¶ci od informacji której do niego wprowadzimy. Konieczno¶æ ta wyp³ywa ze znanego faktu, ¿e z³o¿enie wielu funkcji liniowych, jest tak¿e funkcj± liniow±. Zatem niezale¿enie od tego ile neuronów bêdzie sk³ada³o siê na strukturê naszej sieci - uzyskane narzêdzie bêdzie równowa¿ne klasycznemu perceptronowi. 
+
+Jednak wprowadzenie nieliniowych tzw. funkcji aktywacji rodzi inne problemy - jak mianowicie skutecznie przeprowadziæ proces uczenia naszego modelu. I tutaj pomoc przysz³a z najmniej spodziewanej strony, a mianowicie pochodz±cej z klasycznego rachunku prawdopodobieñstwa regu³y ³añcuchowej. Algorytm, (Rumelhart et al. \cite{backprop} którego istota dzia³ania polega na obliczeniach gradientu b³êdu, a nastêpnie aktualizowania odpowiednich parametrów na podstawie ich wp³ywu na omylno¶æ modelu (wp³yw ten jest oblicznany w³a¶nie przez regu³ê ³añcuchow±) przyniós³ fantastyczne rezultaty. Ze wzglêdu na to, ¿e b³±d obliczany przy dzia³aniu sieci, propaguje siê nastêpnie na odpowiednie parametry, nazwano go algorytmem wstecznej propagacji.
+
+Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{boltzmann, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
+
+\section{Dlaczego sieci ponownie zawiod³y?}
+
+Ponowna zima jednak, podobnie jak i entuzjazm który towarzyszy³ powrotowi sieci neuronowych do ³ask, okaza³a siê du¿o mniej intensywna ni¿ poprzednia. Spróbujmy jednak przyjrzeæ siê podstawowym przyczynom, które sprawi³y, ¿e modele te zawiod³y oczekiwania rozwijaj±cych je badaczy.
+
+Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³omie lat 90' XX w. udowodniono, ¿e sieæ z jedn± tzw. warstw± ukryt± jest w stanie nauczyæ siê niemal ka¿dej funkcji $f:\mathbb{R}^n\rightarrow \mathbb{R}$ ci±g³ej o zwartym no¶niku (\cite{cybenko, hornik}, to nie do koñca zdawano sobie sprawe, ¿e zadanie nauczenia chocia¿by rozpoznawania obrazu lub ludzkiej mowy, choæ mo¿liwe, mog± byæ bardzo trudne. W szczególno¶ci, w dowodach powy¿szego faktu, niedostrze¿ono alarmuj±cego wzrostu z³o¿ono¶ci problemu wraz ze wzrostem jego skomplikowania. Doprowadzi³o to do nieuzasadnionego rozczarowania tym, ¿e de facto nie mo¿emy nauczyæ sieci wszystkiego na pamiêæ. 
+
+Drug± przyczynê, zwi±zan± w³a¶nie ze wspomnianym powy¿ej problemem, stanowi³y niedostateczne warunki sprzêtowe, które uniemo¿liwia³y wykorzystanie potencja³u drzemi±cego w algorytmie. Niedostateczno¶æ ta nie wynika³a tylko ze zbyt ma³ych mo¿liwo¶ci obliczeniowych, ale tak¿e znacznego niedoboru danych (tak w sensie ich zebrania, jak i przechowywania). Najwiêksze zebrane zbiory treningowe nie liczy³y, na pocz±tku lat 90', wiêcej ni¿ 100 000 elementów. Z perspektywy wyuczenia chocia¿by zagadnieñ zwi±zanych z obrazem lub mow± ludzk± liczba ta jawi siê jako niemal¿e ¶miesznie ma³a. Problemy te jednak rozwi±za³ czas - wraz z rozwojem technologii pojawi³y siê tak i nowoczesne komputery, które przyspieszy³y proces uczenia oraz ewaluacji, jak i ogromne, zró¿nicowane zbiory danych, które sprawi³y, ¿e problemy o rozwi±zaniu których marzyli eksperci od sztucznej inteligencji, znalaz³y siê jak najbardziej w zasiêgu ludzkich mo¿liwo¶ci.
+
+
+
+\chapter{Matematyczne podstawy algorytmów}
+
+\section{Uczenie}
+
+Wszystkie algorytmy opisane w tej pracy nale¿± do rodziny algorytmów ucz±cych. Aby móc o nich mówiæ musimy zatem wprowadziæ formaln± definicjê uczenia. Zrobimy to w kolejnej podsekcji. Pó¼niej przedstawimy trzy najczêstsze przyk³ady uczenia czyli uczenie z i bez nadzoru, a tak¿e uczenie z pó³nadzorem. 
+
+\subsection{Formalna definicja uczenia}
+
+Trzy rzeczy s± absolutnie niezbêdne aby mówiæ o procesie o algorytmach ucz±cych. Pierwsza z nich to zbiór treningowy. Nale¿y o nim my¶leæ jako o zbiorze danych, które znamy, a które chcemy wykorzystaæ jako podstawê do uczenia przy pomocy naszego algorytmu. Drug± z nich jest zbiór modeli. Efektem uczenia ma byæ efektywnie opisuj±cy nasze dane model, aby jednak móc taki znale¼æ, musimy ustaliæ pewien zbiór mo¿liwych modeli spo¶ród którego bêdziemy go wybieraæ. Koniecznym jest tak¿e ustalenie, co oznacza, ¿e nasze dane s± efektywnie opisywane przez wybrany przez nas opis - do tego s³u¿y funkcja kosztu. Intuicyjnie, funkcj± kosztu nazywamy nieujemn± funkcjê rzeczywist±, malej±c± wraz ze wzrostem efektywno¶ci opisywanych danych. Wszystkie powy¿sze intuicje sk³adaj± siê na poni¿sz± definicjê. 
+
+\begin{defi}
+Niech $\mathcal{X}$ bêdzie dowolnym zbiorem (tzw. \textbf{treningowym}), $\Theta$ - zbiorem modeli, a 
+$$J_{\mathcal{X}} : \Theta \rightarrow \mathbb{R}_{+}\cup \{0\}$$ funkcj± kosztu. \textbf{Uczeniem} bêdziemy nazywaæ algorytm maj±cy na celu odnalezienie :
+
+$$ \theta_{\mathcal{X}} = \mathtt{argmin}_{\theta \in \Theta} J_{\mathcal{X}}\left(\theta\right).$$
+
+\end{defi}
+
+Przy okazji tej definicji nale¿y podnie¶æ kilka istotnych kwestii, które s± ¶ci¶le zwi±zane z procesem uczenia, a które nale¿± do zagadnieñ zaawansowanej filozofii nauki i daleko przekraczaj± zakres poni¿szej pracy. Pierwsz± rzecz± na któr± nale¿y zwróciæ uwagê jest to, ¿e $\theta_{\mathcal{X}}$ to \textit{de facto} rozwi±zanie pewnego problemu optymalizacyjnego i nie nale¿y do gestii algorytmu ucz±cego rozs±dzanie czy opis wyznaczany przez wybrany model mie¶ci siê w granicach które uznajemy za rozs±dne, b±d¼ nie. Wybór rodziny modeli, a tak¿e funkcji kosztu musi poprzedziæ g³êboka analiza, a tak¿e refleksja nad problemem, aby dokonany przez nas wybór nie okaza³ siê niesatysfakcjonuj±cy. Nale¿y mieæ tak¿e w pamiêci, ¿e zgodnie z aktualnie przyjêt± filozofi± (\cite{Popper}), wybrany przez nas model, nawet w kontek¶cie uzyskania pozytywnych wyników, nale¿y traktowaæ jako niesfalsyfikowany, a nie prawdziwy. Jest to o tyle istotne, ¿e wypracowane przez nas rozwi±zanie zale¿y w bardzo istotny sposób od zbiory danych, który wykorzystujemy przy uczeniu - nap³yw kolejnych, mo¿e doprowadziæ do weryfikacji tak konkrentego $\theta_{\mathcal{X}}$ jak i samej rodziny $\Theta$.
+
+\subsection{Uczenie z nadzorem}
+
+Przez uczenie z nadzorem rozumiemy przypadek, w którym mo¿emy wyró¿niæ dwa zbiory $\mathbb{X}_\mathcal{X}$ (zbiór argumentów) oraz $\mathbb{Y}_\mathcal{X}$ (zbiór warto¶ci) takie, ¿e $\mathcal{X} \subset 
+\mathbb{X}_\mathcal{X} \times \mathbb{Y}_\mathcal{X}$. Oznacza to, ¿e na ka¿dy element zbioru treningowego mo¿emy patrzyæ jak na parê argument - warto¶æ, a rodzinê modeli $\Theta$ z których wybieramy okre¶liæ jako rodzinê funkcji najlepiej przybli¿aj±c± relacjê jak± na $\mathbb{X}_\mathcal{X} \times \mathbb{Y}_\mathcal{X}$ generuje zbiór $\mathcal{X}$. Dobr± ilustracjê do tego zagadnienia ilustruje poni¿szy przyk³ad.
+
+\begin{przyklad}
+W poni¿szym przyk³adzie za zbiór treningowy $\mathcal{X}$ uznamy punkty zaznaczone czarnymi okrêgami, przyjmuj±c, ¿e pierwsza wspó³rzêdna odpowiada argumentom, a druga - warto¶ciom. Funkcj± kosztu bêdzie funkcja :
+
+$$J\left(\theta\right) = \sum_{x \in \mathbb{X}_\mathcal{X}}\left(y_x - f_{\theta}(x) \right)^2,$$
+
+gdzie $y_x$ to warto¶æ odpowiadaj±ca argumentowi $x$, a $f_\theta$ to funkcja odpowiadaj±ca modelowi $\theta$. Na poni¿szym obrazku kolorem czerwonym oznaczono $\theta_\mathcal{X}$ w przypadku gdy $\Theta$ to zbiór funkcji liniowych, zielonym - gdy $\Theta$ to zbiór funkcji sze¶ciennych, natomiast niebieskiem - przypadek gdy $\Theta$ to zbiór funkcji wielomianowych stopnia co najwy¿ej 20. 	
+
+\begin{center}
+\includegraphics[scale = 0.5]{Regresja1.png}
+\end{center}
+
+\end{przyklad}
+
+Warto podkre¶liæ, ¿e wybrana przeze mnie ogólno¶æ definicji ma swoje g³êbokie uzasadnienie. Zwyczajowo techniki uczenia z nadzorem dzieli siê na dwie grupy : techniki regresji (gdy $\mathbb{Y}_{\mathcal{X}} = \mathbb{R}^n$ dla pewnego $n\in\mathbb{N}$) oraz techniki klasyfikacji (gdy $\mathbb{Y}_{\mathcal{X}}$ jest zbiorem dyskretnym). W swoim opisie podkre¶lam jednak to, ¿e tym co \textit{de facto} jest szukane, to zale¿no¶æ funkcyjna, poniewa¿ pozwala nam to na znacznie szerszy dobór struktur warto¶ci (co np. gdy $\mathbb{Y}_{\mathcal{X}}$ to zbiór zdañ w jêzyku angielskim), a tak¿e unika konfuzji gdy w niektórych przypadkach wybrane przez nas w³asno¶ci $\mathbb{Y}_{\mathcal{X}}$ mog± prowadziæ do nieefektywnego uczenia lub rezultatów innych ni¿ oczekiwane.
+
+\subsection{Uczenie bez nadzoru}
+
+Przez uczenie bez nadzoru bêdziemy rozumieæ tak± formê uczenia, w której $\Theta$ jest zbiorem mo¿liwych, po¿ytecznych reprezentacji zbioru danych $\mathcal{X}$. Funkcja kosztu $J_{\mathcal{X}}$ okre¶la w tym przypadku jak efektywny opis danych gwarantuje nam model $\theta$. Czêsto zmiana reprezentacji danych stanowi konieczny krok przy analizie danych. Zauwa¿my np., ¿e z perspektywy komputera obraz z kamery telewizyjnej to ci±g elementów ze zbioru $\mathbb{R}^{6220800}$ (przy za³o¿eniu jako¶ci FullHd z kodowaniem RGB), co czyni problem komputerowej analizy takiego obrazu praktycznie nierozwi±zywalnym. Na poni¿szym przyk³adzie zobaczmy jak wygl±da dobór reprezentacji przy uczeniu bez nadzoru.
+
+\begin{przyklad}
+
+Na poni¿szych obrazkach mo¿emy zobaczyæ efekt dzia³ania tzw. algorytmu \textit{k-¶rednich}. W tym przypadku przez rodzinê modeli $\Theta_{n}$ bêdziemy uznawaæ n-elementowe krotki kolorów RGB, a przez $\theta_\mathcal{X}$ te z nich które spe³niaj± w³asno¶æ, ¿e je¶li w ka¿dym z pikseli naszego obrazka, zamienimy jego kolor na jeden z wystêpuj±cych w naszej krotce, to suma kwadratów odleg³o¶ci euklidesowych pomiêdzy zanurzeniami faktycznych kolorów pikseli w trójwymiarowej przestrzeni RGB (czyli \textit{de facto} $[0,1]^3$), a zanurzeniem zastêpuj±cych ich kolorów z krotki) bêdzie najmniejsza z mo¿liwych. Poni¿sze obraz 
+
+\end{przyklad}
+
+\subsection{Generalizacja oraz przeuczenie}
+
+Jako, ¿e podczas procesu uczenia nasz model wykorzysta³ tylko pewien skoñczony zbiór danych $\mathcal{X}$, warto zastanowiæ siê, czy nasz model bêdzie równie skuteczny w przypadku, gdy zbiór ten zostanie rozszerzony o nowe dane. W przypadku gdy rozk³ad funkcji kosztu nie ró¿ni siê znacz±co dla nowych danych mówimy, ¿e nasz model posiada zdolno¶æ do generalizacji. W przypadku gdy b³±d ten jest istotnie wiêkszy - mówimy o zjawisku przeuczenia. Zjawiska te obrazuje kolejny przyk³ad.
+
+TODO
+
+Metody wykrywania oraz radzenia sobie ze zjawiskiem przeuczenia (poza szczególnymi przypadkami opisanymi w rozdziale TODO) przekraczaj± zakres tej pracy. Przyk³ady postêpowania w takich sytuacjach mo¿emy znale¼æ w nastêpuj±cych artyku³ach : \cite{TODO}. 
+
+\subsection{Optymalizacja gradientowa}
+
+Jak wspominali¶my w podsekcji \cite{TODO}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Przybli¿ony schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm.
+
+\begin{algorithm}
+  \KwData{Zbiór danych $\mathcal{X}$, rodzina modeli $\Theta$ parametryzowana przez argumenty $\theta_1, \theta_2, \dots, \theta_n$ oraz ró¿niczkowalna funkcja b³êdu $J_\mathcal{X}$.}
+  \KwResult{Warto¶ci parametrów $\theta_1, \theta_2, \dots, \theta_n$ dla których rozwi±zanie jest mo¿liwie najlepsze ze wzglêdu na funkcjê kosztu $J_\mathcal{X}$.}
+  zainicjuj wagi $\theta_1, \theta_2, \dots, \theta_n$ w sposób losowy. \;
+  oblicz $J_{\mathcal{X}}\left(\theta_1, \theta_2, \dots, \theta_n\right)$\;  
+  \While{$J_\mathcal{X}\left(\theta_1, \theta_2, \dots, \theta_n\right)$ nie spe³nia warunku stopu} {
+    oblicz $\delta_i = \frac{\partial J_{\mathcal{X}}\left(\theta_1, \theta_2, \dots, \theta_n\right)}   {\partial \theta_i}$ dla ka¿dego $i = 1, \dots, n$\;    
+    zaktualizuj : $\theta_{i} := \theta_i - \delta_i\eta$ dla ka¿dego $i = 1, \dots, n$\;
+    ponownie oblicz $J_{\mathcal{X}}\left(\theta_1, \theta_2, \dots, \theta_n\right)$\;  
+    } 
+    \caption{Uproszczony schemat optymalizacji gradientowej}
+\end{algorithm}
+
+Oczywi¶cie powy¿szy schemat zosta³ uproszczony w celu uchwycenia g³ównej idei. Zgodnie z matematycznym faktem, który mówi, ¿e gradient wyznacza kierunek najwy¿szego wzrostu, pod±¿anie w kierunku przeciwnym do wyznaczonego przez niego jest to¿same pod±¿aniu w kierunku najwiêkszego spadku. 
+Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji \cite{adagrad}.
+Warunek stopu wystêpuj±cy w warunku pêtli natomiast najczê¶ciej ustalany jest jako zej¶cie warto¶ci funkcji kosztu $J_\mathcal{X}$ poni¿ej pewnej ustalonej warto¶ci $\epsilon$ lub brak dostatecznej poprawy (wzglêdnej lub bezwzglêdnej) w stosunku do warto¶ci obliczonej w poprzedniej iteracji. 
+
+\subsection{Stochastyczna optymalizacja gradientowa}
+
+Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tkowo du¿a, obliczenie funkcji b³êdu, a tak¿e jej gradientów stanowi zadanie nieefektywne obliczeniowo. W takich przypadkach, czêsto stosowan± technik± jest metoda stochastycznej optymalizacji gradientowej. Najczê¶ciej polega ona na losowym podziale zbioru na mniejsze czê¶ci i sukcesywnym stosowaniu metody gradientowej na kolejnych elementach tego podzia³u. Zwyczajowo zbiory dzieli siê porcje (ang. \textit{batch}) równej liczno¶ci i ze wzglêdu na rozmiar tych porcji wyró¿niamy:
+\begin{itemize}
+\item uczenie \textit{online} w którym ka¿da porcja sk³ada siê z jednego przyk³adu,
+\item uczenie \textit{mini-batch}, w którym liczno¶æ porcji jest znacz±co mniejsza od rozmiaru ca³ego zbioru,
+\item uczenie \textit{full-batch}, w którym mamy tylko jedn± porcjê - sk³adaj±c± siê z ca³ego zbioru.
+\end{itemize}
+
+Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku. 
+
+\section{Sztuczne Sieci neuronowe}
+
+W tym rozdziale zajmiemy siê omówieniem podstawowego narzêdzia, z jakiego korzystaj± wszystkie algorytmy g³êbokiego uczenia, czyli sztucznych sieci neuronowych (ang. \textit{artificial neural network}). Co ciekawe, w literaturze nie istnieje jedna, formalna definicja wspólna dla wszystkich sieci neuronowych. Dlatego w poni¿szym rozdziale, przeanalizujemy ró¿ne przyk³ady sieci (przygl±daj±c siê ich historycznemu rozwojowi) które przybli¿± nam podstawowy koncept ich funkcjonowania, a tak¿e zg³êbimy biologiczn± inspiracjê, która stoi za ich wynaleziem, czyli uk³ad nerwowy zwierz±t z jego ewolucyjnym zwiêczeniem (czyli ludzkim mózgiem).
+
+\subsection{Biologiczna motywacja}
+
+TODO
+
+\subsection{Perceptron}
+
+Pierwszym praktycznym zastosowaniem, inspirowanym niesamowit± skuteczno¶ci± biologicznych uk³adów nerwowych, który przebi³ siê do powszechnej ¶wiadomo¶ci by³ opracowany przez Franka Rosenblatta sztuczny model neuronu opracowany wed³ug prac McCullocha-Pittsa. Nie wykorzystywa³ on jeszcze potencja³u tkwi±cego we wspó³pracy neuronów ze sob±, jednak dziêki bardzo prostemu w zaimplementowaniu algorytmowi ucz±cemu, a tak¿e stosunkowo du¿ej skuteczno¶ci (w po³±czeniu ze spor± prostot± modelu) odniós³ on olbrzymi sukces i znacz±co przyczyni³ siê do popularyzacji idei uczenia maszynowego na prze³omie lat 50' i 60; XX w. Niestety - nadmierna prostota w po³±czeniu z nadmiernymi oczekiwaniami przynios³y ogromne rozczarowanie - w 1967 r. Papert i Minsky udowodnili olbrzymie ograniczenia jakie na³o¿one s± na zadania, które efektywnie mo¿e rozwi±zaæ perceptron.
+
+\subsubsection{Czym jest perceptron?}
+
+Oto stosowna definicja:
+
+\begin{defi}
+Perceptronem z funkcj± aktywacji $\phi$ nazywamy funkcjê $P_{\theta_0, \theta_1, \dots, \theta_n}:\mathbb{R}^{n}\rightarrow\mathbb{R}$ postaci :
+$$P_{\theta_0, \theta_1, \dots, \theta_n}\left(x_1, x_2, \dots, x_n\right) = \phi
+\left(x_0 + \sum_{i = 1}^{n}x_i \theta_i\right).$$
+\end{defi} 
+
+Zauwa¿my, ¿e matematycznie perceptron to \textit{de facto} z³o¿enie funkcjona³u afinicznego z zadan± funkcj± aktywacji $\phi$. Prostota tej kompozycji okaza³a siê jednocze¶nie najwiêksz± wad± i najwiêksz± zalet± perceptronu. Jednak zanim omówimy szczegó³y jego dzia³ania oraz algorytmu jego uczenia przedstawmy funkcjê aktywacji któr± bêdziemy stosowaæ we wszystkich przyk³adach w niniejszej sekcji.
+
+\subsubsection{Sigmoidalna funkcja aktywacji}
+
+\begin{defi}
+Sigmoidaln± (logistyczn±) funkcj± aktywacji bêdziemy nazywaæ funkcjê :
+$$S(x) = \frac{1}{1 + e^{-x}}.$$
+\end{defi}
+
+W literaturze funkcja ta czêsto okre¶lana jest mianem funkcji logistycznej (jako rozwi±zanie tzw. równania logistycznego \cite{logistyka}. Zauwa¿my tylko niektóre jej w³asno¶ci:
+
+\begin{uwaga}
+Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
+\begin{itemize}
+\item $\lim_{x\rightarrow + \infty} S(x) = 1,$
+\item $\lim_{x\rightarrow - \infty} S(x) = 0,$
+\item $S'(x) = S(x)(1 - S(x)),$
+\item $\lim_{x\rightarrow + \infty} S'(x) = 0$ \textit{saturacja prawostronna},
+\item $\lim_{x\rightarrow - \infty} S'(x) = 0$ \textit{saturacja lewostronna}.
+\end{itemize}
+\end{uwaga}
+
+\begin{figure}
+\includegraphics[scale=0.7]{Sigmoid-wykres.png}
+\caption{Wykres funkcji sigmoidalnej.}
+\end{figure}
+
+
+Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \cite{TODO} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
+Pocz±wszy od tego momentu, za funkcjê aktywacji $\phi$ bêdziemy przyjmowaæ tylko funkcjê sigmoidaln±.
+
+\subsubsection{Klasyfikacja przy u¿yciu perceptronu.}
+
+Podstawowym zadaniem do jakiego najczê¶ciej stosuje siê model perceptronu jest zagadnienie klasyfikacji binarnej. Przyjmuje siê wówczas, dla ustalenia uwagi, ¿e ka¿dy element zbioru $\mathcal{X}$ mo¿emy przyporz±dkowaæ do jednej z dwóch klas, które dla prostoty bêdziemy nazywaæ klasami $0$ oraz $1$. Przyjmuje siê zatem, ¿e dla dowolnego elementu $x\in\mathcal{X}$, obiekt $x$ nale¿y do klasy $1$ wedle perceptronu $P_{\theta_0, \theta_1, \dots, \theta_n}$ o ile $P_{\theta_0, \theta_1, \dots, \theta_n}\left(x\right) > \epsilon_{threshold}$, a do klasy $0$ w przeciwnym przypadku. Oczywi¶cie parametry $\theta_0, \theta_1, \dots, \theta_n$ a tak¿e $\epsilon_{threshold}$ uzyskujemy w trakcie procesu uczenia. Zwyczajowo jednak przyjmuje siê warto¶æ $\epsilon_{threshold} = 0.5$ i tak± bêdziemy przyjmowaæ do koñca tej sekcji.
+
+\subsubsection{Algorytm uczenia perceptronu.}
+
+Jedn± z przyczyn ogromnej popularno¶ci perceptronu by³ banalny w swojej prostocie algorytm, który pozwala³ bardzo szybko znale¼æ odpowiednie parametry dla modelu. Poni¿ej prezentujemy sposób zaprezentowany przez Franka Rosenblatta. 
+
+\begin{algorithm}
+  \KwData{Zbiór danych $\mathcal{X}$}
+  \KwResult{Warto¶ci parametrów $\theta_1, \theta_2, \dots, \theta_n$ dla których perceptron osi±ga najmniejszy koszt dla ¶redniokwadratowej funkcji kosztu $J_{\mathcal{X}}\left(\theta_0, \theta_1, \dots, \theta_n\right)$.}
+  zainicjuj wagi $\theta_0, \theta_1, \dots, \theta_n$ w sposób losowy. \;
+  oblicz $J_{\mathcal{X}}\left(\theta_0, \theta_1, \dots, \theta_n\right)$\;  
+  \While{$J_\mathcal{X}\left(\theta_0, \theta_1, \dots, \theta_n\right)$ nie spe³nia warunku stopu} {
+  \ForAll{$x \in \mathcal{X}$} {
+  	\If{$P_{\theta_0, \theta_1, \dots, \theta_n}(x) > 0.5$ i $x$ nale¿y do klasy $0$} {
+  		$\theta_i = \theta_i - x_i$ dla ka¿dego $i = 1, \dots, n$,
+  		$\theta_0 = \theta_0 - 1$,
+  	}
+  	\If{$P_{\theta_0, \theta_1, \dots, \theta_n}(x) <= 0.5$ i $x$ nale¿y do klasy $1$} {
+  		$\theta_i = \theta_i + x_i$ dla ka¿dego $i = 1, \dots, n$,
+  		$\theta_0 = \theta_0 + 1$,
+  	}	  	 
+  	ponownie oblicz $J_{\mathcal{X}}\left(\theta_0, \theta_1, \dots, \theta_n\right)$\;  
+	}
+	} 
+\caption{Uproszczony algorytm uczenia perceptronu.}
+\end{algorithm} 
+
+Jak widzimy zasada dzia³ania algorytmu jest banalnie prosta. Je¶li dany przyk³ad zosta³ dobrze sklasyfikowany - nie zmieniamy wag, jednak gdy tylko w klasyfikacji pojawi siê b³±d wagi aktualizowane s± wedle regu³y : je¶li wynik algorytmu jest zbyt ma³y - dodaj do wag przyk³ad, na którym siê pomyli³, je¶li za du¿y - odejmij. Okazuje siê, ¿e algorytm ten, znajduje optymalne rozwi±zanie (o ile istnieje), a tak¿e, ¿e jest bardzo prostym zastosowaniem metody optymalizacji gradientowej - o ile za szybko¶æ uczenia przyjmiemy liczbê $1$. Du¿± zalet± by³a tak¿e ³atwo¶æ zaimplementowania go na prze³omie lat 50' oraz 60'.
+W gwoli ¶cis³o¶ci nale¿y dodaæ, ¿e w wypadku tego sposobu uczenia problemem mo¿e okazaæ siê bardzo du¿e warto¶ci parametru (przy niesprzyjaj±cych danych, warto¶ci niektórych z $\theta_i$ mog± rozbiegaæ do nieskoñczono¶ci). Z problemem tym radzono sobie na wiele mo¿liwych sposobów, pocz±wszy od zmiany warto¶ci sta³ej uczenia, po normalizacjê wag po ka¿dej iteracji g³ównej pêtli algorytmu ucz±cego. 
+
+\section{Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}
+
+Jak zauwa¿yli¶my w poprzednim rozdziale - prosta perceptronu, choæ czyni jego uczenie banalnie prostym, stanowi niebagateln± przeszkodê - potrafi on efektywnie nauczyæ siê jedynie bardzo prostych w swojej strukturze zbiorów (dok³adniej pó³przestrzeni afinicznych kowymiaru 1). Szybko jednak zauwa¿ono, ¿e tak jak uk³ady nerwowe zwierz±t nie sk³adaj± sie tylko i wy³±cznie z jednego neuronu, tylko z ich wspó³dzia³aj±cego ze sob± konglomeratu, tak skutecznie dzia³aj±ce modele musz± ³±czyæ w sobie moc wielu po³±czonych ze sob± perceptronów. Tak narodzi³a siê idea \textit{wielowarstwowego perceptronu} (ang. \textit{multi-layered perceptron} czyli w istocie pierwszej sztucznej sieci neuronowej.
+
+\subsection{Topologie sieci}
+
+Aby pozbyæ siê problemu jaki niesie ze sob± prostota perceptronu, przyjêto, ¿e wyj¶cie z wielu perceptronów, które jako argumenty przyjmuj± ten sam wektor $x$ czyli :
+
+$$y^{(1)}_k = \phi_1\left(\sum_{i = 1}^{n} x_i w^{(1)}_{i, k} + w^{(1)}_{0, k}\right),$$
+
+stanie siê automatycznie \textit{wej¶ciem} dla kolejnego perceptronu :
+
+$$y^{(2)}_j = \phi_2\left(\sum_{k = 1}^{m} y_k w^{(2)}_{k, j} + w^{(2)}_{0, j}\right).$$
+
+Oczywi¶cie proces tworzenia takiej sieci mo¿na iterowaæ i tak np. trzecia wartstwa mia³aby postaæ :
+
+$$y^{(3)}_l = \phi_3\left(\sum_{j = 1}^{m} y_j w^{(3)}_{j, l} + w^{(3)}_{0, l}\right).$$
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.7]{SiecXor.png}
+\caption{Przyk³ad architektury wartstwowej sieci typu \textit{feed-forward}. Sieæ o tej architekturze jest w stanie nauczyæ siê logicznej funkcji XOR.}
+\end{figure}
+
+Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami. Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \cite{TODO}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.7]{Recurrent.png}
+\caption{Przyk³ad architektury rekurencyjnej. Zwróæmy uwagê na skierowany cykl w grafie po³±czeñ.}
+\end{figure}
+
+\subsection{Wielowarstwowa sieæ neuronowa jako uniwersalny aproksymator}
+
+Opisane powy¿ej architektury nie s± oczywi¶cie jedyn± form± z³o¿enia ze sob± wielu perceptronów. £±cz± one jednak ze sob± dwie podstawowe wa¿ne cechy - prostotê parametryzacji zbiorem wag $w_{i}^{(l)}$ wraz z ogromn± zdolno¶ci± aproksymacji. O niesamowitej mo¿liwo¶ci aproksymacji przez sieci neuronowe mówi poni¿sze twierdzenie (dowód mo¿na znale¼æ \cite{aprox}).
+
+\begin{twierdzenie}
+Niech $f : \mathbb{R}^{n} \rightarrow \mathbb{R}$ bêdzie dowoln± funkcj± ci±g³± o zwartym no¶niku. Dla ka¿dego $\epsilon > 0$ istnieje wówczas dwuwarstwowa sieæ neuronowa $f^* :  \mathbb{R}^{n} \rightarrow \mathbb{R}$ z sigmoidaln± funkcj± aktywacji dla której :
+$$\sup_{x\in \mathrm{supp}f} \left|f(x) - f^*(x)\right|\leq \epsilon.$$
+\end{twierdzenie}
+
+Powy¿sze twierdzenie mówi nam o problemie regresji funkcji g³adkich. Analogiczne twierdzenie (\cite{aprox2}) mówi nam, ¿e dowolny problem klasyfikacji da siê rozwi±zaæ z dowoln± dok³adno¶ci± przy pomocy trójwarstwowej sieci neuronowej. 
+
+W³asno¶æ uniwersalnej aproksymacji daje nam gwarancjê, ¿e dla ka¿dego problemu, znajdziemy sieæ neuronow± która rozwi±zuje go z dowoln± dok³adno¶ci±. Nie nale¿y jednak przeceniaæ jej znaczenia - ich dowody nie przedstawiaj± nam ¿adnej skutecznej metody do znajdowania architektury oraz odpowiednich parametrów sieci.
+
+\subsection{Algorytm wstecznej propagacji}
+
+To, ¿e do³o¿enie kolejnych warstw zwiêksza mo¿liwo¶ci perceptronu wiedziano ju¿ w latach '60 XXw. To co przyczyni³o siê do prze³amania z³ego trendu, który nasta³ po rozczarowaniu zwi±zanym z ograniczeniami perceptronu by³ kolejny skuteczny algorytm uczenia. W tym przypadku kluczem sta³ siê algorytm wstecznej propagacji, dzia³aj±cy dla architektur typu \textit{feed-forward}. I ponownie - to co uderza, to ju¿ nie prostota samego algorytmu, lecz prostota koncepcji, która sta³a za jego wynalezieniem. To co okaza³o siê kluczowym w tym przypadku to idea znanej z rachunku ró¿niczkowego - czyli regu³a ³añcuchowa.
+
+W swej najprostszej postaci algorytm ten jest kolejnym praktycznym zastosowaniem metody optymalizacji gradientowej. W sensie obliczeniowym, algorytm ten wykorzystuje brak cyklów w grafie obliczeñ, co znacz±co u³atwia obliczenia pochodnej b³êdu ze wzglêdu na ka¿dy parametr $w_{i}^{(j)}$. Spróbujmy prze¶ledziæ jak wygl±da obliczanie tych pochodnych, w przypadku gdy za funkcjê b³êdu przyjmiemy b³±d ¶redniokwadratowy, a za funkcjê aktywacji funkcjê sigmoidaln± dla sieci z jednym neuronem w wartstwie wyj¶ciowej. Przy zadanym zbiorze $\mathcal{X}$ warto¶æ pochodnej funkcji b³êdu ze wzglêdu na wyniki warstwy wyj¶ciowej $y_{x}^{(out)} = f^{*}(x)$, gdy dla ustalonego $x \in \mathcal{X}$ prawid³owa warto¶æ wynosi $y_x$ jest zadana wzorem :
+
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.7]{Backprop.png}
+\caption{Rysunek pomocniczy dla procesu wstecznej propagacji.}
+\end{figure}
+
+$$\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y^{(out)}} = \frac{\partial
+\left(\frac{1}{2|\mathcal{X}|}\sum_{x \in \mathcal{X}} \left(y_{x}^{(out)} - y_{x}\right)^2\right)}{\partial y^{(out)}} = \sum_{x \in \mathcal{X}}\left(y_{x}^{(out)} - y_{x}\right).$$
+
+Za³ó¿my teraz, ¿e dla ustalonej $k$ warstwy znamy pochodn± ze wzglêdu na ka¿de wyj¶cie $y_{i}^{(k)}$ czyli :
+
+$$\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{i}^{(k)}}.$$
+
+Przyjmuj±c wtedy za $x_i^{(k - 1)} = \sum_{j = 1}^{n_{k - 1}} w_{j, i}^{(k - 1)} y_{j}^{(k - 1)}$ Mamy wówczas (korzystaj±c z regu³y ³añcuchowej) :
+
+$$\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial w_{i,j}^{(k - 1)}} = 
+\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{i}^{(k)}}
+\frac{\partial y_{i}^{(k)}}{\partial x_{i}^{(k - 1)}}\frac{\partial x_i^{(k - 1)}}{\partial w_{i,j}^{(k - 1)}}.$$
+
+Powy¿szy wzór, korzystaj±c z w³asno¶ci funkcji sigmoidalnej upraszcza siê do :
+
+$$\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial w_{i, j}^{(k - 1)}} = 
+\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{i}^{(k)}}\left(1 - x_{i}^{(k - 1)}\right)x_{i}^{(k - 1)}y_{j}^{(k - 1)}.$$
+
+Regu³a ³añcuchowa ponadto pozwala nam obliczyæ warto¶æ: 
+
+\begin{equation}
+\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{j}^{(k - 1)}} = 
+\sum_{i = 1}^{n_{k - 1}}\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{j}^{(k)}}
+\frac{\partial y_{j}^{(k)}}{\partial y_{i}^{(k - 1)}} =
+\sum_{i = 1}^{n_{k - 1}}\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{j}^{(k)}}
+\frac{\partial y_{j}^{(k)}}{\partial x_{i}^{(k - 1)}}
+\frac{\partial x_{i}^{(k - 1)}}{\partial y_{j}^{(k - 1)}}.
+\end{equation}
+
+Po uproszczeniu (korzystaj±c z w³asno¶ci funkcji sigmoidalnej) otrzymujemy :
+
+$$
+\frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{j}^{(k - 1)}} = \frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{i}^{(k - 1)}}\sum_{i = 1}^{n_{k - 1}}
+\left(1 - x_{i}^{(k - 1)}\right)x_{i}^{(k - 1)}w_{i, j}^{(k - 1)}.$$
+
+Warto¶ci te mo¿emy nastêpnie wykorzystaæ do obliczenia pochodnych ze wzglêdu na wagi z ni¿szych warstw. 
+
+Zauwa¿my, ¿e w powy¿sze rozumowanie z ³atwo¶ci± mo¿na rozszerzyæ na przypadek sieci w których istniej± po³±czenia miêdzy wagami. Wzory te - w ogólnej postaci, mo¿na równie¿ rozszerzyæ na inne przypadki funkcji b³êdu oraz aktywacji. 
+
+Warto równie¿ podkre¶liæ, ¿e technika ta stosowana jest tak¿e w przypadku rekurencyjnych sieci neuronowych, przez odpowiednie przedstawienie sieci rekurencyjnej, jako sieci typu \textit{feed-forward} z dodatkowym kryterium, aby czê¶æ wag w sieci mia³y tak± sam± warto¶æ.
+
+\subsection{Interpretacja probabilistyczna sieci neuronowych}
+
+Dosyæ interesuj±cym spojrzeniem na zagadnienie poszukiwania optymalnych warto¶ci parametrów sieci neuronowej, jest przedstawienie tego zagadnienia optymalizacyjnego jako maksymalizowanie funkcji wiarygodno¶ci (dok³adnie jej logarytmu) modeli sposród ustalonej rodziny. Metodê tê, znan± ze statystyki jako estymacja metod± najwiêkszej wiarygodno¶ci (\textit{ang.} maximum likelihood estimation (MLE)). Rozwa¿my to poni¿szym przyk³adzie.
+
+\begin{przyklad}
+Rozwa¿my przez $f_{\theta}$ parametryzowan± wagami $\theta \in \Theta$ sieæ neuronow± o ustalonej architekturze typu $feed forward$. Rozwa¿my wówczas rodzinê rozk³adów warunkowych zadanych wzorem :
+ 
+$$ \mathbb{P}\left(y | \theta, x\right) \sim \mathcal{N}\left(f_{\theta}(x), \sigma\right),$$
+
+dla pewnej ustalonej liczby $\sigma > 0$. Mo¿emy to zinterpretowaæ w ten sposób, ¿e przy ustalonym $x$, rozk³ad $y$ przedstawia siê jako :
+
+$$ y = f_{\theta}(x) + \mathbf{X},$$
+
+gdzie $\mathbf{X} \sim \mathcal{N}\left(0, \sigma\right).$ Za³ó¿my teraz, ¿e nasz zbiór treningowy $\mathcal{X}$ wyznacza zbiór do zadania regresji i mo¿emy go przedtawiæ w postaci :
+$$\mathcal{X} = \left\{\left(x_1, y_1\right), \left(x_2, y_2\right), \dots, \left(x_n, y_n\right)\right\} \subset \mathbb{R}^{n} \times \mathbb{R}.$$
+
+Zauwa¿my, ¿e je¶li przyjmiemy, ¿e elementy naszego zbioru treningowego s± niezale¿ne oraz zgodne z powy¿szym rozk³adem prawdopodobieñstwa, to wówczas funkcja wiarygodno¶ci ustalonego zestawu wag $\theta \in \Theta$ wyra¿a siê wzorem:
+
+$$\mathcal{L}\left(\theta, \mathcal{X}\right) = \prod_{i = 1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{\left(y - f_{\theta}(x)\right)^{2}}{2\sigma}},$$
+
+a zatem logarytm funkcji wiarygodno¶ci wyra¿a siê wzorem :
+
+$$\log \mathcal{L}\left(\theta, \mathcal{X}\right) = -\frac{1}{2\sigma}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2 + C,$$
+
+gdzie $C = -\frac{n}{2} \log 2\pi\sigma^{2}.$ Widzimy zatem, ¿e zadanie maksymalizacji logarytmu funkcji wiarygodno¶ci jest równowa¿ne rozwi±zaniu zadania minimalizacji ¶redniokwadratowej funkcji b³êdu dla rodziny funkcji neuronowych $f_\theta$, albowiem :
+
+$$\arg \max_{\theta \in \Theta} -\frac{1}{2\sigma}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2 + C = \arg \min_{\theta \in \Theta}\frac{1}{2n}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2.$$
+
+Analogia ta pozwala czêsto skorzystaæ z wygody dualnego patrzenia na zadanie uczenia - jako z jednej strony zagadnienia stricte optymalizacyjnego, a z drugiej - pokrewnego metod± statystycznym. Pozwala to skorzystaæ z wygodnych intuicji probabilistycznych, a tak¿e np. na ³atwe korzystanie z metod Bayesowskich w zagadnieniach machine learningu.
+
+\end{przyklad}
+
+Oczywi¶cie funkcja ¶redniokwadratowa nie jest jedyn± funkcj± b³êdu, dla której powy¿sza analogia ma miejsce. Je¶li np. zarz±damy aby :
+
+$$ \mathbb{P}\left(y | \theta, x\right) \sim \mathcal{L}\left(f_{\theta}(x), 1\right),$$
+
+gdzie $\mathcal{L}\left(f_{\theta}(x), 1\right)$ to rozk³ad Laplace'a z parametrami $0$ oraz $1$, równowa¿n± metodzie MLE metod± optymalizacji bêdzie minimalizacja z nastêpuj±c± funkcj± b³êdu :
+
+$$J_\mathcal{X}\left(\theta\right) = \sum_{x\in \mathcal{X}} \lVert f_{\theta}(x) - y\rVert_{1}.$$
+
+Widzimy, ¿e rozumowanie to mo¿na uogólniæ niemal dla ka¿dej funkcji b³êdu, dla której istnieje taki rozk³ad prawdopodobieñstwa $p\left(\theta, x\right)$, ¿e 
+
+$$ J_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log p\left(x, \theta\right) + D,$$
+
+gdzie $C, D \in \mathbb{R}$ to pewne sta³e. Przyk³ad zastosowania intuicji probabilistycznej mo¿emy zobaczyæ ju¿ w poni¿szym rozdziale.
+
+\subsection{Regularyzacja sieci neuronowych}
+
+W tej podsekcji chcia³bym opisaæ niektóre prostsze metody regularyzacji stosowane w sieciach neuronowych. Przez regularyzacjê rozumiemy dzia³ania maj±ce na celu zmniejszenie skutku procesu przeuczenia. W kolejnych rozdzia³ach poznamy inne metody regularyzacji (w tym te, które s± esencjonalne dla algorytmów \textit{deep learning}), w tym rozdziale jednak przedstawimy elementarne metody radzenia sobie ze zjawiskiem \textit{overfittingu}.
+
+\subsubsection{Kara zwi±zana z $\lVert\Theta\rVert_{2}$}
+
+Podstawow± metod± regularyzacji jest zmiana funkcji b³êdu poprzed dodanie dodatkowego sk³adnika, który zwiêksza warto¶æ b³êdu gdy norma Euklidesowa wektora wag jest du¿a. Prowadzi to do nowej funkcji b³êdu zadanej zazwyczaj wzorem:
+
+$$J^{R}_\mathcal{X}(\Theta) = J_\mathcal{X}(\Theta) + \frac{\lambda}{2}\sum_{\theta \in \Theta}\theta^2$$
+
+lub stosuj±c zapis wektorowy : 
+
+$$J^{R}_\mathcal{X}(\Theta) = J_\mathcal{X}(\Theta) + \frac{\lambda}{2}\Theta\Theta^{T}.$$
+
+dla pewnego $\lambda \in \mathbb{R}$ Warto zauwa¿yæ, ¿e stosuj±c probabilistyczn± interpretacjê sieci neuronowych, minimalizacja powy¿szej funkcji b³êdu jest równowa¿na maksymalizacji funkcji ufno¶ci przy za³o¿eniu rozk³adu \textit{a priori} na zbiorze parametrów $\Theta$:
+
+$$\theta_{i} \sim \mathcal{N}\left(0 , 1\right), iid.$$
+
+Za³ó¿my bowiem, ¿e istnieje rozk³ad $p \left(\theta, x\right)$ dla którego :
+
+$$ J_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log p\left(x, \theta\right) + D,$$
+
+ale wówczas dok³adaj±c Bayesowskie za³o¿enie o warto¶ci parametrów $\theta$ otrzymujemy :
+
+$$ J^{R}_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log \left(\frac{p\left(x, \theta\right)}{p\left(\theta\right)} \right) + D = -C\sum_{x \in \mathcal{X}} \log \left(p\left(x, \theta\right)\right) + \frac{n}{2}\sum_{\theta \in \Theta}\theta^2 + D',$$
+
+co jest równowa¿ne powy¿szej formie funkcji kosztu.
+
+\subsubsection{Kara zwi±zana z $\lVert\Theta\rVert_{1}$}
+
+Inn± czêsto stosowan± metod± regularyzacji jest tzw. metoda \textit{lasso}, polegaj±ca na dodaniu do funkcji b³êdu dodatkowego sk³adnika zwiêkszaj±cego funkcjê b³êdu gdy tym razem pierwsza norma wektora wag jest du¿a. Funkcjê tê mo¿emy zapisaæ w postaci :
+
+$$J^{R}_\mathcal{X}(\Theta) = J_\mathcal{X}(\Theta) + \sum_{\theta \in \Theta}|\theta| = 
+J_\mathcal{X}(\Theta) + \lVert\Theta\rVert_{1}.$$
+
+Analogicznie jak w poprzednim przypadku, mo¿emy potraktowaæ dodatkowy sk³adnik jako do³o¿enie Bayesowskiego za³o¿enia o rozk³adzie parametru wedle wzoru :
+
+$$\theta \sim \mathcal{L}\left(0, 1\right).$$
+
+\subsection{Czym ró¿ni± siê powy¿sze kary?}
+
+Warto wspomnieæ o dosyæ powa¿nych koncepcyjnych ró¿nicach pomiêdzy powy¿szymi wagami. Udowodniono bowiem numerycznie \cite{lasso}, ¿e o ile kara $\lVert\Theta\rVert_{2}$ stara siê niedopuszczaæ aby warto¶ci $\theta_i$ by³y wyra¼nie wiêksze od $0$ (funkcja kwadratowa ro¶nie szybko dla liczb $\gg\ 1$, o tyle kara $\lVert\Theta\rVert_{1}$ sprawia, ¿e znacznie czê¶ciej du¿a czê¶æ parametrów zbiór parametrów $\theta_i$ jest zaniedbywalnie wiêksza od $0$. Dlatego te¿ tê drug± metodê zwyk³o nazywaæ siê metod± \textit{lasso} i czêsto stosuje siê j± do eliminacji zbêdnych parametrów, poprzez odrzucenie tych dla których w wyniku uczenia warto¶ci otrzymane spe³nia³y $\theta \approx 0$.
+
+\subsection{Intuicje dotycz±ce warstw sieci neuronowych}
+
+To, ¿e trójwarstwowa sieæ neuronowa mo¿e poradziæ sobie z praktycznie ka¿dym zadaniem \textit{machine learningowym} jest faktem, udowodnionym teoretycznie, jdowód ten jest niepraktyczny w tym sensie, ¿e dla zadanego zadania pokazuje istnienie rozwi±zania, bez dok³adnego przepisu na jego uzyskanie. Poni¿ej chcia³bym pokazaæ intuicyjny szkic dowodu tego, ¿e dowolny zbiór otwarty w $\mathbb{R}^n$ mo¿na przybli¿yæ przy pomocy sieci z dwiema warstwami ukrytymi :
+
+\begin{enumerate}
+\item Jednostki z sigmoidaln± funkcj± aktywacji, których argumentami s± neurony z warstwy wej¶ciowej, s± w stanie reprezentowaæ przybli¿one funkcje charakterystyczne pó³przestrzeni kowymiaru 1 (je¶li argumenty $x \in \mathbb{R}^n$.
+\item Pojedynczy perceptron, z sigmoidaln± funkcj± aktywacji, jest w stanie w przybli¿ony sposób na¶ladowaæ operacje logiczne typu $\textsc{and}$ oraz $\textsc{or}$ je¶li swoje argumenty potraktuje jako przybli¿one warto¶ci \textit{boolowskie}.
+\item W zwi±zku z powy¿szym, sieæ neuronowa z jedn± warstw± ukryt± i sigmoidaln± funkcj± aktywacji jest w stanie nauczyæ siê funkcji charakterystycznej dowolnego zbioru bêd±cego przeciêciem pó³przestrzeni (w szczególno¶ci - kostki $k-$wymiarowej, gdzie $k \leq n$).
+\item Sieci neuronowe z dwiema warstwami ukrytymi potrafi± nauczyæ siê zatem przybli¿onej funkcji charakterystycznej dowolnej funkcji bêd±c± sum±, przeciêciem zbiorów których funkcje charakterystyczne mog± zostaæ uzyskane przy pomocy sieci z podpunktu 3. W szczególno¶ci - z dowolnym przybli¿eniem - dowolny zbiór otwarty $\mathcal{U} \subset \mathbb{R}^{n}.$ 
+\end{enumerate}
+
+Powy¿szy dowód uznajê za warto¶ciowy z dwóch powodów :
+
+\begin{enumerate}
+\item Pokazuje jak wielowarstwowa sieæ neuronowa koduje hierarchiczny zbiór cech, który nastêpnie wykorzystuje do budowania ostatecznego rozwi±zania.
+\item W zwi±zku ze sw± ide± pokazuje, ¿e niekonstruktywne dowody w³asno¶ci uniwersalnej aproksymacji opieraj± siê li tylko na budowaniu lokalnych przybli¿eñ ostatecznego rozwi±znia, co koniec koñców mo¿e doprowadziæ do opisanego w sekcji TODO \textit{przekleñstwa wymiarowo¶ci}. 
+\end{enumerate}
+
+Oba powy¿sze wnioski rozwiniemy w kolejnych rozdzia³ach.
+
+\subsection{Reprezentacja rozproszona}
+
+Idea dzia³ania sieci opiera siê na budowaniu opisanej w poprzedniej podsekcji - struktury \textit{cech} potrzebnych do rozwi±zania zadanego problemu. Z jednej strony - stanowi to klucz do zrozumienia ogromnego sukcesu sieci neuronowych w ostatnim czasie. Fakt, ¿e jeden spójny algorytm uczenia mo¿e wyrêczyæ badacza z wyszukiwania cech niezbêdnych do rozwi±zania danego problemu (np. przy wspomnianym we wstêpie zagadnieniu rozpoznawania obrazu ekstrakcja takich cech by³a przez wiele lat ciê¿k± i dobrze p³atn± prac±), przerzucaj±c ciê¿ar pracy na zaprojektowanie odpowiedniej architektury sieci, funkcji kosztu dla procesu optymalizacji, a potem na moc obliczeniow± wspó³czesnych komputerów. Widzimy zatem, ¿e automatycznie budowany zbiór cech stanowi klucz do zrozumienia dzia³ania wielowarstwowych sieci neuronowych.
+
+W klasycznych warstwowych sieciach neuronowych typu \textit{feed-forward} zbiór tych cech stanowi hierarchiczny konglomerat cech, w którym cechy reprezentowane w danej warstwie tworzone s± przez transfomacj cech reprezentowanych w warstwie poprzedniej. Jeden z przyk³adów takiej hierarchiczo¶ci przedstawi³em w szkicu dowodu aproksymacyjnego z poprzedniej podsekcji.  
+
+Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy. Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag.
+
+\subsubsection{G³êboka hierarchiczna struktura przyczyn± sukcesu algorytmów z rodziny Deep Learning}
+
+Dziêki intuicyjnemu zrozumieniu na czym polega schemat dzia³ania sieci neuronowych, mo¿emy teraz opisaæ jedn± z przyczyn dla których algorytmy z rodziny algorytmów \textit{deep learning} odnios³y w ostatnim czasie tak ogromny sukces. Istnieje bowiem uzasadniona hipoteza \cite{deeprep}, ¿e wiele problemów, z którymi borykaj± siê specjali¶ci uczenia maszynowego wymaga stworzenia odpowiedniej \textit{g³êbokiej} hierarchii cech, koniecznej do stworzenia skutecznego rozwi±zania.
+
+Wed³ug badañ \cite{badania} problemy zwi±zane z zagadnieniami wizji komputerowej oraz rozpoznawania d¼wiêku wymagaj± architektury o g³êboko¶ci conajmniej 7. Bardziej zwi±zane 
+
+\chapter{Rozwój metod uczenia}
+
+W swojej pracy przyj±³em konwencjê wedle której zamierzam przedstawiaæ szczegó³y technik \textit{deep learningowych} zgodnie chronologi± ich powstania. Uwa¿am tak± formê za odpowiedni±, poniewa¿ przedstawia je zgodnie z rosn±cym poziomem trudno¶ci oraz skomplikowania. Dlatego rozpoczniemy od pierwszej rewolucji, która pchnê³a sieci neuronowe w kierunku budowania bardziej realistycznej hierarchii cech - czyli wynalezienia sieci konwolucyjnych, a tak¿e omówienia pierwszej zaawansowanej i dzia³aj±cej sieci korzystaj±cej z tego paradygmatu czyli s³ynnej \textit{LeNet} autorstwa Yana LeCun'a.
+
+ Kolejnym etapem bêdzie przedstawienie rewolucji zwi±zanej z now± form± treningu wstêpnego sieci, która przynios³a olbrzymi skok w jako¶ci uczenia. Przyjrzymy siê zatem powodom, dla których regularyzacja gwarantowana przez inicjacjê sieci jako autoenkoder lub Ograniczon± Maszynê Boltzmanna pozwoli³y przenie¶æ skuteczno¶æ dzia³ania sieci neuronowych na wy¿szy poziom.
+
+Kolejne dwie sieci przenios± nas w ¶wiat nowoczesnych implementacji oraz skoku, który by³ zwi±zany z g³ównie ze wzrostem skuteczno¶ci obliczeñ, a zakoñczymy przegl±dem innych interesuj±cych sieci, których znajomo¶æ z pewno¶ci± poszerzy nasze intuicje dotycz±ce mo¿liwo¶ci jakie rozpo¶ciera przed badaczami \textit{deep learning}.  
+
+\section{Sieci konwolucyjne oraz LeNet}
+
+\subsection{Inwariancja}
+
+W rozdziale opisuj±cym szczegó³y dzia³ania sieci neuronowych wspomniali¶my o tym, ¿e struktura sieci neuronowej wraz z wagami j± parametryzuj±cymi koduje pewn± ustalon± hierarchiê cech niezbêdnych do rozwi±zania postawionego przed ni± problemu. Powinny one zatem odwzorowywaæ wiêkszo¶æ w³asno¶ci, które posiadaj± rzeczywiste struktury rozwa¿anych problemów. Jedn± z takich w³asno¶ci, któr± posiada wiele zadañ do których rozwi±zania wykorzystujemy techniki \textit{deep learning} stanowi tzw. w³asno¶æ \textit{inwariancji}, czyli zamkniêto¶æ pewnej cechy na przekszta³canie argumentów przy pomocy ustalonej rodziny przekszta³ceñ. I tak np. cecha bycia okiem przez fragment obrazu lub zdjêcia jest zamkniêta na przekszta³cenia skalowania, przesuniêcia oraz obroty. Kwestia bycia d¼wiêkiem s³owa \textit{mama} jest zamkniêta na zmiany tonu g³osu, g³o¶no¶æ, a tak¿e umiejscowanie na ¶cie¿ce d¼wiêkowej. Przyk³ady mo¿na mno¿yæ - jednak zauwa¿my, ¿e w³asno¶æ inwariancji poci±ga za sob± dwie bardzo powa¿ne konsekwencje :
+
+\begin{itemize}
+\item Je¶li uda nam siê uchwyciæ tê inwariancje przy pomocy struktury sieci, mo¿emy zyskaæ ogromn± kompresje wiedzy, gdy¿ ogromna mnogo¶æ cech, spo¶ród których ka¿da powsta³a jako przekszta³cenie innej, bêdzie reprezentowana w sieci jako jedna.
+\item W przypadku niemo¿no¶ci wychwycenia takiej inwariancji, skala trudno¶ci dramatycznie poniewa¿ :
+\begin{itemize}
+\item Ka¿da \textit{realizacja} danej abstakcyjnej cechy musi byæ kodowana w sieci osobno.
+\item Dla ka¿dej z takich realizacji, musi istnieæ co najmniej jeden element w zbiorze treningowym, w którym one wystêpuje. 
+\end{itemize}
+\end{itemize}
+
+Aby zrozumieæ skalê problemu, spróbujmy sobie wyobraziæ przypadek w którym chcieliby¶my nauczyæ sieæ neuronow± rozpoznawania oka na obrazku, w przypadku w którym nasza sieæ nie mog³aby realizowaæ w³asno¶ci \textit{inwariancji} ze wzglêdu na przesuniêcia na obrazku. W skrajnym przypadku musieliby¶my kodowaæ w³asno¶æ bycia ¶rodkiem oka dla ka¿dego piksela z osobno, co sprawia, ¿e problem jest o rz±d wielko¶ci trudniejszy, ni¿ w przypadku gdy mogliby¶my cechê bycia okiem zakodowaæ raz i \textit{zamkn±æ} nasz± strukturê ze wzglêdu na przekszta³cenie translacji.
+
+\subsection{Sieci konwolucyjne}
+
+Sieci konwolucyjne to wynaleziona w TODO przez Yana LeCuna oraz Geoffrey'a Hintona architektura, która pozwala uchwyciæ inawariancjê ze wzglêdu na translacje w obrêbie wektora wej¶æ. Matematyczna struktura stoj±ca za sieciami konwolucyjnymi jest banalnie prosta. Oznaczmy przez $P_{i_{1}, i_{2}, \dots. i_{k}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, gdzie $n \geq k$ operator rzutowania, tzn. 
+
+$$P_{i_{1}, i_{2}, \dots. i_{k}}\left(x_{1}, x_{2}, \dots, x_{n}\right) = \left(x_{i_1}, x_{i_2}, \dots, x_{i_k}\right).$$
+
+Przez \textit{warstwê konwolucyjn±} z wagami $w_{0}, w_{1}, \dots, w_{n}$, funkcj± aktywacji $\phi$ i rzutowaniami:
+
+$$\mathsf{P} = \left(\left\{i^{(1)}_{1}, i^{(1)}_{2}, \dots, i^{(1)}_{k}\right\}, \left\{i^{(2)}_{1}, i^{(2)}_{2}, \dots, i^{(2)}_{k}\right\}, \dots, \left\{i^{(l)}_{1}, i^{(l)}_{2}, \dots, i^{(l)}_{k}\right\}\right).$$ 
+
+bêdziemy rozumieæ funkcjê $f^{conv}_{\mathsf{P}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k},$ dla której $i-$ta wspó³rzêdna wektora $\left[f^{conv}_{\mathsf{P}}\left(x_{1}, x_{2}, \dots. x_{n}\right)\right]_{i}$ zadana jest wzorem :
+
+$$\left[f^{conv}_{\mathsf{P}}\left((x_{1}, x_{2}, \dots. x_{n}\right)\right]_{i} = 
+\phi\left(w_{0} + \sum_{j = 1}^{k} w_{i}x_{i_{j}} \right).$$
+
+Zwróæmy uwagê, ¿e powy¿sz± warstwê mo¿na zinterpretowaæ jako warstwê w której ka¿dy neuron po³±czony jest tylko i wy³±cznie z pewnym $k$-elementowym podzbiorem indeksów argumentu, a tak¿e ¿e wszystkie neurony wspó³dziel± wagi miêdzy sob±. Pozwala to na inwariancje w tym sensie, ¿e wagi $w_0, w_1, \dots, w_n$ uczestnicz± w wykrywaniu pewnej cechy w kodowanych przez rzutowania regionach obrazu. 
+
+Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo ogólna. W szczególno¶ci nie do koñca jasnym mo¿e byæ sk±d wziê³o siê okre¶lenie sieci jako \textit{konwolucyjnej}. Pewnym wyt³umaczeniem mog± byæ poni¿sze przyk³ady obrazuj±ce dwa historyczne przyk³ady pierwszych topologii konwolucyjnych.
+
+TODO - przyk³ad linia
+TODO - przyk³ad p³aszczyzna
+
+Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadzi to do uczenia inwariantnych ze wzglêdu na translacje cech z innych inwariantnych na przesuniêcia konceptów nauczonych przez ni¿sze warstwy. 
+
+\subsection{Pooling}
+
+Zauwa¿my, ¿e jedna warstwa sieci neuronowej mo¿e sk³adaæ siê z wielu warstw konwolucyjnych. Intuicyjnie odpowiada to uczeniu przez sieæ wielu rodzajów inwariantnych cech na danym poziomie. Jednak je¶li dla ka¿dej z tych warstw, moc zbioru rzutowañ bêdzie du¿a, mo¿e to doprowadziæ do powstania warstwy z ogromn± ilo¶ci± neuronów. Aby tego unikn±æ postanowiono automatycznie rozszerzyæ ka¿d± warstwê konwolucyjn± o automatycznie z³o¿on± z ni± kolejn±, zazwyczaj nieparametryczn±, warstwê konwolucyjn± o znaczenia mniejszej ilo¶ci neuronów, a tak¿e posiadaj±c± tê w³asno¶æ, ¿e rzutowania j± generuj±ce s± parami roz³±czne, zwan± warstw± \textit{poolingu}. Pozwala to znacznie zmniejszyæ ilo¶æ informacji trzymanej w pamiêci (obliczenia mo¿na dystrybuowaæ tak, aby w danym momencie trzymaæ informacjê tylko z rzutowañ po³±czonych z ustalon± jednostk± z warstwy \textit{poolingu}), a tak¿e zmniejsza ilo¶æ neuronów przekazywanych do kolejnej warstwie. 
+
+TODO : Rysunek, warstwa poolingu.
+
+\subsection{LeNet}
+
+Pierwsz± 	
+
+\section{Autoenkodery, sieæ Hintona i Salakhudinowa}
+
+\section{Sieæ Kryzhevskiego}
+
+\section{GoogLeNet}
+
+\section{Inne sieci}
+
+\chapter{Moja implementacja}
+
+\begin{thebibliography}{99}\addcontentsline{toc}{chapter}{Bibliografia}
+\end{thebibliography}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% coding: latin-2
+%%% End:
