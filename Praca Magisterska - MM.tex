@@ -119,7 +119,7 @@ Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci 
 
 Ponowna zima jednak, podobnie jak i entuzjazm który towarzyszy³ powrotowi sieci neuronowych do ³ask, okaza³a siê du¿o mniej intensywna ni¿ poprzednia. Spróbujmy jednak przyjrzeæ siê podstawowym przyczynom, które sprawi³y, ¿e modele te zawiod³y oczekiwania rozwijaj±cych je badaczy.
 
-Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³omie lat 90' XX w. udowodniono, ¿e sieæ z jedn± tzw. warstw± ukryt± jest w stanie nauczyæ siê niemal ka¿dej funkcji $f:\mathbb{R}^n\rightarrow \mathbb{R}$ ci±g³ej o zwartym no¶niku (\cite{cybenko, hornik}, to nie do koñca zdawano sobie sprawe, ¿e zadanie nauczenia chocia¿by rozpoznawania obrazu lub ludzkiej mowy, choæ mo¿liwe, mog± byæ bardzo trudne. W szczególno¶ci, w dowodach powy¿szego faktu, niedostrze¿ono alarmuj±cego wzrostu z³o¿ono¶ci problemu wraz ze wzrostem jego skomplikowania. Doprowadzi³o to do nieuzasadnionego rozczarowania tym, ¿e de facto nie mo¿emy nauczyæ sieci wszystkiego na pamiêæ. 
+Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³omie lat 90' XX w. udowodniono, ¿e sieæ z jedn± tzw. warstw± ukryt± jest w stanie nauczyæ siê niemal ka¿dej funkcji $f:\mathbb{R}^n\rightarrow \mathbb{R}$ ci±g³ej o zwartym no¶niku (\cite{cybenko, hornik}, to nie do koñca zdawano sobie sprawe, ¿e zadanie nauczenia chocia¿by rozpoznawania obrazu lub ludzkiej mowy, choæ mo¿liwe, mog± byæ bardzo trudne. W szczególno¶ci, w dowodach powy¿szego faktu, niedostrze¿ono alarmuj±cego wzrostu z³o¿ono¶ci problemu wraz ze wzrostem jego skomplikowania. Doprowadzi³o to do nieuzasadnionego rozczarowania tym, ¿e \textit{de facto} nie mo¿emy nauczyæ sieci wszystkiego na pamiêæ. 
 
 Drug± przyczynê, zwi±zan± w³a¶nie ze wspomnianym powy¿ej problemem, stanowi³y niedostateczne warunki sprzêtowe, które uniemo¿liwia³y wykorzystanie potencja³u drzemi±cego w algorytmie. Niedostateczno¶æ ta nie wynika³a tylko ze zbyt ma³ych mo¿liwo¶ci obliczeniowych, ale tak¿e znacznego niedoboru danych (tak w sensie ich zebrania, jak i przechowywania). Najwiêksze zebrane zbiory treningowe nie liczy³y, na pocz±tku lat 90', wiêcej ni¿ 100 000 elementów. Z perspektywy wyuczenia chocia¿by zagadnieñ zwi±zanych z obrazem lub mow± ludzk± liczba ta jawi siê jako niemal¿e ¶miesznie ma³a. Problemy te jednak rozwi±za³ czas - wraz z rozwojem technologii pojawi³y siê tak i nowoczesne komputery, które przyspieszy³y proces uczenia oraz ewaluacji, jak i ogromne, zró¿nicowane zbiory danych, które sprawi³y, ¿e problemy o rozwi±zaniu których marzyli eksperci od sztucznej inteligencji, znalaz³y siê jak najbardziej w zasiêgu ludzkich mo¿liwo¶ci.
 
@@ -133,7 +133,7 @@ Wszystkie algorytmy opisane w tej pracy nale¿± do rodziny algorytmów ucz±cych. A
 
 \subsection{Formalna definicja uczenia}
 
-Trzy rzeczy s± absolutnie niezbêdne aby mówiæ o procesie o algorytmach ucz±cych. Pierwsza z nich to zbiór treningowy. Nale¿y o nim my¶leæ jako o zbiorze danych, które znamy, a które chcemy wykorzystaæ jako podstawê do uczenia przy pomocy naszego algorytmu. Drug± z nich jest zbiór modeli. Efektem uczenia ma byæ efektywnie opisuj±cy nasze dane model, aby jednak móc taki znale¼æ, musimy ustaliæ pewien zbiór mo¿liwych modeli spo¶ród którego bêdziemy go wybieraæ. Koniecznym jest tak¿e ustalenie, co oznacza, ¿e nasze dane s± efektywnie opisywane przez wybrany przez nas opis - do tego s³u¿y funkcja kosztu. Intuicyjnie, funkcj± kosztu nazywamy nieujemn± funkcjê rzeczywist±, malej±c± wraz ze wzrostem efektywno¶ci opisywanych danych. Wszystkie powy¿sze intuicje sk³adaj± siê na poni¿sz± definicjê. 
+Trzy rzeczy s± absolutnie niezbêdne aby mówiæ o o algorytmach ucz±cych. Pierwsza z nich to zbiór treningowy. Nale¿y o nim my¶leæ jako o zbiorze danych, które znamy, a które chcemy wykorzystaæ jako podstawê do uczenia przy pomocy naszego algorytmu. Drug± z nich jest zbiór modeli. Efektem uczenia ma byæ efektywnie opisuj±cy nasze dane model, aby jednak móc taki znale¼æ, musimy ustaliæ pewien zbiór mo¿liwych modeli spo¶ród którego bêdziemy go wybieraæ. Koniecznym jest tak¿e ustalenie, co oznacza, ¿e nasze dane s± efektywnie opisywane przez wybrany przez nas opis - do tego s³u¿y funkcja kosztu. Intuicyjnie, funkcj± kosztu nazywamy nieujemn± funkcjê rzeczywist±, malej±c± wraz ze wzrostem efektywno¶ci opisywanych danych. Wszystkie powy¿sze intuicje sk³adaj± siê na poni¿sz± definicjê. 
 
 \begin{defi}
 Niech $\mathcal{X}$ bêdzie dowolnym zbiorem (tzw. \textbf{treningowym}), $\Theta$ - zbiorem modeli, a 
@@ -143,7 +143,7 @@ $$ \theta_{\mathcal{X}} = \mathtt{argmin}_{\theta \in \Theta} J_{\mathcal{X}}\le
 
 \end{defi}
 
-Przy okazji tej definicji nale¿y podnie¶æ kilka istotnych kwestii, które s± ¶ci¶le zwi±zane z procesem uczenia, a które nale¿± do zagadnieñ zaawansowanej filozofii nauki i daleko przekraczaj± zakres poni¿szej pracy. Pierwsz± rzecz± na któr± nale¿y zwróciæ uwagê jest to, ¿e $\theta_{\mathcal{X}}$ to \textit{de facto} rozwi±zanie pewnego problemu optymalizacyjnego i nie nale¿y do gestii algorytmu ucz±cego rozs±dzanie czy opis wyznaczany przez wybrany model mie¶ci siê w granicach które uznajemy za rozs±dne, b±d¼ nie. Wybór rodziny modeli, a tak¿e funkcji kosztu musi poprzedziæ g³êboka analiza, a tak¿e refleksja nad problemem, aby dokonany przez nas wybór nie okaza³ siê niesatysfakcjonuj±cy. Nale¿y mieæ tak¿e w pamiêci, ¿e zgodnie z aktualnie przyjêt± filozofi± (\cite{Popper}), wybrany przez nas model, nawet w kontek¶cie uzyskania pozytywnych wyników, nale¿y traktowaæ jako niesfalsyfikowany, a nie prawdziwy. Jest to o tyle istotne, ¿e wypracowane przez nas rozwi±zanie zale¿y w bardzo istotny sposób od zbiory danych, który wykorzystujemy przy uczeniu - nap³yw kolejnych, mo¿e doprowadziæ do weryfikacji tak konkrentego $\theta_{\mathcal{X}}$ jak i samej rodziny $\Theta$.
+Przy okazji tej definicji nale¿y podnie¶æ kilka istotnych kwestii, które s± ¶ci¶le zwi±zane z procesem uczenia, a które nale¿± do zagadnieñ zaawansowanej filozofii nauki i daleko przekraczaj± zakres poni¿szej pracy. Pierwsz± rzecz± na któr± nale¿y zwróciæ uwagê jest to, ¿e $\theta_{\mathcal{X}}$ to \textit{de facto} rozwi±zanie pewnego problemu optymalizacyjnego i nie nale¿y do gestii algorytmu ucz±cego rozs±dzanie czy opis wyznaczany przez wybrany model mie¶ci siê w granicach które uznajemy za rozs±dne, b±d¼ nie. Wybór rodziny modeli, a tak¿e funkcji kosztu musi poprzedziæ g³êboka analiza, a tak¿e refleksja nad problemem, aby dokonany przez nas wybór nie okaza³ siê niesatysfakcjonuj±cy. Nale¿y mieæ tak¿e w pamiêci, ¿e zgodnie z aktualnie przyjêt± filozofi± (\cite{popper}), wybrany przez nas model, nawet w kontek¶cie uzyskania pozytywnych wyników, nale¿y traktowaæ jako niesfalsyfikowany, a nie prawdziwy. Jest to o tyle istotne, ¿e wypracowane przez nas rozwi±zanie zale¿y w bardzo istotny sposób od zbiory danych, który wykorzystujemy przy uczeniu - nap³yw kolejnych, mo¿e doprowadziæ do weryfikacji tak konkrentego $\theta_{\mathcal{X}}$ jak i samej rodziny $\Theta$.
 
 \subsection{Uczenie z nadzorem}
 
@@ -171,7 +171,30 @@ Przez uczenie bez nadzoru bêdziemy rozumieæ tak± formê uczenia, w której $\Theta
 
 \begin{przyklad}
 
-Na poni¿szych obrazkach mo¿emy zobaczyæ efekt dzia³ania tzw. algorytmu \textit{k-¶rednich}. W tym przypadku przez rodzinê modeli $\Theta_{n}$ bêdziemy uznawaæ n-elementowe krotki kolorów RGB, a przez $\theta_\mathcal{X}$ te z nich które spe³niaj± w³asno¶æ, ¿e je¶li w ka¿dym z pikseli naszego obrazka, zamienimy jego kolor na jeden z wystêpuj±cych w naszej krotce, to suma kwadratów odleg³o¶ci euklidesowych pomiêdzy zanurzeniami faktycznych kolorów pikseli w trójwymiarowej przestrzeni RGB (czyli \textit{de facto} $[0,1]^3$), a zanurzeniem zastêpuj±cych ich kolorów z krotki) bêdzie najmniejsza z mo¿liwych. Poni¿sze obraz 
+Poni¿ej przedstawimy przyk³ad tzw. uczenia rozmaito¶ci (\textit{manifold learning}) metod± t-SNE. W przyk³adzie tym:
+$$\mathcal{X} = \left\{x_1, x_2, \dots, x_k \right\} \subset \mathbb{R}^{n},$$
+oraz
+$$\Theta = \left\{\left\{\theta_1, \theta_2, \dots, \theta_k\right\} : \theta_1, \theta_2, \dots, \theta_k \in \mathbb{R}^{m}\right\}.$$
+
+Aby zdefiniowaæ funkcjê b³êdu potrzebne bêd± nam pomocnicze wyra¿enia:
+
+$$p_{j|i} = \frac{exp\left(-||x_i - x_j||^2\right)/2\sigma_i^2}{\sum_{k\neq i}
+exp\left(-||x_i - x_k||^2\right)/2\sigma_i^2},$$
+
+$$p_{ij} = \frac{p_{j|i} + p_{i|j}}{2},$$
+
+$$q_{ij} = \frac{\left(1 + ||\theta_i - \theta_j||^2\right)^{-1}}{\sum_{k\neq l}\left(1 + ||\theta_k - \theta_l||^2\right)^{-1}},$$
+
+gdzie $\sigma_i \in \mathbb{R}^2$ dla $i = 1, \dots n$ to ustalone wcze¶niej parametry. Ustalmy funkcjê kosztu:
+
+$$J_{\theta} = \sum_{i \neq j} p_{ij}log\frac{p_{ij}}{q_{ij}}.$$
+
+Rozwi±zanie tego typu problemu mo¿emy uznaæ jako znalezienie odpowiedniej reprezentacji $\theta_i$ dla ka¿dego z punktów $x_i$, gdzie $i = 1, \dots, n$. Na poni¿szym obrazku prezentujemy przyk³adowe rozwi±zanie dla nastêpuj±cego zbioru :
+
+$$\mathcal{X} = \left\{\left(\sin\alpha, \cos\alpha, sin\beta, \cos\beta\right): \alpha, \beta = 0, \frac{2\pi}{n}, \frac{4\pi}{n}, \dots, 2\pi\right\} \subset \mathbb{R}^4,$$
+
+czyli czterowymiarowego zanurzenia torusa w wypadku gdy $m=3$ oraz $n=50$.
+
 
 \end{przyklad}
 
@@ -636,6 +659,11 @@ Decomposition of surface EMG signals into single fiber action potentials by mean
 Daniel Graupe, et al.,
 Proc. IEEE International Symp. on Circuits and Systems, 1989
 
+\bibitem{popper}
+
+Logika odkrycia naukowego,
+Karl Popper,
+PWN, 1977
 
 \end{thebibliography}
 

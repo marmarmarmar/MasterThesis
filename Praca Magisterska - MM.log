@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.8)  2 AUG 2016 23:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.8)  4 AUG 2016 23:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -342,7 +342,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 Rozdzia\l  1.
 [7]
 
-LaTeX Warning: Citation `boltzmann' on page 8 undefined on input line 116.
+LaTeX Warning: Citation `conv ' on page 8 undefined on input line 116.
 
 
 LaTeX Warning: Citation `recurrent' on page 8 undefined on input line 116.
@@ -358,9 +358,6 @@ LaTeX Warning: Citation `hornik' on page 9 undefined on input line 122.
 
 ]
 Rozdzia\l  2.
-
-LaTeX Warning: Citation `Popper' on page 11 undefined on input line 146.
-
 [11] <Regresja1.png, id=63, 607.26875pt x 352.31625pt>
 File: Regresja1.png Graphic file (type png)
  <use Regresja1.png>
@@ -369,93 +366,97 @@ Package pdftex.def Info: Regresja1.png used on input line 161.
 
 [12 <./Regresja1.png (PNG copy)>]
 
-LaTeX Warning: Citation `TODO' on page 13 undefined on input line 184.
-
-
-LaTeX Warning: Citation `TODO' on page 13 undefined on input line 188.
-
-
-LaTeX Warning: Citation `adagrad' on page 13 undefined on input line 204.
+LaTeX Warning: Citation `TODO' on page 13 undefined on input line 207.
 
 [13]
 
-LaTeX Warning: Citation `minibatch' on page 14 undefined on input line 216.
+LaTeX Warning: Citation `TODO' on page 14 undefined on input line 211.
 
-[14]
 
-LaTeX Warning: Citation `logistyka' on page 15 undefined on input line 249.
+LaTeX Warning: Citation `adagrad' on page 14 undefined on input line 227.
+
+
+LaTeX Warning: Citation `minibatch' on page 14 undefined on input line 239.
+
+[14] [15]
+
+LaTeX Warning: Citation `logistyka' on page 16 undefined on input line 272.
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 254.
-<Sigmoid-wykres.png, id=77, 607.26875pt x 352.31625pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 277.
+<Sigmoid-wykres.png, id=80, 607.26875pt x 352.31625pt>
 File: Sigmoid-wykres.png Graphic file (type png)
 
 <use Sigmoid-wykres.png>
-Package pdftex.def Info: Sigmoid-wykres.png used on input line 263.
+Package pdftex.def Info: Sigmoid-wykres.png used on input line 286.
 (pdftex.def)             Requested size: 425.08524pt x 246.61969pt.
 
 
-LaTeX Warning: Citation `TODO' on page 15 undefined on input line 268.
+LaTeX Warning: Citation `TODO' on page 16 undefined on input line 291.
 
-[15] [16 <./Sigmoid-wykres.png>] [17]
+[16 <./Sigmoid-wykres.png>]
+Underfull \vbox (badness 1796) has occurred while \output is active []
+
+ [17]
 <SiecXor.png, id=89, 377.41pt x 253.94875pt>
 File: SiecXor.png Graphic file (type png)
  <use SiecXor.png>
-Package pdftex.def Info: SiecXor.png used on input line 323.
+Package pdftex.def Info: SiecXor.png used on input line 346.
 (pdftex.def)             Requested size: 264.1852pt x 177.76291pt.
 
 
-LaTeX Warning: Citation `TODO' on page 18 undefined on input line 327.
+LaTeX Warning: Citation `TODO' on page 18 undefined on input line 350.
 
-<Recurrent.png, id=91, 161.60374pt x 201.75375pt>
+[18 <./SiecXor.png>] <Recurrent.png, id=95, 161.60374pt x 201.75375pt>
 File: Recurrent.png Graphic file (type png)
- <use Recurrent.png>
-Package pdftex.def Info: Recurrent.png used on input line 331.
+
+<use Recurrent.png>
+Package pdftex.def Info: Recurrent.png used on input line 354.
 (pdftex.def)             Requested size: 113.12184pt x 141.22665pt.
 
 
-LaTeX Warning: Citation `aprox' on page 18 undefined on input line 337.
+LaTeX Warning: Citation `aprox' on page 19 undefined on input line 360.
 
-[18 <./SiecXor.png>]
 
-LaTeX Warning: Citation `aprox2' on page 19 undefined on input line 344.
+LaTeX Warning: Citation `aprox2' on page 19 undefined on input line 367.
 
-<Backprop.png, id=96, 263.98625pt x 306.14375pt>
+[19 <./Recurrent.png>] <Backprop.png, id=100, 263.98625pt x 306.14375pt>
 File: Backprop.png Graphic file (type png)
- <use Backprop.png>
-Package pdftex.def Info: Backprop.png used on input line 357.
+
+<use Backprop.png>
+Package pdftex.def Info: Backprop.png used on input line 380.
 (pdftex.def)             Requested size: 184.78911pt x 214.29915pt.
- [19 <./Recurrent.png>] [20 <./Backprop.png>] [21] [22]
+ [20 <./Backprop.png>] [21] [22]
 
-LaTeX Warning: Citation `lasso' on page 23 undefined on input line 489.
+LaTeX Warning: Citation `lasso' on page 23 undefined on input line 512.
 
-[23]
+[23] [24]
 
-LaTeX Warning: Citation `deeprep' on page 24 undefined on input line 521.
+LaTeX Warning: Citation `deeprep' on page 25 undefined on input line 544.
 
 
-LaTeX Warning: Citation `badania' on page 24 undefined on input line 523.
+LaTeX Warning: Citation `badania' on page 25 undefined on input line 546.
 
-[24]
+[25] [26
+
+]
 Rozdzia\l  3.
-[25
-
-] [26] [27] [28
+[27] [28] [29] [30
 
 ]
 Rozdzia\l  4.
-[29] [30
+[31] [32
 
-] [31] (./Praca Magisterska - MM.aux)
+] [33] (./Praca Magisterska - MM.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4543 strings out of 493304
- 60024 string characters out of 6139871
- 155089 words of memory out of 5000000
- 7899 multiletter control sequences out of 15000+600000
+ 4544 strings out of 493304
+ 60026 string characters out of 6139871
+ 154097 words of memory out of 5000000
+ 7900 multiletter control sequences out of 15000+600000
  26394 words of font info for 66 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,16n,25p,1576b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -483,10 +484,10 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (33 pages, 538706 bytes).
+Output written on "Praca Magisterska - MM.pdf" (35 pages, 543376 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 157 compressed objects within 2 object streams
+ 236 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
