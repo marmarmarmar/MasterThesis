@@ -113,7 +113,7 @@ Przez kolejne lata badacze rozwijaj±cy algorytmy zwi±zane z sieciami neuronowymi
 
 Jednak wprowadzenie nieliniowych tzw. funkcji aktywacji rodzi inne problemy - jak mianowicie skutecznie przeprowadziæ proces uczenia naszego modelu gdy analityczne rozwi±zania na ogó³ s± nieosi±galne? I tutaj pomoc przysz³a z najmniej spodziewanej strony, a mianowicie pochodz±cej z klasycznego rachunku prawdopodobieñstwa regu³y ³añcuchowej. Algorytm, (Rumelhart et al. \cite{backprop} którego istota dzia³ania polega na obliczeniach gradientu b³êdu, a nastêpnie aktualizowania odpowiednich parametrów na podstawie ich wp³ywu na omylno¶æ modelu (wp³yw ten jest oblicznany w³a¶nie przez regu³ê ³añcuchow±) przyniós³ fantastyczne rezultaty. Ze wzglêdu na to, ¿e b³±d obliczany przy dzia³aniu sieci, propaguje siê nastêpnie na odpowiednie parametry, nazwano go algorytmem wstecznej propagacji.
 
-Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{conv	, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
+Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{backprop, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
 
 \section{Dlaczego sieci ponownie zawiod³y?}
 
@@ -122,8 +122,6 @@ Ponowna zima jednak, podobnie jak i entuzjazm który towarzyszy³ powrotowi sieci 
 Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³omie lat 90' XX w. udowodniono, ¿e sieæ z jedn± tzw. warstw± ukryt± jest w stanie nauczyæ siê niemal ka¿dej funkcji $f:\mathbb{R}^n\rightarrow \mathbb{R}$ ci±g³ej o zwartym no¶niku (\cite{cybenko, hornik}, to nie do koñca zdawano sobie sprawe, ¿e zadanie nauczenia chocia¿by rozpoznawania obrazu lub ludzkiej mowy, choæ mo¿liwe, mog± byæ bardzo trudne. W szczególno¶ci, w dowodach powy¿szego faktu, niedostrze¿ono alarmuj±cego wzrostu z³o¿ono¶ci problemu wraz ze wzrostem jego skomplikowania. Doprowadzi³o to do nieuzasadnionego rozczarowania tym, ¿e \textit{de facto} nie mo¿emy nauczyæ sieci wszystkiego na pamiêæ. 
 
 Drug± przyczynê, zwi±zan± w³a¶nie ze wspomnianym powy¿ej problemem, stanowi³y niedostateczne warunki sprzêtowe, które uniemo¿liwia³y wykorzystanie potencja³u drzemi±cego w algorytmie. Niedostateczno¶æ ta nie wynika³a tylko ze zbyt ma³ych mo¿liwo¶ci obliczeniowych, ale tak¿e znacznego niedoboru danych (tak w sensie ich zebrania, jak i przechowywania). Najwiêksze zebrane zbiory treningowe nie liczy³y, na pocz±tku lat 90', wiêcej ni¿ 100 000 elementów. Z perspektywy wyuczenia chocia¿by zagadnieñ zwi±zanych z obrazem lub mow± ludzk± liczba ta jawi siê jako niemal¿e ¶miesznie ma³a. Problemy te jednak rozwi±za³ czas - wraz z rozwojem technologii pojawi³y siê tak i nowoczesne komputery, które przyspieszy³y proces uczenia oraz ewaluacji, jak i ogromne, zró¿nicowane zbiory danych, które sprawi³y, ¿e problemy o rozwi±zaniu których marzyli eksperci od sztucznej inteligencji, znalaz³y siê jak najbardziej w zasiêgu ludzkich mo¿liwo¶ci.
-
-
 
 \chapter{Matematyczne podstawy algorytmów}
 
@@ -193,18 +191,22 @@ Rozwi±zanie tego typu problemu mo¿emy uznaæ jako znalezienie odpowiedniej reprez
 
 $$\mathcal{X} = \left\{\left(\sin\alpha, \cos\alpha, sin\beta, \cos\beta\right): \alpha, \beta = 0, \frac{2\pi}{n}, \frac{4\pi}{n}, \dots, 2\pi\right\} \subset \mathbb{R}^4,$$
 
-czyli czterowymiarowego zanurzenia torusa w wypadku gdy $m=3$ oraz $n=50$.
+czyli czterowymiarowego zanurzenia torusa w wypadku gdy $m=3$, $n=50$ oraz 
+$$\sigma_1, \sigma_2, \dots, \sigma_{2500} = 1.$$
 
+\begin{center}
+\includegraphics[scale = 0.5]{torus_tsne.png}
+\end{center}
+
+Na obrazku widaæ, ¿e \textit{p±czkowata} struktura torusa zosta³a uchwycona w trójwymiarowej reprezentacji zbioru $\mathcal{X}$.
 
 \end{przyklad}
 
 \subsection{Generalizacja oraz przeuczenie}
 
-Jako, ¿e podczas procesu uczenia nasz model wykorzysta³ tylko pewien skoñczony zbiór danych $\mathcal{X}$, warto zastanowiæ siê, czy nasz model bêdzie równie skuteczny w przypadku, gdy zbiór ten zostanie rozszerzony o nowe dane. W przypadku gdy rozk³ad funkcji kosztu nie ró¿ni siê znacz±co dla nowych danych mówimy, ¿e nasz model posiada zdolno¶æ do generalizacji. W przypadku gdy b³±d ten jest istotnie wiêkszy - mówimy o zjawisku przeuczenia. Zjawiska te obrazuje kolejny przyk³ad.
+W dotychczasowych rozwa¿aniach przyjêli¶my, ¿e g³ównym celem uczenia jest odnalezienie modelu, który minimalizuje ustalon± przez nas funkcjê b³êdu. Jednak problem uczenia zawiera w sobie jeszcze jedn± p³aszczyznê. Zbiór posiadanych przez nas danych mo¿e siê rozszerzyæ o nowe punkty - i naturalnym jest oczekiwanie od modelu, ¿e funkcja b³êdu bêdzie przybiera³a porównywalne warto¶ci na rozszerzonym zbiorze. Tak± zdolno¶æ modelu nazywamy \textit{generalizacj±}.
 
-TODO
-
-Metody wykrywania oraz radzenia sobie ze zjawiskiem przeuczenia (poza szczególnymi przypadkami opisanymi w rozdziale TODO) przekraczaj± zakres tej pracy. Przyk³ady postêpowania w takich sytuacjach mo¿emy znale¼æ w nastêpuj±cych artyku³ach : \cite{TODO}. 
+Zjawisko przeciwne, tzn. stan w którym warto¶æ funkcji b³êdu wzrasta znacz±co po dodaniu nowych punktów nazywamy \textit{przeuczeniem}. 
 
 \subsection{Optymalizacja gradientowa}
 
@@ -660,10 +662,24 @@ Daniel Graupe, et al.,
 Proc. IEEE International Symp. on Circuits and Systems, 1989
 
 \bibitem{popper}
-
 Logika odkrycia naukowego,
 Karl Popper,
 PWN, 1977
+
+\bibitem{recurrent}
+Generalization of backpropagation with application to a recurrent gas market model,
+P. J. Werbos,
+Neural Networks, 1, 1988.
+
+\bibitem{cybenko}
+Approximations by superpositions of sigmoidal functions,
+G. Cybenko,
+Mathematics of Control, Signals, and Systems 2 (4) (1988), 303-314
+
+\bibitem{hornik}
+Approximation Capabilities of Multilayer Feedforward Networks,Kurt Hornik (1991)
+K. Hornik,
+Neural Networks, 4 (2) (1991), 251?257
 
 \end{thebibliography}
 
