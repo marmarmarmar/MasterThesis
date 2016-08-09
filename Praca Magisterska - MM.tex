@@ -206,7 +206,18 @@ Na obrazku widaæ, ¿e \textit{p±czkowata} struktura torusa zosta³a uchwycona w tr
 
 W dotychczasowych rozwa¿aniach przyjêli¶my, ¿e g³ównym celem uczenia jest odnalezienie modelu, który minimalizuje ustalon± przez nas funkcjê b³êdu. Jednak problem uczenia zawiera w sobie jeszcze jedn± p³aszczyznê. Zbiór posiadanych przez nas danych mo¿e siê rozszerzyæ o nowe punkty - i naturalnym jest oczekiwanie od modelu, ¿e funkcja b³êdu bêdzie przybiera³a porównywalne warto¶ci na rozszerzonym zbiorze. Tak± zdolno¶æ modelu nazywamy \textit{generalizacj±}.
 
-Zjawisko przeciwne, tzn. stan w którym warto¶æ funkcji b³êdu wzrasta znacz±co po dodaniu nowych punktów nazywamy \textit{przeuczeniem}. 
+Zjawisko przeciwne, tzn. stan w którym warto¶æ funkcji b³êdu wzrasta znacz±co po dodaniu nowych punktów nazywamy \textit{przeuczeniem}.
+
+\begin{przyklad}
+Jednym z ciekawych, ale ma³o praktycznych sposobów sprawdzenia czy nasz model mo¿e do¶wiadczyæ zjawiska przeuczenia jest analiza wariancji modelów metod± tzw. resamplingu. Intuicyjnie - je¶li model ma uchwyciæ faktyczn± strukturê danych - to dla ró¿nych zbiorów danych pochodz±cych z tego samego ¼ród³a - modele zbudowane wedle tych zbiorów powinny byæ podobne. Du¿a wariancja w¶ród modeli mo¿e natomiast wskazywaæ na to, ¿e nasz model mo¿e do¶wiadczaæ zjawiska przeuczenia. Poni¿ej prezentujemy przyk³ad takiego sprawdzenia. Oryginalne dane pochodz± z wielomianu 4-go stopnia, którego wykres zaprezentowany jest w prawym górnym rogu obrazka. W kolejnych oknach prezentujemy ró¿ne modele wielomianowe wytrenowane na delikatnie zaburzonych danych podstawowych.  
+
+\begin{center}
+\includegraphics[scale = 0.4]{overfitting.png}
+\end{center}
+
+Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± wariancj± modeli - jednakowo¿ - modele te odleg³e s± od dobrej aproksymacji wyj¶ciowej funkcji. W przypadku aproksymacji wielomianami stopnia 4 - zarówno jako¶æ aproksymacji oraz jednorodno¶æ modeli stoj± na wysokim poziomie. W wypadku aproksymacji modelami stopnia 16 - widzimy, ¿e zarówno jako¶æ aproksymacji oraz jednorodno¶æ modeli uleg³y znacz±cemu obni¿eniu. Modele tej rodziny mog± cierpieæ z powodu zjawiska przeuczenia.
+
+\end{przyklad}
 
 \subsection{Optymalizacja gradientowa}
 
