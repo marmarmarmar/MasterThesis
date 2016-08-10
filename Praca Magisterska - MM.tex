@@ -123,13 +123,13 @@ Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³
 
 Drug± przyczynê, zwi±zan± w³a¶nie ze wspomnianym powy¿ej problemem, stanowi³y niedostateczne warunki sprzêtowe, które uniemo¿liwia³y wykorzystanie potencja³u drzemi±cego w algorytmie. Niedostateczno¶æ ta nie wynika³a tylko ze zbyt ma³ych mo¿liwo¶ci obliczeniowych, ale tak¿e znacznego niedoboru danych (tak w sensie ich zebrania, jak i przechowywania). Najwiêksze zebrane zbiory treningowe nie liczy³y, na pocz±tku lat 90', wiêcej ni¿ 100 000 elementów. Z perspektywy wyuczenia chocia¿by zagadnieñ zwi±zanych z obrazem lub mow± ludzk± liczba ta jawi siê jako niemal¿e ¶miesznie ma³a. Problemy te jednak rozwi±za³ czas - wraz z rozwojem technologii pojawi³y siê tak i nowoczesne komputery, które przyspieszy³y proces uczenia oraz ewaluacji, jak i ogromne, zró¿nicowane zbiory danych, które sprawi³y, ¿e problemy o rozwi±zaniu których marzyli eksperci od sztucznej inteligencji, znalaz³y siê jak najbardziej w zasiêgu ludzkich mo¿liwo¶ci.
 
-\chapter{Matematyczne podstawy algorytmów}
+\chapter{Matematyczne podstawy algorytmów} \label{matpod}
 
 \section{Uczenie}
 
 Wszystkie algorytmy opisane w tej pracy nale¿± do rodziny algorytmów ucz±cych. Aby móc o nich mówiæ musimy zatem wprowadziæ formaln± definicjê uczenia. Zrobimy to w kolejnej podsekcji. Pó¼niej przedstawimy trzy najczêstsze przyk³ady uczenia czyli uczenie z i bez nadzoru, a tak¿e uczenie z pó³nadzorem. 
 
-\subsection{Formalna definicja uczenia}
+\subsection{Formalna definicja uczenia} \label{defucz}
 
 Trzy rzeczy s± absolutnie niezbêdne aby mówiæ o o algorytmach ucz±cych. Pierwsza z nich to zbiór treningowy. Nale¿y o nim my¶leæ jako o zbiorze danych, które znamy, a które chcemy wykorzystaæ jako podstawê do uczenia przy pomocy naszego algorytmu. Drug± z nich jest zbiór modeli. Efektem uczenia ma byæ efektywnie opisuj±cy nasze dane model, aby jednak móc taki znale¼æ, musimy ustaliæ pewien zbiór mo¿liwych modeli spo¶ród którego bêdziemy go wybieraæ. Koniecznym jest tak¿e ustalenie, co oznacza, ¿e nasze dane s± efektywnie opisywane przez wybrany przez nas opis - do tego s³u¿y funkcja kosztu. Intuicyjnie, funkcj± kosztu nazywamy nieujemn± funkcjê rzeczywist±, malej±c± wraz ze wzrostem efektywno¶ci opisywanych danych. Wszystkie powy¿sze intuicje sk³adaj± siê na poni¿sz± definicjê. 
 
@@ -221,7 +221,7 @@ Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± 
 
 \subsection{Optymalizacja gradientowa}
 
-Jak wspominali¶my w podsekcji \cite{TODO}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Przybli¿ony schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm.
+Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm.
 
 \begin{algorithm}
   \KwData{Zbiór danych $\mathcal{X}$, rodzina modeli $\Theta$ parametryzowana przez argumenty $\theta_1, \theta_2, \dots, \theta_n$ oraz ró¿niczkowalna funkcja b³êdu $J_\mathcal{X}$.}
@@ -230,19 +230,19 @@ Jak wspominali¶my w podsekcji \cite{TODO}, algorytmy uczenia to de facto algoryt
   oblicz $J_{\mathcal{X}}\left(\theta_1, \theta_2, \dots, \theta_n\right)$\;  
   \While{$J_\mathcal{X}\left(\theta_1, \theta_2, \dots, \theta_n\right)$ nie spe³nia warunku stopu} {
     oblicz $\delta_i = \frac{\partial J_{\mathcal{X}}\left(\theta_1, \theta_2, \dots, \theta_n\right)}   {\partial \theta_i}$ dla ka¿dego $i = 1, \dots, n$\;    
-    zaktualizuj : $\theta_{i} := \theta_i - \delta_i\eta$ dla ka¿dego $i = 1, \dots, n$\;
+    zaktualizuj: $\theta_{i} := \theta_i - \delta_i\eta$ dla ka¿dego $i = 1, \dots, n$\;
     ponownie oblicz $J_{\mathcal{X}}\left(\theta_1, \theta_2, \dots, \theta_n\right)$\;  
     } 
     \caption{Uproszczony schemat optymalizacji gradientowej}
 \end{algorithm}
 
 Oczywi¶cie powy¿szy schemat zosta³ uproszczony w celu uchwycenia g³ównej idei. Zgodnie z matematycznym faktem, który mówi, ¿e gradient wyznacza kierunek najwy¿szego wzrostu, pod±¿anie w kierunku przeciwnym do wyznaczonego przez niego jest to¿same pod±¿aniu w kierunku najwiêkszego spadku. 
-Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji \cite{adagrad}.
+Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji \cite{adam}.
 Warunek stopu wystêpuj±cy w warunku pêtli natomiast najczê¶ciej ustalany jest jako zej¶cie warto¶ci funkcji kosztu $J_\mathcal{X}$ poni¿ej pewnej ustalonej warto¶ci $\epsilon$ lub brak dostatecznej poprawy (wzglêdnej lub bezwzglêdnej) w stosunku do warto¶ci obliczonej w poprzedniej iteracji. 
 
 \subsection{Stochastyczna optymalizacja gradientowa}
 
-Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tkowo du¿a, obliczenie funkcji b³êdu, a tak¿e jej gradientów stanowi zadanie nieefektywne obliczeniowo. W takich przypadkach, czêsto stosowan± technik± jest metoda stochastycznej optymalizacji gradientowej. Najczê¶ciej polega ona na losowym podziale zbioru na mniejsze czê¶ci i sukcesywnym stosowaniu metody gradientowej na kolejnych elementach tego podzia³u. Zwyczajowo zbiory dzieli siê porcje (ang. \textit{batch}) równej liczno¶ci i ze wzglêdu na rozmiar tych porcji wyró¿niamy:
+Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tkowo du¿a, obliczenie funkcji b³êdu, a tak¿e jej gradientów stanowi zadanie nieefektywne obliczeniowo. W takich przypadkach czêsto stosowan± technik± jest metoda stochastycznej optymalizacji gradientowej. Najczê¶ciej polega ona na losowym podziale zbioru na mniejsze czê¶ci i sukcesywnym stosowaniu metody gradientowej na kolejnych elementach tego podzia³u. Zwyczajowo zbiory dzieli siê porcje (ang. \textit{batch}) równej liczno¶ci i ze wzglêdu na rozmiar tych porcji wyró¿niamy:
 \begin{itemize}
 \item uczenie \textit{online} w którym ka¿da porcja sk³ada siê z jednego przyk³adu,
 \item uczenie \textit{mini-batch}, w którym liczno¶æ porcji jest znacz±co mniejsza od rozmiaru ca³ego zbioru,
@@ -257,32 +257,30 @@ W tym rozdziale zajmiemy siê omówieniem podstawowego narzêdzia, z jakiego korzys
 
 \subsection{Biologiczna motywacja}
 
-TODO
+Badania naukowców i neurobiologów nad dzia³aniem ludzkiego mózgu trwaj± od nie z ma³a 100 lat i nadal skrywa on przed badaczami ogrom tajemnic. Jednak ju¿ dzisiaj mo¿emy z ca³± pewno¶ci± stwierdziæ, ¿e dzia³anie ludzkiego mózgu opiera siê na zorganizowanej wspó³pracy ogromnej ilo¶ci komórek nerwowych. Ka¿dy neuron przyjmuje od po³±czonych z nim innych neuronów nieregularnie w czasie aktywacje elektryczne i na ich podstawie sam emituje (lub nie) impuls elektrycznych do neuronów z którymi jest po³±czony. Zasada wspó³pracy ze sob± wielu jednostek obliczeniowych (jako tak± mo¿emy traktowaæ neuron) stanowi podstawê niemal ka¿dej architektury sieci neuronowych.
 
-\subsection{Perceptron}
+\subsection{Regresja logistyczna}
 
-Pierwszym praktycznym zastosowaniem, inspirowanym niesamowit± skuteczno¶ci± biologicznych uk³adów nerwowych, który przebi³ siê do powszechnej ¶wiadomo¶ci by³ opracowany przez Franka Rosenblatta sztuczny model neuronu opracowany wed³ug prac McCullocha-Pittsa. Nie wykorzystywa³ on jeszcze potencja³u tkwi±cego we wspó³pracy neuronów ze sob±, jednak dziêki bardzo prostemu w zaimplementowaniu algorytmowi ucz±cemu, a tak¿e stosunkowo du¿ej skuteczno¶ci (w po³±czeniu ze spor± prostot± modelu) odniós³ on olbrzymi sukces i znacz±co przyczyni³ siê do popularyzacji idei uczenia maszynowego na prze³omie lat 50' i 60; XX w. Niestety - nadmierna prostota w po³±czeniu z nadmiernymi oczekiwaniami przynios³y ogromne rozczarowanie - w 1967 r. Papert i Minsky udowodnili olbrzymie ograniczenia jakie na³o¿one s± na zadania, które efektywnie mo¿e rozwi±zaæ perceptron.
-
-\subsubsection{Czym jest perceptron?}
-
-Oto stosowna definicja:
+Jednym z najpopularniejszych algorytmów uczenia maszynowego jest aktualnie algorytm tzw. \textit{regresji logistycznej}. Z naszej strony jest on interesujacy poniewa¿ mo¿emy interpretowaæ go jako pojedynczy obliczeniowy neuron. Zacznijmy jednak od formalnej definicji:
 
 \begin{defi}
-Perceptronem z funkcj± aktywacji $\phi$ nazywamy funkcjê $P_{\theta_0, \theta_1, \dots, \theta_n}:\mathbb{R}^{n}\rightarrow\mathbb{R}$ postaci :
-$$P_{\theta_0, \theta_1, \dots, \theta_n}\left(x_1, x_2, \dots, x_n\right) = \phi
-\left(x_0 + \sum_{i = 1}^{n}x_i \theta_i\right).$$
-\end{defi} 
+Modelem regresji logistycznej parametryzowanej wektorem $\left(\theta_0, \theta_1, \dots, \theta_n\right)$ bêdziemy nazywali funkcjê $f : \mathbb{R}^n \rightarrow (0,1)$ zadan± wzorem:
 
-Zauwa¿my, ¿e matematycznie perceptron to \textit{de facto} z³o¿enie funkcjona³u afinicznego z zadan± funkcj± aktywacji $\phi$. Prostota tej kompozycji okaza³a siê jednocze¶nie najwiêksz± wad± i najwiêksz± zalet± perceptronu. Jednak zanim omówimy szczegó³y jego dzia³ania oraz algorytmu jego uczenia przedstawmy funkcjê aktywacji któr± bêdziemy stosowaæ we wszystkich przyk³adach w niniejszej sekcji.
+$$f(x) = \phi\left(\theta_0 + \sum_{i = 1}^{n}\theta_i x_i\right),$$
 
-\subsubsection{Sigmoidalna funkcja aktywacji}
+gdzie $\phi$ to sigmoidalna funkcja aktywacji opisana w paragrafie \ref{sigmoid}.
+
+\end{defi}
+
+Widzimy zatem, ¿e je¶li zinterpretujemy $x_1, x_2, \dots x_n$ warto¶ci impulsów z komórek nerwowych s±siaduj±cych z nasz±, parametry $\theta_1, \theta_2, \dots, \theta_n$ jako si³y po³±czeñ naszego neuronu ze swoimi s±siadami oraz $\theta_0$ jako wewnêtrzn± pobudliwo¶æ neuronów - to widzimy, ¿e w oparciu o interakcjê z s±siadami - nasz neuron oblicza sw± wewnêtrzn± aktywacjê, przekazywan± jako wynik funkcji $f$.
+\subsubsection{Sigmoidalna funkcja aktywacji} \label{sigmoid}
 
 \begin{defi}
 Sigmoidaln± (logistyczn±) funkcj± aktywacji bêdziemy nazywaæ funkcjê :
 $$S(x) = \frac{1}{1 + e^{-x}}.$$
 \end{defi}
 
-W literaturze funkcja ta czêsto okre¶lana jest mianem funkcji logistycznej (jako rozwi±zanie tzw. równania logistycznego \cite{logistyka}. Zauwa¿my tylko niektóre jej w³asno¶ci:
+Oto niektóre z jej wa¿nych w³asno¶ci:
 
 \begin{uwaga}
 Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
@@ -302,43 +300,10 @@ Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
 
 
 Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \cite{TODO} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
-Pocz±wszy od tego momentu, za funkcjê aktywacji $\phi$ bêdziemy przyjmowaæ tylko funkcjê sigmoidaln±.
-
-\subsubsection{Klasyfikacja przy u¿yciu perceptronu.}
-
-Podstawowym zadaniem do jakiego najczê¶ciej stosuje siê model perceptronu jest zagadnienie klasyfikacji binarnej. Przyjmuje siê wówczas, dla ustalenia uwagi, ¿e ka¿dy element zbioru $\mathcal{X}$ mo¿emy przyporz±dkowaæ do jednej z dwóch klas, które dla prostoty bêdziemy nazywaæ klasami $0$ oraz $1$. Przyjmuje siê zatem, ¿e dla dowolnego elementu $x\in\mathcal{X}$, obiekt $x$ nale¿y do klasy $1$ wedle perceptronu $P_{\theta_0, \theta_1, \dots, \theta_n}$ o ile $P_{\theta_0, \theta_1, \dots, \theta_n}\left(x\right) > \epsilon_{threshold}$, a do klasy $0$ w przeciwnym przypadku. Oczywi¶cie parametry $\theta_0, \theta_1, \dots, \theta_n$ a tak¿e $\epsilon_{threshold}$ uzyskujemy w trakcie procesu uczenia. Zwyczajowo jednak przyjmuje siê warto¶æ $\epsilon_{threshold} = 0.5$ i tak± bêdziemy przyjmowaæ do koñca tej sekcji.
-
-\subsubsection{Algorytm uczenia perceptronu.}
-
-Jedn± z przyczyn ogromnej popularno¶ci perceptronu by³ banalny w swojej prostocie algorytm, który pozwala³ bardzo szybko znale¼æ odpowiednie parametry dla modelu. Poni¿ej prezentujemy sposób zaprezentowany przez Franka Rosenblatta. 
-
-\begin{algorithm}
-  \KwData{Zbiór danych $\mathcal{X}$}
-  \KwResult{Warto¶ci parametrów $\theta_1, \theta_2, \dots, \theta_n$ dla których perceptron osi±ga najmniejszy koszt dla ¶redniokwadratowej funkcji kosztu $J_{\mathcal{X}}\left(\theta_0, \theta_1, \dots, \theta_n\right)$.}
-  zainicjuj wagi $\theta_0, \theta_1, \dots, \theta_n$ w sposób losowy. \;
-  oblicz $J_{\mathcal{X}}\left(\theta_0, \theta_1, \dots, \theta_n\right)$\;  
-  \While{$J_\mathcal{X}\left(\theta_0, \theta_1, \dots, \theta_n\right)$ nie spe³nia warunku stopu} {
-  \ForAll{$x \in \mathcal{X}$} {
-  	\If{$P_{\theta_0, \theta_1, \dots, \theta_n}(x) > 0.5$ i $x$ nale¿y do klasy $0$} {
-  		$\theta_i = \theta_i - x_i$ dla ka¿dego $i = 1, \dots, n$,
-  		$\theta_0 = \theta_0 - 1$,
-  	}
-  	\If{$P_{\theta_0, \theta_1, \dots, \theta_n}(x) <= 0.5$ i $x$ nale¿y do klasy $1$} {
-  		$\theta_i = \theta_i + x_i$ dla ka¿dego $i = 1, \dots, n$,
-  		$\theta_0 = \theta_0 + 1$,
-  	}	  	 
-  	ponownie oblicz $J_{\mathcal{X}}\left(\theta_0, \theta_1, \dots, \theta_n\right)$\;  
-	}
-	} 
-\caption{Uproszczony algorytm uczenia perceptronu.}
-\end{algorithm} 
-
-Jak widzimy zasada dzia³ania algorytmu jest banalnie prosta. Je¶li dany przyk³ad zosta³ dobrze sklasyfikowany - nie zmieniamy wag, jednak gdy tylko w klasyfikacji pojawi siê b³±d wagi aktualizowane s± wedle regu³y : je¶li wynik algorytmu jest zbyt ma³y - dodaj do wag przyk³ad, na którym siê pomyli³, je¶li za du¿y - odejmij. Okazuje siê, ¿e algorytm ten, znajduje optymalne rozwi±zanie (o ile istnieje), a tak¿e, ¿e jest bardzo prostym zastosowaniem metody optymalizacji gradientowej - o ile za szybko¶æ uczenia przyjmiemy liczbê $1$. Du¿± zalet± by³a tak¿e ³atwo¶æ zaimplementowania go na prze³omie lat 50' oraz 60'.
-W gwoli ¶cis³o¶ci nale¿y dodaæ, ¿e w wypadku tego sposobu uczenia problemem mo¿e okazaæ siê bardzo du¿e warto¶ci parametru (przy niesprzyjaj±cych danych, warto¶ci niektórych z $\theta_i$ mog± rozbiegaæ do nieskoñczono¶ci). Z problemem tym radzono sobie na wiele mo¿liwych sposobów, pocz±wszy od zmiany warto¶ci sta³ej uczenia, po normalizacjê wag po ka¿dej iteracji g³ównej pêtli algorytmu ucz±cego. 
 
 \section{Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}
 
-Jak zauwa¿yli¶my w poprzednim rozdziale - prosta perceptronu, choæ czyni jego uczenie banalnie prostym, stanowi niebagateln± przeszkodê - potrafi on efektywnie nauczyæ siê jedynie bardzo prostych w swojej strukturze zbiorów (dok³adniej pó³przestrzeni afinicznych kowymiaru 1). Szybko jednak zauwa¿ono, ¿e tak jak uk³ady nerwowe zwierz±t nie sk³adaj± sie tylko i wy³±cznie z jednego neuronu, tylko z ich wspó³dzia³aj±cego ze sob± konglomeratu, tak skutecznie dzia³aj±ce modele musz± ³±czyæ w sobie moc wielu po³±czonych ze sob± perceptronów. Tak narodzi³a siê idea \textit{wielowarstwowego perceptronu} (ang. \textit{multi-layered perceptron} czyli w istocie pierwszej sztucznej sieci neuronowej.
+Regresja logistyczna - dziêki swojej prostocie - zyska³a sobie miano bardzo popularnej metody w dziedzienia uczenia maszynowego. Ogromnym problemem jaki napotykamy jednak przy jej u¿ywaniu jest to, ¿e dziêki swojej prostocie - nie jest w stanie efektywnie nauczyæ siê bardziej skomplikowanych funkcji. Szybko jednak zauwa¿ono, ¿e tak jak uk³ady nerwowe zwierz±t nie sk³adaj± sie tylko i wy³±cznie z jednego neuronu, tylko z ich wspó³dzia³aj±cego ze sob± konglomeratu, tak skutecznie dzia³aj±cych modeli nie nale¿y szukaæ w funkcjach na¶laduj±cych pojedyncze neurony, lecz w z³o¿eniu takich funkcji ze sob±. Tak narodzi³a siê idea \textit{sieci wielowarstwowych} które stanowi± podstawê tak¿e algorytmów \textit{deep-learning}.
 
 \subsection{Topologie sieci}
 
@@ -691,6 +656,16 @@ Mathematics of Control, Signals, and Systems 2 (4) (1988), 303-314
 Approximation Capabilities of Multilayer Feedforward Networks,Kurt Hornik (1991)
 K. Hornik,
 Neural Networks, 4 (2) (1991), 251?257
+
+\bibitem{adam}
+A Method for Stochastic Optimization,
+D.P. Kingma, J. Ba,
+CoRR, 2014 
+
+\bibitem{minibatch}
+Efficient mini-batch training for stochastic optimization,
+Mu Li, et al.,
+Proceedings of the 20th ACM SIGKDD international conference on Knowledge discovery and data mining, Pages 661-670 
 
 \end{thebibliography}
 
