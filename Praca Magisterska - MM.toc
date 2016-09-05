@@ -13,12 +13,13 @@
 \contentsline {subsection}{\numberline {2.1.4}Generalizacja oraz przeuczenie}{14}
 \contentsline {subsection}{\numberline {2.1.5}Optymalizacja gradientowa}{15}
 \contentsline {subsection}{\numberline {2.1.6}Stochastyczna optymalizacja gradientowa}{16}
-\contentsline {section}{\numberline {2.2}Sztuczne Sieci neuronowe}{16}
-\contentsline {subsection}{\numberline {2.2.1}Biologiczna motywacja}{16}
+\contentsline {subsection}{\numberline {2.1.7}Metaoptymalizacja}{16}
+\contentsline {section}{\numberline {2.2}Sztuczne Sieci neuronowe}{17}
+\contentsline {subsection}{\numberline {2.2.1}Biologiczna motywacja}{17}
 \contentsline {subsection}{\numberline {2.2.2}Regresja logistyczna}{17}
-\contentsline {subsubsection}{Sigmoidalna funkcja aktywacji}{17}
+\contentsline {subsubsection}{Sigmoidalna funkcja aktywacji}{18}
 \contentsline {section}{\numberline {2.3}Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}{18}
-\contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{18}
+\contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{19}
 \contentsline {subsection}{\numberline {2.3.2}Wielowarstwowa sie\'c neuronowa jako uniwersalny aproksymator}{20}
 \contentsline {subsection}{\numberline {2.3.3}Algorytm wstecznej propagacji}{20}
 \contentsline {subsection}{\numberline {2.3.4}Interpretacja probabilistyczna sieci neuronowych}{22}
@@ -26,18 +27,18 @@
 \contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{2}$}{23}
 \contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{1}$}{24}
 \contentsline {subsection}{\numberline {2.3.6}Czym r\'o\.zni\k a si\k e powy\.zsze kary?}{24}
-\contentsline {subsection}{\numberline {2.3.7}Intuicje dotycz\k ace warstw sieci neuronowych}{24}
+\contentsline {subsection}{\numberline {2.3.7}Intuicje dotycz\k ace warstw sieci neuronowych}{25}
 \contentsline {subsection}{\numberline {2.3.8}Reprezentacja rozproszona}{25}
-\contentsline {subsubsection}{G\IeC {\l }\k eboka hierarchiczna struktura przyczyn\k a sukcesu algorytm\'ow z rodziny Deep Learning}{25}
+\contentsline {subsubsection}{G\IeC {\l }\k eboka hierarchiczna struktura przyczyn\k a sukcesu algorytm\'ow z rodziny Deep Learning}{26}
 \contentsline {chapter}{\numberline {3}Rozw\'oj metod uczenia}{27}
 \contentsline {section}{\numberline {3.1}Sieci konwolucyjne oraz LeNet}{27}
 \contentsline {subsection}{\numberline {3.1.1}Inwariancja}{27}
 \contentsline {subsection}{\numberline {3.1.2}Sieci konwolucyjne}{28}
 \contentsline {subsection}{\numberline {3.1.3}Pooling}{29}
 \contentsline {subsection}{\numberline {3.1.4}LeNet}{29}
-\contentsline {section}{\numberline {3.2}Autoenkodery, sie\'c Hintona i Salakhudinowa}{29}
-\contentsline {section}{\numberline {3.3}Sie\'c Kryzhevskiego}{29}
-\contentsline {section}{\numberline {3.4}GoogLeNet}{29}
-\contentsline {section}{\numberline {3.5}Inne sieci}{29}
+\contentsline {section}{\numberline {3.2}Autoenkodery, sie\'c Hintona i Salakhudinowa}{30}
+\contentsline {section}{\numberline {3.3}Sie\'c Kryzhevskiego}{30}
+\contentsline {section}{\numberline {3.4}GoogLeNet}{30}
+\contentsline {section}{\numberline {3.5}Inne sieci}{30}
 \contentsline {chapter}{\numberline {4}Moja implementacja}{31}
 \contentsline {chapter}{Bibliografia}{33}

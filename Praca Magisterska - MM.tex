@@ -249,7 +249,20 @@ Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tko
 \item uczenie \textit{full-batch}, w którym mamy tylko jedn± porcjê - sk³adaj±c± siê z ca³ego zbioru.
 \end{itemize}
 
-Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku. 
+Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku.
+
+\subsection{Metaoptymalizacja}
+
+W poprzednie podsekcji przedstawili¶my sposób znalezienia optymalnego rozwi±zania w przypadku gdy zale¿no¶æ funkcji b³êdu od parametrów jest ró¿niczkowalna. Jednak czêsto w tego typu zagadnieniach mamy do czynienia tak¿e z parametrami które nie maj± tej w³a¶ciowo¶ci. Tradycyjnie nazywamy takie parametry \textit{metaparametrami}. W tego typu przypadkach najczê¶ciej sposób dzia³ania wygl±da nastêpuj±co: 
+
+\begin{enumerate}
+\item Podzielmy zbiór paramterów $\Theta$ na $\Theta_g$ i $\Theta_m$ gdzie $\Theta_g$ to parametry ze wzglêdu na które funkcja b³êdu jest ró¿niczkowalna, a $\Theta_m$ to \textit{metaparametry}. Zak³adamy, ¿e $\Theta = \Theta_g \times \Theta_m$, a tak¿e, ¿e $\Theta_m = \Theta^1_m \times \dots \times \Theta^k_m$ dla pewnego $k$ naturalnego. 
+\item Dla ka¿dego $i = 1,\dots,k$ wybierzmy skoñczony podzbiór $\bar{\Theta}^i_m$. Oznaczmy przed $grid = \bar{\Theta}^1_m \times \dots \times \bar{\Theta}^k_m$.
+\item Dla ka¿dego $g \in grid$ ustalmy kryterium oceny danego zbioru metaparametrów. Mo¿e to byæ np. warto¶æ funkcji b³êdu uzyskana przy pomocy gradientowej optymalizacji parametrów z rodziny $\Theta_g$.
+\item Dla ka¿dej warto¶ci $g \in grid$ obliczmy warto¶æ kryterium opisanego w podpunkcie 3 i jako ostateczny wybierzmy model który minimalizuje to kryterium.
+\end{enumerate}
+
+Powy¿szy schemat prezentuje tzw. algorytm \textit{grid search}. Jednak w przypadku gdy warto¶æ $|grid|$ jest du¿a - obliczenia te mog± byæ nieosi±galne ze wzglêdu na naturê obliczeniow±. W takich przypadkach stosuje siê lekko zmodyfikowany schemat nazywany \textit{random search}. W schemacie tym ustalamy pewn± liczbê $k <= |grid|$, a nastêpnie losujemy $k$ krotnie bez zwracania warto¶ci z $grid$ wybieraj±c na koñcu najlepsz± warto¶æ spo¶ród wylosowanych parametrów. O zaskakuj±cej skuteczno¶ci tego podej¶cia mo¿na poczytaæ chocia¿by w \cite{randomsearch}.
 
 \section{Sztuczne Sieci neuronowe}
 
@@ -298,7 +311,6 @@ Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
 \caption{Wykres funkcji sigmoidalnej.}
 \end{figure}
 
-
 Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \cite{TODO} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
 
 \section{Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}
@@ -319,13 +331,13 @@ Oczywi¶cie proces tworzenia takiej sieci mo¿na iterowaæ i tak np. trzecia wartst
 
 $$y^{(3)}_l = \phi_3\left(\sum_{j = 1}^{m} y_j w^{(3)}_{j, l} + w^{(3)}_{0, l}\right).$$
 
-\begin{figure}
+\begin{figure}\label{siec}
 \centering 
 \includegraphics[scale=0.7]{SiecXor.png}
 \caption{Przyk³ad architektury wartstwowej sieci typu \textit{feed-forward}. Sieæ o tej architekturze jest w stanie nauczyæ siê logicznej funkcji XOR.}
 \end{figure}
 
-Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami. Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \cite{TODO}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
+Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami. Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \ref{siec}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
 
 \begin{figure}
 \centering 
@@ -335,14 +347,14 @@ Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie sa
 
 \subsection{Wielowarstwowa sieæ neuronowa jako uniwersalny aproksymator}
 
-Opisane powy¿ej architektury nie s± oczywi¶cie jedyn± form± z³o¿enia ze sob± wielu perceptronów. £±cz± one jednak ze sob± dwie podstawowe wa¿ne cechy - prostotê parametryzacji zbiorem wag $w_{i}^{(l)}$ wraz z ogromn± zdolno¶ci± aproksymacji. O niesamowitej mo¿liwo¶ci aproksymacji przez sieci neuronowe mówi poni¿sze twierdzenie (dowód mo¿na znale¼æ \cite{aprox}).
+Opisane powy¿ej architektury nie s± oczywi¶cie jedyn± form± z³o¿enia ze sob± wielu perceptronów. £±cz± one jednak ze sob± dwie podstawowe wa¿ne cechy - prostotê parametryzacji zbiorem wag $w_{i}^{(l)}$ wraz z ogromn± zdolno¶ci± aproksymacji. O niesamowitej mo¿liwo¶ci aproksymacji przez sieci neuronowe mówi poni¿sze twierdzenie (dowód mo¿na znale¼æ np. tu \cite{cybenko}).
 
 \begin{twierdzenie}
 Niech $f : \mathbb{R}^{n} \rightarrow \mathbb{R}$ bêdzie dowoln± funkcj± ci±g³± o zwartym no¶niku. Dla ka¿dego $\epsilon > 0$ istnieje wówczas dwuwarstwowa sieæ neuronowa $f^* :  \mathbb{R}^{n} \rightarrow \mathbb{R}$ z sigmoidaln± funkcj± aktywacji dla której :
 $$\sup_{x\in \mathrm{supp}f} \left|f(x) - f^*(x)\right|\leq \epsilon.$$
 \end{twierdzenie}
 
-Powy¿sze twierdzenie mówi nam o problemie regresji funkcji g³adkich. Analogiczne twierdzenie (\cite{aprox2}) mówi nam, ¿e dowolny problem klasyfikacji da siê rozwi±zaæ z dowoln± dok³adno¶ci± przy pomocy trójwarstwowej sieci neuronowej. 
+Powy¿sze twierdzenie mówi nam o problemie regresji funkcji g³adkich. Analogiczne twierdzenie (\cite{hornik}) mówi nam, ¿e dowolny problem klasyfikacji da siê rozwi±zaæ z dowoln± dok³adno¶ci± przy pomocy trójwarstwowej sieci neuronowej. 
 
 W³asno¶æ uniwersalnej aproksymacji daje nam gwarancjê, ¿e dla ka¿dego problemu, znajdziemy sieæ neuronow± która rozwi±zuje go z dowoln± dok³adno¶ci±. Nie nale¿y jednak przeceniaæ jej znaczenia - ich dowody nie przedstawiaj± nam ¿adnej skutecznej metody do znajdowania architektury oraz odpowiednich parametrów sieci.
 
@@ -483,11 +495,13 @@ J_\mathcal{X}(\Theta) + \lVert\Theta\rVert_{1}.$$
 
 Analogicznie jak w poprzednim przypadku, mo¿emy potraktowaæ dodatkowy sk³adnik jako do³o¿enie Bayesowskiego za³o¿enia o rozk³adzie parametru wedle wzoru :
 
-$$\theta \sim \mathcal{L}\left(0, 1\right).$$
+$$\theta \sim \mathcal{L}\left(0, 1\right),$$
+
+gdzie przez $\mathcal{L}(a,b)$ oznaczamy rozk³ad Laplace'a z parametrami $a,b$.
 
 \subsection{Czym ró¿ni± siê powy¿sze kary?}
 
-Warto wspomnieæ o dosyæ powa¿nych koncepcyjnych ró¿nicach pomiêdzy powy¿szymi wagami. Udowodniono bowiem numerycznie \cite{lasso}, ¿e o ile kara $\lVert\Theta\rVert_{2}$ stara siê niedopuszczaæ aby warto¶ci $\theta_i$ by³y wyra¼nie wiêksze od $0$ (funkcja kwadratowa ro¶nie szybko dla liczb $\gg\ 1$, o tyle kara $\lVert\Theta\rVert_{1}$ sprawia, ¿e znacznie czê¶ciej du¿a czê¶æ parametrów zbiór parametrów $\theta_i$ jest zaniedbywalnie wiêksza od $0$. Dlatego te¿ tê drug± metodê zwyk³o nazywaæ siê metod± \textit{lasso} i czêsto stosuje siê j± do eliminacji zbêdnych parametrów, poprzez odrzucenie tych dla których w wyniku uczenia warto¶ci otrzymane spe³nia³y $\theta \approx 0$.
+Warto wspomnieæ o dosyæ powa¿nych koncepcyjnych ró¿nicach pomiêdzy powy¿szymi wagami. Przyjmuje siê (\cite{lasso}), ¿e o ile kara $\lVert\Theta\rVert_{2}$ stara siê niedopuszczaæ aby warto¶ci $\theta_i$ by³y wyra¼nie wiêksze od $0$ (funkcja kwadratowa ro¶nie szybko dla liczb $\gg\ 1$, o tyle kara $\lVert\Theta\rVert_{1}$ sprawia, ¿e znacznie czê¶ciej du¿a czê¶æ parametrów zbiór parametrów $\theta_i$ jest zaniedbywalnie wiêksza od $0$. Dlatego te¿ tê drug± metodê zwyk³o nazywaæ siê metod± \textit{lasso} i czêsto stosuje siê j± do eliminacji zbêdnych parametrów, poprzez odrzucenie tych dla których w wyniku uczenia warto¶ci otrzymane spe³nia³y $\theta \approx 0$.
 
 \subsection{Intuicje dotycz±ce warstw sieci neuronowych}
 
@@ -519,9 +533,14 @@ Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-f
 
 \subsubsection{G³êboka hierarchiczna struktura przyczyn± sukcesu algorytmów z rodziny Deep Learning}
 
-Dziêki intuicyjnemu zrozumieniu na czym polega schemat dzia³ania sieci neuronowych, mo¿emy teraz opisaæ jedn± z przyczyn dla których algorytmy z rodziny algorytmów \textit{deep learning} odnios³y w ostatnim czasie tak ogromny sukces. Istnieje bowiem uzasadniona hipoteza \cite{deeprep}, ¿e wiele problemów, z którymi borykaj± siê specjali¶ci uczenia maszynowego wymaga stworzenia odpowiedniej \textit{g³êbokiej} hierarchii cech, koniecznej do stworzenia skutecznego rozwi±zania.
+Przyjmuje siê, ¿e podstawow± przyczyn± ogromnego sukcesu g³êbokich sieci jest efektywna umiejêtno¶æ uchwycania hierarchicznych struktur wiedzy, która stanowi podstawê kompleksowo¶ci wielu z najwa¿niejszych wspó³cze¶nie problemów \textit{machine learning'owych} (\cite{bengio}). Prawid³owe zrozumienie rz±dz±cych tym prawide³ to nadal wielkie wyzwanie dla badaczy zajmuj±cych siê sztuczn± inteligencj±. Mo¿emy jednak na kilku przyk³adach przyjrzeæ siê dlaczego uchwycenie takiej struktury mo¿e okazaæ siê zbawienne dla efektywnego nauczenia modelu dla wielu wa¿nych zagadnieñ wspó³czesnego \textit{AI}:
 
-Wed³ug badañ \cite{badania} problemy zwi±zane z zagadnieniami wizji komputerowej oraz rozpoznawania d¼wiêku wymagaj± architektury o g³êboko¶ci conajmniej 7. Bardziej zwi±zane 
+\begin{itemize}
+\item Wiedza opisuj±ca np. rozpoznawanie twarzy ma hierarchiczn± strukturê. Podstawowe pojêcia takie jak kreski, ³uki, zabarwienia - s³u¿± do budowania bardziej z³o¿onych pojêæ takich jak oczy, policzki - które z kolei tworz± rozmaite rysy, twarze charakterystyczne dla rasy, p³ci, etc. 
+\item Wiedza opisuj±ca rozpoznawanie mowy równie¿ ma podobn± strukturê - Podstawowe pojêcia tj. g³oski bior± udzia³ w tworzeniu fonemów, które sk³adaj± siê na s³owa tworz±ce zdania etc.
+\end{itemize}
+
+Przyjmuje siê, ¿e w³a¶nie taka postaæ wiedzy - naturalnie uchwycana przez model o hierarchicznej strukturze - stanowi podstawê sukcesów \textit{g³êbokich sieci}. W codziennej praktyce czêsto potwierdza siê - ¿e modele takie nie dzia³aj± tak efektywnie dla problemów o prostszej strukturze - chocia¿by ze wzglêdu na z³o¿ono¶æ przestrzeni parametrów, a tak¿e - z³o¿ono¶æ obliczeniow± procesu uczenia.
 
 \chapter{Rozwój metod uczenia}
 
@@ -550,7 +569,7 @@ Aby zrozumieæ skalê problemu, spróbujmy sobie wyobraziæ przypadek w którym chcie
 
 \subsection{Sieci konwolucyjne}
 
-Sieci konwolucyjne to wynaleziona w TODO przez Yana LeCuna oraz Geoffrey'a Hintona architektura, która pozwala uchwyciæ inawariancjê ze wzglêdu na translacje w obrêbie wektora wej¶æ. Matematyczna struktura stoj±ca za sieciami konwolucyjnymi jest banalnie prosta. Oznaczmy przez $P_{i_{1}, i_{2}, \dots. i_{k}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, gdzie $n \geq k$ operator rzutowania, tzn. 
+Sieci konwolucyjne to opisana w \cite{conv} i rozwiniêta przez Yana LeCuna oraz Geoffrey'a Hintona architektura, która pozwala uchwyciæ inawariancjê ze wzglêdu na translacje w obrêbie wektora wej¶æ. Matematyczna struktura stoj±ca za sieciami konwolucyjnymi jest banalnie prosta. Oznaczmy przez $P_{i_{1}, i_{2}, \dots. i_{k}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, gdzie $n \geq k$ operator rzutowania, tzn. 
 
 $$P_{i_{1}, i_{2}, \dots. i_{k}}\left(x_{1}, x_{2}, \dots, x_{n}\right) = \left(x_{i_1}, x_{i_2}, \dots, x_{i_k}\right).$$
 
@@ -567,16 +586,23 @@ Zwróæmy uwagê, ¿e powy¿sz± warstwê mo¿na zinterpretowaæ jako warstwê w której ka
 
 Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo ogólna. W szczególno¶ci nie do koñca jasnym mo¿e byæ sk±d wziê³o siê okre¶lenie sieci jako \textit{konwolucyjnej}. Pewnym wyt³umaczeniem mog± byæ poni¿sze przyk³ady obrazuj±ce dwa historyczne przyk³ady pierwszych topologii konwolucyjnych.
 
-TODO - przyk³ad linia
-TODO - przyk³ad p³aszczyzna
+\begin{figure}
+\centering 
+\includegraphics[scale=0.7]{2d_conv.png}
+\caption{Przyk³ad dwuwymiarowej sieci konwolucyjnej. Obliczenia mo¿na interpretowaæ jako z³o¿enie splotu wag $w_1,\dots,w_n$ z warto¶ciami z dwuwymiarowej macierzy oraz funkcji aktywacji.}
+\end{figure}
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.7]{1d_conv.png}
+\caption{Przyk³ad dwuwymiarowej sieci konwolucyjnej. Obliczenia mo¿na interpretowaæ jako z³o¿enie splotu wag $w_1,\dots,w_n$ z warto¶ciami z wektora oraz funkcji aktywacji.}
+\end{figure}
 
 Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadzi to do uczenia inwariantnych ze wzglêdu na translacje cech z innych inwariantnych na przesuniêcia konceptów nauczonych przez ni¿sze warstwy. 
 
 \subsection{Pooling}
 
-Zauwa¿my, ¿e jedna warstwa sieci neuronowej mo¿e sk³adaæ siê z wielu warstw konwolucyjnych. Intuicyjnie odpowiada to uczeniu przez sieæ wielu rodzajów inwariantnych cech na danym poziomie. Jednak je¶li dla ka¿dej z tych warstw, moc zbioru rzutowañ bêdzie du¿a, mo¿e to doprowadziæ do powstania warstwy z ogromn± ilo¶ci± neuronów. Aby tego unikn±æ postanowiono automatycznie rozszerzyæ ka¿d± warstwê konwolucyjn± o automatycznie z³o¿on± z ni± kolejn±, zazwyczaj nieparametryczn±, warstwê konwolucyjn± o znaczenia mniejszej ilo¶ci neuronów, a tak¿e posiadaj±c± tê w³asno¶æ, ¿e rzutowania j± generuj±ce s± parami roz³±czne, zwan± warstw± \textit{poolingu}. Pozwala to znacznie zmniejszyæ ilo¶æ informacji trzymanej w pamiêci (obliczenia mo¿na dystrybuowaæ tak, aby w danym momencie trzymaæ informacjê tylko z rzutowañ po³±czonych z ustalon± jednostk± z warstwy \textit{poolingu}), a tak¿e zmniejsza ilo¶æ neuronów przekazywanych do kolejnej warstwie. 
-
-TODO : Rysunek, warstwa poolingu.
+Zauwa¿my, ¿e jedna warstwa sieci neuronowej mo¿e sk³adaæ siê z wielu warstw konwolucyjnych. Intuicyjnie odpowiada to uczeniu przez sieæ wielu rodzajów inwariantnych cech na danym poziomie. Jednak je¶li dla ka¿dej z tych warstw, moc zbioru rzutowañ bêdzie du¿a, mo¿e to doprowadziæ do powstania warstwy z ogromn± ilo¶ci± neuronów. Aby tego unikn±æ postanowiono automatycznie rozszerzyæ ka¿d± warstwê konwolucyjn± o automatycznie z³o¿on± z ni± kolejn±, zazwyczaj nieparametryczn±, warstwê konwolucyjn± o znaczenia mniejszej ilo¶ci neuronów, a tak¿e posiadaj±c± tê w³asno¶æ, ¿e rzutowania j± generuj±ce s± parami roz³±czne, zwan± warstw± \textit{poolingu}. Pozwala to znacznie zmniejszyæ ilo¶æ informacji trzymanej w pamiêci (obliczenia mo¿na dystrybuowaæ tak, aby w danym momencie trzymaæ informacjê tylko z rzutowañ po³±czonych z ustalon± jednostk± z warstwy \textit{poolingu}), a tak¿e zmniejsza ilo¶æ neuronów przekazywanych do kolejnej warstwie.
 
 \subsection{LeNet}
 
@@ -665,7 +691,22 @@ CoRR, 2014
 \bibitem{minibatch}
 Efficient mini-batch training for stochastic optimization,
 Mu Li, et al.,
-Proceedings of the 20th ACM SIGKDD international conference on Knowledge discovery and data mining, Pages 661-670 
+Proceedings of the 20th ACM SIGKDD international conference on Knowledge discovery and data mining, 661-670 
+
+\bibitem{randomsearch}
+Random Search for Hyper-Parameter Optimization,
+J. Bergstra, Y. Bengio,
+Journal of Machine Learning Research 13 (2012) 281-305
+
+\bibitem{lasso}
+Regression Shrinkage and Selection via the lasso,
+R. Tibshirani,
+Journal of the Royal Statistical Society. Series B (methodological) 58 (1). Wiley: 267?88
+
+\bibitem{bengio}
+Learning Deep Architectures for AI,
+Y. Bengio,
+Foundations and Trends in Machine Learning Vol. 2, No. 1 (2009) 1?127
 
 \end{thebibliography}
 
