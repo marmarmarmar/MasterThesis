@@ -113,7 +113,7 @@ Przez kolejne lata badacze rozwijaj±cy algorytmy zwi±zane z sieciami neuronowymi
 
 Jednak wprowadzenie nieliniowych tzw. funkcji aktywacji rodzi inne problemy - jak mianowicie skutecznie przeprowadziæ proces uczenia naszego modelu gdy analityczne rozwi±zania na ogó³ s± nieosi±galne? I tutaj pomoc przysz³a z najmniej spodziewanej strony, a mianowicie pochodz±cej z klasycznego rachunku prawdopodobieñstwa regu³y ³añcuchowej. Algorytm, (Rumelhart et al. \cite{backprop}) którego istota dzia³ania polega na obliczeniach gradientu b³êdu, a nastêpnie aktualizowania odpowiednich parametrów na podstawie ich wp³ywu na omylno¶æ modelu (wp³yw ten jest oblicznany w³a¶nie przez regu³ê ³añcuchow±) przyniós³ fantastyczne rezultaty. Ze wzglêdu na to, ¿e b³±d obliczany przy dzia³aniu sieci, propaguje siê nastêpnie na odpowiednie parametry, nazwano go algorytmem wstecznej propagacji.
 
-Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{backprop, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. (TODO Vapnik vs ..) Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
+Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{backprop, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. (\cite{vapnik-bet}) Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
 
 \section{Dlaczego sieci ponownie zawiod³y?}
 
@@ -169,7 +169,7 @@ Przez uczenie bez nadzoru bêdziemy rozumieæ tak± formê uczenia, w której $\Theta
 
 \begin{przyklad}
 
-Poni¿ej przedstawimy przyk³ad tzw. uczenia rozmaito¶ci (\textit{manifold learning} TODO - cite manifold learning) metod± t-SNE. W przyk³adzie tym:
+Poni¿ej przedstawimy przyk³ad tzw. uczenia rozmaito¶ci (\textit{manifold learning} \cite{manifold-learning}) metod± t-SNE. W przyk³adzie tym:
 $$\mathcal{X} = \left\{x_1, x_2, \dots, x_k \right\} \subset \mathbb{R}^{n},$$
 oraz
 $$\Theta = \left\{\left\{\theta_1, \theta_2, \dots, \theta_k\right\} : \theta_1, \theta_2, \dots, \theta_k \in \mathbb{R}^{m}\right\}.$$
@@ -177,7 +177,7 @@ $$\Theta = \left\{\left\{\theta_1, \theta_2, \dots, \theta_k\right\} : \theta_1,
 Aby zdefiniowaæ funkcjê b³êdu potrzebne bêd± nam pomocnicze wyra¿enia:
 
 $$p_{j|i} = \frac{exp\left(-||x_i - x_j||^2/2\sigma_i^2\right)}{\sum_{k\neq i}
-exp\left(-||x_i - x_k||^2\/2\sigma_i^2\right)},$$
+exp\left(-||x_i - x_k||^2/2\sigma_i^2\right)},$$
 
 $$p_{ij} = \frac{p_{j|i} + p_{i|j}}{2},$$
 
@@ -221,7 +221,7 @@ Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± 
 
 \subsection{Optymalizacja gradientowa}
 
-Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm (TODO - cite vanilla gradient descent).
+Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm (\cite{gradient-descents}).
 
 \begin{algorithm}
   \KwData{Zbiór danych $\mathcal{X}$, rodzina modeli $\Theta$ parametryzowana przez argumenty $\theta_1, \theta_2, \dots, \theta_n$ oraz ró¿niczkowalna funkcja b³êdu $J_\mathcal{X}$.}
@@ -237,7 +237,7 @@ Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algory
 \end{algorithm}
 
 Oczywi¶cie powy¿szy schemat zosta³ uproszczony w celu uchwycenia g³ównej idei. Zgodnie z matematycznym faktem, który mówi, ¿e gradient wyznacza kierunek najwy¿szego wzrostu, pod±¿anie w kierunku przeciwnym do wyznaczonego przez niego jest to¿same pod±¿aniu w kierunku najwiêkszego spadku. 
-Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} (ang. \textit{learning rate}) i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji \cite{adam} TODO - cite nadam.
+Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} (ang. \textit{learning rate}) i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji (\cite{adam} \cite{nadam}).
 Warunek stopu wystêpuj±cy w warunku pêtli natomiast najczê¶ciej ustalany jest jako zej¶cie warto¶ci funkcji kosztu $J_\mathcal{X}$ poni¿ej pewnej ustalonej warto¶ci $\epsilon$ lub brak dostatecznej poprawy (wzglêdnej lub bezwzglêdnej) w stosunku do warto¶ci obliczonej w poprzedniej iteracji. 
 
 \subsection{Stochastyczna optymalizacja gradientowa}
@@ -249,7 +249,7 @@ Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tko
 \item uczenie \textit{full-batch}, w którym mamy tylko jedn± porcjê - sk³adaj±c± siê z ca³ego zbioru.
 \end{itemize}
 
-Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku TODO cite fajny paper o ma³ym batchu.
+Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku (\cite{loss-landscapes}).
 
 \subsection{Metaoptymalizacja}
 
@@ -262,7 +262,7 @@ W poprzednie podsekcji przedstawili¶my sposób znalezienia optymalnego rozwi±zani
 \item Dla ka¿dej warto¶ci $g \in grid$ obliczmy warto¶æ kryterium opisanego w podpunkcie 3 i jako ostateczny wybierzmy model który minimalizuje to kryterium.
 \end{enumerate}
 
-Powy¿szy schemat prezentuje tzw. algorytm \textit{grid search} (TODO cite grid search). Jednak w przypadku gdy warto¶æ $|grid|$ jest du¿a - obliczenia te mog± byæ nieosi±galne ze wzglêdu na naturê obliczeniow±. W takich przypadkach stosuje siê lekko zmodyfikowany schemat nazywany \textit{random search}. W schemacie tym ustalamy pewn± liczbê $k <= |grid|$, a nastêpnie losujemy $k$ krotnie bez zwracania warto¶ci z $grid$ wybieraj±c na koñcu najlepsz± warto¶æ spo¶ród wylosowanych parametrów. O zaskakuj±cej skuteczno¶ci tego podej¶cia mo¿na poczytaæ chocia¿by w \cite{randomsearch}.
+Powy¿szy schemat prezentuje tzw. algorytm \textit{grid search}. Jednak w przypadku gdy warto¶æ $|grid|$ jest du¿a - obliczenia te mog± byæ nieosi±galne ze wzglêdu na naturê obliczeniow±. W takich przypadkach stosuje siê lekko zmodyfikowany schemat nazywany \textit{random search}. W schemacie tym ustalamy pewn± liczbê $k <= |grid|$, a nastêpnie losujemy $k$ krotnie bez zwracania warto¶ci z $grid$ wybieraj±c na koñcu najlepsz± warto¶æ spo¶ród wylosowanych parametrów. O zaskakuj±cej skuteczno¶ci tego podej¶cia mo¿na poczytaæ chocia¿by w \cite{randomsearch}.
 
 \section{Sztuczne Sieci neuronowe}
 
@@ -274,7 +274,7 @@ Badania naukowców i neurobiologów nad dzia³aniem ludzkiego mózgu trwaj± od nie z
 
 \subsection{Regresja logistyczna}
 
-Jednym z najpopularniejszych algorytmów uczenia maszynowego jest aktualnie algorytm tzw. \textit{regresji logistycznej} TODO cite logistic regression. Z naszej strony jest on interesujacy poniewa¿ mo¿emy interpretowaæ go jako pojedynczy obliczeniowy neuron. Zacznijmy jednak od formalnej definicji:
+Jednym z najpopularniejszych algorytmów uczenia maszynowego jest aktualnie algorytm tzw. \textit{regresji logistycznej} (\cite{logistic-regression}). Z naszej strony jest on interesujacy poniewa¿ mo¿emy interpretowaæ go jako pojedynczy obliczeniowy neuron. Zacznijmy jednak od formalnej definicji:
 
 \begin{defi}
 Modelem regresji logistycznej parametryzowanej wektorem $\left(\theta_0, \theta_1, \dots, \theta_n\right)$ bêdziemy nazywali funkcjê $f : \mathbb{R}^n \rightarrow (0,1)$ zadan± wzorem:
@@ -337,7 +337,7 @@ $$y^{(3)}_l = \phi_3\left(\sum_{j = 1}^{m} y_j w^{(3)}_{j, l} + w^{(3)}_{0, l}\r
 \caption{Przyk³ad architektury wartstwowej sieci typu \textit{feed-forward}. Sieæ o tej architekturze jest w stanie nauczyæ siê logicznej funkcji XOR.}
 \end{figure}
 
-Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami (ang. \textit{skip-connections} TODO cite skip connections). Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \ref{siec}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
+Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami (ang. \textit{skip-connections} \cite{skip-connections}). Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \ref{siec}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
 
 \begin{figure}
 \centering 
@@ -518,7 +518,7 @@ Powy¿szy dowód uznajê za warto¶ciowy z dwóch powodów :
 
 \begin{enumerate}
 \item Pokazuje jak wielowarstwowa sieæ neuronowa koduje hierarchiczny zbiór cech, który nastêpnie wykorzystuje do budowania ostatecznego rozwi±zania.
-\item W zwi±zku ze sw± ide± pokazuje, ¿e niekonstruktywne dowody w³asno¶ci uniwersalnej aproksymacji opieraj± siê li tylko na budowaniu lokalnych przybli¿eñ ostatecznego rozwi±znia, co koniec koñców mo¿e doprowadziæ do tzw. \textit{przekleñstwa wymiarowo¶ci} (ang. \textit{curse of dimensionality} TODO cite curse of dimensionality). 
+\item W zwi±zku ze sw± ide± pokazuje, ¿e niekonstruktywne dowody w³asno¶ci uniwersalnej aproksymacji opieraj± siê li tylko na budowaniu lokalnych przybli¿eñ ostatecznego rozwi±znia, co koniec koñców mo¿e doprowadziæ do tzw. \textit{przekleñstwa wymiarowo¶ci} (ang. \textit{curse of dimensionality} \cite{curse-of-dimensionality}). 
 \end{enumerate}
 
 Oba powy¿sze wnioski rozwiniemy w kolejnych rozdzia³ach.
@@ -527,16 +527,20 @@ Oba powy¿sze wnioski rozwiniemy w kolejnych rozdzia³ach.
 
 Idea dzia³ania sieci opiera siê na budowaniu opisanej w poprzedniej podsekcji - struktury \textit{cech} potrzebnych do rozwi±zania zadanego problemu. Z jednej strony - stanowi to klucz do zrozumienia ogromnego sukcesu sieci neuronowych w ostatnim czasie. Fakt, ¿e jeden spójny algorytm uczenia mo¿e wyrêczyæ badacza z wyszukiwania cech niezbêdnych do rozwi±zania danego problemu (np. przy wspomnianym we wstêpie zagadnieniu rozpoznawania obrazu ekstrakcja takich cech by³a przez wiele lat ciê¿k± i dobrze p³atn± prac±), przerzucaj±c ciê¿ar pracy na zaprojektowanie odpowiedniej architektury sieci, funkcji kosztu dla procesu optymalizacji, a potem na moc obliczeniow± wspó³czesnych komputerów. Widzimy zatem, ¿e automatycznie budowany zbiór cech stanowi klucz do zrozumienia dzia³ania wielowarstwowych sieci neuronowych.
 
-W klasycznych warstwowych sieciach neuronowych typu \textit{feed-forward} zbiór tych cech stanowi hierarchiczny konglomerat cech, w którym cechy reprezentowane w danej warstwie tworzone s± przez transfomacj cech reprezentowanych w warstwie poprzedniej. Jeden z przyk³adów takiej hierarchiczo¶ci przedstawi³em w szkicu dowodu aproksymacyjnego z poprzedniej podsekcji.  
+W klasycznych warstwowych sieciach neuronowych typu \textit{feed-forward} zbiór tych cech stanowi hierarchiczny konglomerat cech, w którym cechy reprezentowane w danej warstwie tworzone s± przez transfomacj cech reprezentowanych w warstwie poprzedniej (\ref{cnn-feat}, \cite{zeiler-fergus}). Jeden z przyk³adów takiej hierarchiczo¶ci przedstawi³em w szkicu dowodu aproksymacyjnego z poprzedniej podsekcji.  
 
-Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy. Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag (TODO - cite unfolding RNN).
+Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy. Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag (\cite{unfolding-rnn}).
 
-TODO - poka¿ rysunek z warstwami CNN.
-TODO - dodaj jego cytowanie w teksæie
+\begin{figure}\label{cnn-feat}
+\centering 
+\includegraphics[scale=0.48]{zeilercnnfeatures.jpeg}
+\caption{Wizualizacja cech wyuczonych przez tzw. konwolucyjn± sieæ neuronow±  z \cite{zeiler-fergus}.}
+\end{figure}
+
 
 \subsubsection{G³êboka hierarchiczna struktura przyczyn± sukcesu algorytmów z rodziny Deep Learning}
 
-Przyjmuje siê, ¿e podstawow± przyczyn± ogromnego sukcesu g³êbokich sieci jest efektywna umiejêtno¶æ uchwycania hierarchicznych struktur wiedzy, która stanowi podstawê kompleksowo¶ci wielu z najwa¿niejszych wspó³cze¶nie problemów \textit{machine learning'owych} (\cite{bengio}). Prawid³owe zrozumienie rz±dz±cych tym prawide³ to nadal wielkie wyzwanie dla badaczy zajmuj±cych siê sztuczn± inteligencj±. Mo¿emy jednak na kilku przyk³adach przyjrzeæ siê dlaczego uchwycenie takiej struktury mo¿e okazaæ siê zbawienne dla efektywnego nauczenia modelu dla wielu wa¿nych zagadnieñ wspó³czesnego \textit{AI} (TODO - cite hierarchical structures for DL):
+Przyjmuje siê, ¿e podstawow± przyczyn± ogromnego sukcesu g³êbokich sieci jest efektywna umiejêtno¶æ uchwycania hierarchicznych struktur wiedzy, która stanowi podstawê kompleksowo¶ci wielu z najwa¿niejszych wspó³cze¶nie problemów \textit{machine learning'owych} (\cite{bengio}). Prawid³owe zrozumienie rz±dz±cych tym prawide³ to nadal wielkie wyzwanie dla badaczy zajmuj±cych siê sztuczn± inteligencj±. Mo¿emy jednak na kilku przyk³adach przyjrzeæ siê dlaczego uchwycenie takiej struktury mo¿e okazaæ siê zbawienne dla efektywnego nauczenia modelu dla wielu wa¿nych zagadnieñ wspó³czesnego \textit{AI} (\cite{hierarchical}):
 
 \begin{itemize}
 \item Wiedza opisuj±ca np. rozpoznawanie twarzy ma hierarchiczn± strukturê. Podstawowe pojêcia takie jak kreski, ³uki, zabarwienia - s³u¿± do budowania bardziej z³o¿onych pojêæ takich jak oczy, policzki - które z kolei tworz± rozmaite rysy, twarze charakterystyczne dla rasy, p³ci, etc. 
@@ -721,6 +725,58 @@ Proceedings  of  the  28th International  Conference  on  Machine  Learning,  Be
 Dialogi,
 S. Lem,
 Wydawnictwo Literackie 1957 
+
+\bibitem{vapnik-bet}
+https://www.wired.com/2014/08/deep-learning-yann-lecun/
+
+\bibitem{manifold-learning}
+Manifold Learning: The Price of Normalization,
+Y. Goldberg et al.,
+Journal of Machine Learning Research 9 (2008) 1909-1939
+
+\bibitem{gradient-descents}
+An overview of gradient descent optimization algorithms,
+http://ruder.io/optimizing-gradient-descent/
+
+\bibitem{nadam}
+Incorporating Nesterov Momentum into Adam,
+T. Dozat,
+Stanford CS 229 Projects - 2015
+
+\bibitem{loss-landscapes}
+Towards Understanding Generalization of Deep
+Learning: Perspective of Loss Landscapes,
+L. Wu et al.,
+https://arxiv.org/pdf/1706.10239.pdf
+
+\bibitem{logistic-regression}
+The regression analysis of binary sequences (with discussion),
+Cox, DR,
+J Roy Stat Soc B. 20: 215 - 242 1958
+
+\bibitem{skip-connections}
+Skip Connections Eliminate Singularities,
+A. E. Orhan, Xaq Pitkow,
+arXiv:1701.09175
+
+\bibitem{curse-of-dimensionality}
+Nearest Neighbour Searches and the Curse of Dimensionality,
+R. B. Marimont M. B. Shapiro,
+IMA Journal of Applied Mathematics, Volume 24, Issue 1, 1 August 1979, Pages 59-70
+
+\bibitem{unfolding-rnn}
+Generalization of Back-Propagation to Recurrent Neural Networks,
+F. J. Pineda,
+
+\bibitem{zeiler-fergus}
+Visualizing and Understanding Convolutional Networks,
+M. D. Zeiler, R. Fergus,
+arXiv:1311.2901
+
+\bibitem{hierarchical}
+Learning hierarchical categories in deep neural networks,
+A. M. Saxe et al.,
+Proceedings of the 35th annual meeting of the Cognitive Science Society. (pp. 1271-1276), 2013
 
 \end{thebibliography}
 
