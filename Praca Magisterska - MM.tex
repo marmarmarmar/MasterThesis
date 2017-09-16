@@ -169,15 +169,15 @@ Przez uczenie bez nadzoru bêdziemy rozumieæ tak± formê uczenia, w której $\Theta
 
 \begin{przyklad}
 
-Poni¿ej przedstawimy przyk³ad tzw. uczenia rozmaito¶ci (\textit{manifold learning}) metod± t-SNE. W przyk³adzie tym:
+Poni¿ej przedstawimy przyk³ad tzw. uczenia rozmaito¶ci (\textit{manifold learning} TODO - cite manifold learning) metod± t-SNE. W przyk³adzie tym:
 $$\mathcal{X} = \left\{x_1, x_2, \dots, x_k \right\} \subset \mathbb{R}^{n},$$
 oraz
 $$\Theta = \left\{\left\{\theta_1, \theta_2, \dots, \theta_k\right\} : \theta_1, \theta_2, \dots, \theta_k \in \mathbb{R}^{m}\right\}.$$
 
 Aby zdefiniowaæ funkcjê b³êdu potrzebne bêd± nam pomocnicze wyra¿enia:
 
-$$p_{j|i} = \frac{exp\left(-||x_i - x_j||^2\right)/2\sigma_i^2}{\sum_{k\neq i}
-exp\left(-||x_i - x_k||^2\right)/2\sigma_i^2},$$
+$$p_{j|i} = \frac{exp\left(-||x_i - x_j||^2/2\sigma_i^2\right)}{\sum_{k\neq i}
+exp\left(-||x_i - x_k||^2\/2\sigma_i^2\right)},$$
 
 $$p_{ij} = \frac{p_{j|i} + p_{i|j}}{2},$$
 
@@ -221,7 +221,7 @@ Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± 
 
 \subsection{Optymalizacja gradientowa}
 
-Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm.
+Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm (TODO - cite vanilla gradient descent).
 
 \begin{algorithm}
   \KwData{Zbiór danych $\mathcal{X}$, rodzina modeli $\Theta$ parametryzowana przez argumenty $\theta_1, \theta_2, \dots, \theta_n$ oraz ró¿niczkowalna funkcja b³êdu $J_\mathcal{X}$.}
@@ -237,7 +237,7 @@ Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algory
 \end{algorithm}
 
 Oczywi¶cie powy¿szy schemat zosta³ uproszczony w celu uchwycenia g³ównej idei. Zgodnie z matematycznym faktem, który mówi, ¿e gradient wyznacza kierunek najwy¿szego wzrostu, pod±¿anie w kierunku przeciwnym do wyznaczonego przez niego jest to¿same pod±¿aniu w kierunku najwiêkszego spadku. 
-Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji \cite{adam}.
+Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} (ang. \textit{learning rate}) i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji \cite{adam} TODO - cite nadam.
 Warunek stopu wystêpuj±cy w warunku pêtli natomiast najczê¶ciej ustalany jest jako zej¶cie warto¶ci funkcji kosztu $J_\mathcal{X}$ poni¿ej pewnej ustalonej warto¶ci $\epsilon$ lub brak dostatecznej poprawy (wzglêdnej lub bezwzglêdnej) w stosunku do warto¶ci obliczonej w poprzedniej iteracji. 
 
 \subsection{Stochastyczna optymalizacja gradientowa}
@@ -249,7 +249,7 @@ Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tko
 \item uczenie \textit{full-batch}, w którym mamy tylko jedn± porcjê - sk³adaj±c± siê z ca³ego zbioru.
 \end{itemize}
 
-Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku.
+Co warte podkre¶lenia, losowanie tych danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych (\cite{minibatch}) przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednio (poniewa¿ \textit{de facto} próbkujemy nasz zbiór danych) uzyskamy krok w dobrym kierunku TODO cite fajny paper o ma³ym batchu.
 
 \subsection{Metaoptymalizacja}
 
@@ -262,7 +262,7 @@ W poprzednie podsekcji przedstawili¶my sposób znalezienia optymalnego rozwi±zani
 \item Dla ka¿dej warto¶ci $g \in grid$ obliczmy warto¶æ kryterium opisanego w podpunkcie 3 i jako ostateczny wybierzmy model który minimalizuje to kryterium.
 \end{enumerate}
 
-Powy¿szy schemat prezentuje tzw. algorytm \textit{grid search}. Jednak w przypadku gdy warto¶æ $|grid|$ jest du¿a - obliczenia te mog± byæ nieosi±galne ze wzglêdu na naturê obliczeniow±. W takich przypadkach stosuje siê lekko zmodyfikowany schemat nazywany \textit{random search}. W schemacie tym ustalamy pewn± liczbê $k <= |grid|$, a nastêpnie losujemy $k$ krotnie bez zwracania warto¶ci z $grid$ wybieraj±c na koñcu najlepsz± warto¶æ spo¶ród wylosowanych parametrów. O zaskakuj±cej skuteczno¶ci tego podej¶cia mo¿na poczytaæ chocia¿by w \cite{randomsearch}.
+Powy¿szy schemat prezentuje tzw. algorytm \textit{grid search} (TODO cite grid search). Jednak w przypadku gdy warto¶æ $|grid|$ jest du¿a - obliczenia te mog± byæ nieosi±galne ze wzglêdu na naturê obliczeniow±. W takich przypadkach stosuje siê lekko zmodyfikowany schemat nazywany \textit{random search}. W schemacie tym ustalamy pewn± liczbê $k <= |grid|$, a nastêpnie losujemy $k$ krotnie bez zwracania warto¶ci z $grid$ wybieraj±c na koñcu najlepsz± warto¶æ spo¶ród wylosowanych parametrów. O zaskakuj±cej skuteczno¶ci tego podej¶cia mo¿na poczytaæ chocia¿by w \cite{randomsearch}.
 
 \section{Sztuczne Sieci neuronowe}
 
@@ -274,7 +274,7 @@ Badania naukowców i neurobiologów nad dzia³aniem ludzkiego mózgu trwaj± od nie z
 
 \subsection{Regresja logistyczna}
 
-Jednym z najpopularniejszych algorytmów uczenia maszynowego jest aktualnie algorytm tzw. \textit{regresji logistycznej}. Z naszej strony jest on interesujacy poniewa¿ mo¿emy interpretowaæ go jako pojedynczy obliczeniowy neuron. Zacznijmy jednak od formalnej definicji:
+Jednym z najpopularniejszych algorytmów uczenia maszynowego jest aktualnie algorytm tzw. \textit{regresji logistycznej} TODO cite logistic regression. Z naszej strony jest on interesujacy poniewa¿ mo¿emy interpretowaæ go jako pojedynczy obliczeniowy neuron. Zacznijmy jednak od formalnej definicji:
 
 \begin{defi}
 Modelem regresji logistycznej parametryzowanej wektorem $\left(\theta_0, \theta_1, \dots, \theta_n\right)$ bêdziemy nazywali funkcjê $f : \mathbb{R}^n \rightarrow (0,1)$ zadan± wzorem:
@@ -337,7 +337,7 @@ $$y^{(3)}_l = \phi_3\left(\sum_{j = 1}^{m} y_j w^{(3)}_{j, l} + w^{(3)}_{0, l}\r
 \caption{Przyk³ad architektury wartstwowej sieci typu \textit{feed-forward}. Sieæ o tej architekturze jest w stanie nauczyæ siê logicznej funkcji XOR.}
 \end{figure}
 
-Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami. Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \ref{siec}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
+Dla uproszczenia przyjêli¶my, ¿e w obrêbie warstwy funkcji aktywacji s± takie same, jednak nie stanowi to koniecznego wymogu. Przedstawiona powy¿ej architektura stanowi przyk³ad architektury warstwowej - kolejne warstwy przyjmuj± jako swoje argumenty rezultaty obliczeñ z poprzednich warstw (st±d nazwa \textit{wielowarstwowy perceptron}). O wektorze wej¶ciowym $x$ zwyk³o siê zazwyczaj mówiæ jako o warstwie wej¶ciowej (ang.\textit{input layer}), natomiast o ostatniej wartstwie jako warstwie wyj¶ciowej (ang. \textit{output layer}). Oczywi¶cie istniej± tak¿e architektury w których dopuszczamy po³±czenia pomiêdzy ró¿nymi warstwami (ang. \textit{skip-connections} TODO cite skip connections). Topologiê ka¿dej sieci zwykle przedstawia siê w postaci skierowanego grafu z³o¿eñ (patrz rysunek \ref{siec}). Je¶li w grafie tym nie ma cykli, sieæ tak± nazywamy sieci± \textit{w przód} (ang. \textit{feed-forward neural net}), w przeciwnym przypadku mamy do czynienia z sieci± rekurencyjn± (ang. \textit{recurent neural net}).
 
 \begin{figure}
 \centering 
@@ -406,9 +406,9 @@ $$
 \frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{j}^{(k - 1)}} = \frac{\partial J_{\mathcal{X}}\left(\Theta\right)}{\partial y_{i}^{(k - 1)}}\sum_{i = 1}^{n_{k - 1}}
 \left(1 - x_{i}^{(k - 1)}\right)x_{i}^{(k - 1)}w_{i, j}^{(k - 1)}.$$
 
-Warto¶ci te mo¿emy nastêpnie wykorzystaæ do obliczenia pochodnych ze wzglêdu na wagi z ni¿szych warstw. 
+Warto¶ci te mo¿emy nastêpnie wykorzystaæ do obliczenia pochodnych ze wzglêdu na wagi z ni¿szych warstw. Zatem na mocy zasady indukcji matematycznej mo¿emy policzyæ gradient funkcji kosztu ze wzglêdu na dowolny parametr.
 
-Zauwa¿my, ¿e w powy¿sze rozumowanie z ³atwo¶ci± mo¿na rozszerzyæ na przypadek sieci w których istniej± po³±czenia miêdzy wagami. Wzory te - w ogólnej postaci, mo¿na równie¿ rozszerzyæ na inne przypadki funkcji b³êdu oraz aktywacji. 
+Zauwa¿my, ¿e w powy¿sze rozumowanie z ³atwo¶ci± mo¿na rozszerzyæ na przypadek sieci w których istniej± po³±czenia miêdzy warstwami. Wzory te - w ogólnej postaci, mo¿na równie¿ rozszerzyæ na inne przypadki funkcji b³êdu oraz aktywacji. 
 
 Warto równie¿ podkre¶liæ, ¿e technika ta stosowana jest tak¿e w przypadku rekurencyjnych sieci neuronowych, przez odpowiednie przedstawienie sieci rekurencyjnej, jako sieci typu \textit{feed-forward} z dodatkowym kryterium, aby czê¶æ wag w sieci mia³y tak± sam± warto¶æ.
 
@@ -448,7 +448,7 @@ Oczywi¶cie funkcja ¶redniokwadratowa nie jest jedyn± funkcj± b³êdu, dla której p
 
 $$ \mathbb{P}\left(y | \theta, x\right) \sim \mathcal{L}\left(f_{\theta}(x), 1\right),$$
 
-gdzie $\mathcal{L}\left(f_{\theta}(x), 1\right)$ to rozk³ad Laplace'a z parametrami $0$ oraz $1$, równowa¿n± metodzie MLE metod± optymalizacji bêdzie minimalizacja z nastêpuj±c± funkcj± b³êdu :
+gdzie $\mathcal{L}\left(f_{\theta}(x),\ 1\right)$ to rozk³ad Laplace'a z parametrami $f_{\theta}(x)$ oraz $1$, równowa¿n± metodzie MLE metod± optymalizacji bêdzie minimalizacja z nastêpuj±c± funkcj± b³êdu :
 
 $$J_\mathcal{X}\left(\theta\right) = \sum_{x\in \mathcal{X}} \lVert f_{\theta}(x) - y\rVert_{1}.$$
 
@@ -474,7 +474,7 @@ $$J^{R}_\mathcal{X}(\Theta) = J_\mathcal{X}(\Theta) + \frac{\lambda}{2}\Theta\Th
 
 dla pewnego $\lambda \in \mathbb{R}$ Warto zauwa¿yæ, ¿e stosuj±c probabilistyczn± interpretacjê sieci neuronowych, minimalizacja powy¿szej funkcji b³êdu jest równowa¿na maksymalizacji funkcji ufno¶ci przy za³o¿eniu rozk³adu \textit{a priori} na zbiorze parametrów $\Theta$:
 
-$$\theta_{i} \sim \mathcal{N}\left(0 , 1\right), iid.$$
+$$\theta_{i} \sim \mathcal{N}\left(0 , \frac{1}{\lambda}\right), iid.$$
 
 Za³ó¿my bowiem, ¿e istnieje rozk³ad $p \left(\theta, x\right)$ dla którego :
 
@@ -482,7 +482,7 @@ $$ J_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log p\left(x, 
 
 ale wówczas dok³adaj±c Bayesowskie za³o¿enie o warto¶ci parametrów $\theta$ otrzymujemy :
 
-$$ J^{R}_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log \left(\frac{p\left(x, \theta\right)}{p\left(\theta\right)} \right) + D = -C\sum_{x \in \mathcal{X}} \log \left(p\left(x, \theta\right)\right) + \frac{n}{2}\sum_{\theta \in \Theta}\theta^2 + D',$$
+$$ J^{R}_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log \left(\frac{p\left(x, \theta\right)}{p\left(\theta\right)} \right) + D = -C\sum_{x \in \mathcal{X}} \log \left(p\left(x, \theta\right)\right) + \frac{\lambda}{2}\sum_{\theta \in \Theta}\theta^2 + D',$$
 
 co jest równowa¿ne powy¿szej formie funkcji kosztu.
 
@@ -491,11 +491,11 @@ co jest równowa¿ne powy¿szej formie funkcji kosztu.
 Inn± czêsto stosowan± metod± regularyzacji jest tzw. metoda \textit{lasso}, polegaj±ca na dodaniu do funkcji b³êdu dodatkowego sk³adnika zwiêkszaj±cego funkcjê b³êdu gdy tym razem pierwsza norma wektora wag jest du¿a. Funkcjê tê mo¿emy zapisaæ w postaci :
 
 $$J^{R}_\mathcal{X}(\Theta) = J_\mathcal{X}(\Theta) + \sum_{\theta \in \Theta}|\theta| = 
-J_\mathcal{X}(\Theta) + \lVert\Theta\rVert_{1}.$$
+J_\mathcal{X}(\Theta) + \lambda\lVert\Theta\rVert_{1}.$$
 
 Analogicznie jak w poprzednim przypadku, mo¿emy potraktowaæ dodatkowy sk³adnik jako do³o¿enie Bayesowskiego za³o¿enia o rozk³adzie parametru wedle wzoru :
 
-$$\theta \sim \mathcal{L}\left(0, 1\right),$$
+$$\theta \sim \mathcal{L}\left(0, \frac{1}{\lambda}\right),$$
 
 gdzie przez $\mathcal{L}(a,b)$ oznaczamy rozk³ad Laplace'a z parametrami $a,b$.
 
@@ -505,7 +505,7 @@ Warto wspomnieæ o dosyæ powa¿nych koncepcyjnych ró¿nicach pomiêdzy powy¿szymi wa
 
 \subsection{Intuicje dotycz±ce warstw sieci neuronowych}
 
-To, ¿e trójwarstwowa sieæ neuronowa mo¿e poradziæ sobie z praktycznie ka¿dym zadaniem \textit{machine learningowym} jest faktem, udowodnionym teoretycznie, jdowód ten jest niepraktyczny w tym sensie, ¿e dla zadanego zadania pokazuje istnienie rozwi±zania, bez dok³adnego przepisu na jego uzyskanie. Poni¿ej chcia³bym pokazaæ intuicyjny szkic dowodu tego, ¿e dowolny zbiór otwarty w $\mathbb{R}^n$ mo¿na przybli¿yæ przy pomocy sieci z dwiema warstwami ukrytymi :
+To, ¿e trójwarstwowa sieæ neuronowa mo¿e poradziæ sobie z praktycznie ka¿dym zadaniem \textit{machine learningowym} jest faktem, udowodnionym teoretycznie, jednakowo¿ dowód ten jest niepraktyczny w tym sensie, ¿e dla zadanego zadania pokazuje istnienie rozwi±zania, bez dok³adnego przepisu na jego uzyskanie. Poni¿ej chcia³bym pokazaæ intuicyjny szkic dowodu tego, ¿e dowolny zbiór otwarty w $\mathbb{R}^n$ mo¿na przybli¿yæ przy pomocy sieci z dwiema warstwami ukrytymi :
 
 \begin{enumerate}
 \item Jednostki z sigmoidaln± funkcj± aktywacji, których argumentami s± neurony z warstwy wej¶ciowej, s± w stanie reprezentowaæ przybli¿one funkcje charakterystyczne pó³przestrzeni kowymiaru 1 (je¶li argumenty $x \in \mathbb{R}^n$.
@@ -518,7 +518,7 @@ Powy¿szy dowód uznajê za warto¶ciowy z dwóch powodów :
 
 \begin{enumerate}
 \item Pokazuje jak wielowarstwowa sieæ neuronowa koduje hierarchiczny zbiór cech, który nastêpnie wykorzystuje do budowania ostatecznego rozwi±zania.
-\item W zwi±zku ze sw± ide± pokazuje, ¿e niekonstruktywne dowody w³asno¶ci uniwersalnej aproksymacji opieraj± siê li tylko na budowaniu lokalnych przybli¿eñ ostatecznego rozwi±znia, co koniec koñców mo¿e doprowadziæ do opisanego w sekcji TODO \textit{przekleñstwa wymiarowo¶ci}. 
+\item W zwi±zku ze sw± ide± pokazuje, ¿e niekonstruktywne dowody w³asno¶ci uniwersalnej aproksymacji opieraj± siê li tylko na budowaniu lokalnych przybli¿eñ ostatecznego rozwi±znia, co koniec koñców mo¿e doprowadziæ do tzw. \textit{przekleñstwa wymiarowo¶ci} (ang. \textit{curse of dimensionality} TODO cite curse of dimensionality). 
 \end{enumerate}
 
 Oba powy¿sze wnioski rozwiniemy w kolejnych rozdzia³ach.
@@ -529,11 +529,14 @@ Idea dzia³ania sieci opiera siê na budowaniu opisanej w poprzedniej podsekcji - 
 
 W klasycznych warstwowych sieciach neuronowych typu \textit{feed-forward} zbiór tych cech stanowi hierarchiczny konglomerat cech, w którym cechy reprezentowane w danej warstwie tworzone s± przez transfomacj cech reprezentowanych w warstwie poprzedniej. Jeden z przyk³adów takiej hierarchiczo¶ci przedstawi³em w szkicu dowodu aproksymacyjnego z poprzedniej podsekcji.  
 
-Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy. Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag.
+Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy. Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag (TODO - cite unfolding RNN).
+
+TODO - poka¿ rysunek z warstwami CNN.
+TODO - dodaj jego cytowanie w teksæie
 
 \subsubsection{G³êboka hierarchiczna struktura przyczyn± sukcesu algorytmów z rodziny Deep Learning}
 
-Przyjmuje siê, ¿e podstawow± przyczyn± ogromnego sukcesu g³êbokich sieci jest efektywna umiejêtno¶æ uchwycania hierarchicznych struktur wiedzy, która stanowi podstawê kompleksowo¶ci wielu z najwa¿niejszych wspó³cze¶nie problemów \textit{machine learning'owych} (\cite{bengio}). Prawid³owe zrozumienie rz±dz±cych tym prawide³ to nadal wielkie wyzwanie dla badaczy zajmuj±cych siê sztuczn± inteligencj±. Mo¿emy jednak na kilku przyk³adach przyjrzeæ siê dlaczego uchwycenie takiej struktury mo¿e okazaæ siê zbawienne dla efektywnego nauczenia modelu dla wielu wa¿nych zagadnieñ wspó³czesnego \textit{AI}:
+Przyjmuje siê, ¿e podstawow± przyczyn± ogromnego sukcesu g³êbokich sieci jest efektywna umiejêtno¶æ uchwycania hierarchicznych struktur wiedzy, która stanowi podstawê kompleksowo¶ci wielu z najwa¿niejszych wspó³cze¶nie problemów \textit{machine learning'owych} (\cite{bengio}). Prawid³owe zrozumienie rz±dz±cych tym prawide³ to nadal wielkie wyzwanie dla badaczy zajmuj±cych siê sztuczn± inteligencj±. Mo¿emy jednak na kilku przyk³adach przyjrzeæ siê dlaczego uchwycenie takiej struktury mo¿e okazaæ siê zbawienne dla efektywnego nauczenia modelu dla wielu wa¿nych zagadnieñ wspó³czesnego \textit{AI} (TODO - cite hierarchical structures for DL):
 
 \begin{itemize}
 \item Wiedza opisuj±ca np. rozpoznawanie twarzy ma hierarchiczn± strukturê. Podstawowe pojêcia takie jak kreski, ³uki, zabarwienia - s³u¿± do budowania bardziej z³o¿onych pojêæ takich jak oczy, policzki - które z kolei tworz± rozmaite rysy, twarze charakterystyczne dla rasy, p³ci, etc. 

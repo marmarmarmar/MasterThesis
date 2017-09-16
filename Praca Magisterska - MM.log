@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 12:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 13:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,31 +406,31 @@ File: Backprop.png Graphic file (type png)
 <use Backprop.png>
 Package pdftex.def Info: Backprop.png used on input line 370.
 (pdftex.def)             Requested size: 184.78911pt x 214.29915pt.
- [21 <./Backprop.png>] [22] [23] [24] [25] [26]
-Rozdzia\l  3.
-[27
+ [21 <./Backprop.png>] [22] [23] [24] [25] [26] [27] [28
 
-] <2d_conv.png, id=133, 312.16624pt x 168.63pt>
+]
+Rozdzia\l  3.
+[29] <2d_conv.png, id=140, 312.16624pt x 168.63pt>
 File: 2d_conv.png Graphic file (type png)
  <use 2d_conv.png>
-Package pdftex.def Info: 2d_conv.png used on input line 591.
+Package pdftex.def Info: 2d_conv.png used on input line 594.
 (pdftex.def)             Requested size: 218.51488pt x 118.04018pt.
 
-<1d_conv.png, id=134, 324.21124pt x 131.49126pt>
+<1d_conv.png, id=141, 324.21124pt x 131.49126pt>
 File: 1d_conv.png Graphic file (type png)
  <use 1d_conv.png>
-Package pdftex.def Info: 1d_conv.png used on input line 597.
+Package pdftex.def Info: 1d_conv.png used on input line 600.
 (pdftex.def)             Requested size: 226.94632pt x 92.04324pt.
- [28]
+ [30]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [29 <./2d_conv.png> <./1d_conv.png>] [30]
+ [31 <./2d_conv.png> <./1d_conv.png>] [32]
 Rozdzia\l  4.
-[31
+[33
 
-] [32
+] [34
 
-] [33] [34] (./Praca Magisterska - MM.aux)
+] [35] [36] (./Praca Magisterska - MM.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -467,10 +467,10 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (36 pages, 829226 bytes).
+Output written on "Praca Magisterska - MM.pdf" (38 pages, 830498 bytes).
 PDF statistics:
- 247 PDF objects out of 1000 (max. 8388607)
- 163 compressed objects within 2 object streams
+ 256 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
