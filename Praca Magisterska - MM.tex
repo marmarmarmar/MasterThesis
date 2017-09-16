@@ -265,9 +265,18 @@ Oczywi¶cie powy¿szy schemat zosta³ uproszczony w celu uchwycenia g³ównej idei. Z
 Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{sta³± uczenia} (ang. \textit{learning rate}) i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji (\cite{adam} \cite{nadam}).
 Warunek stopu wystêpuj±cy w warunku pêtli natomiast najczê¶ciej ustalany jest jako zej¶cie warto¶ci funkcji kosztu $J_\mathcal{X}$ poni¿ej pewnej ustalonej warto¶ci $\epsilon$ lub brak dostatecznej poprawy (wzglêdnej lub bezwzglêdnej) w stosunku do warto¶ci obliczonej w poprzedniej iteracji. 
 
-TODO: Dopisz o epokach
+Innym czêsto spotykanym schematem jest ustalenie pewnej du¿ej ilo¶ci operacji uczenia (zwanych czêsto \textit{epokami} - ang. \textit{epochs}) i brania jako ostatecznego modelu albo rozwi±zania uzyskanego po ostatniej epoce, albo rozwi±zania które uzyska³o najlepszy wynik na \textit{zbiorze testowym}.
 
 \subsubsection{Redukcja sta³ej uczenia w wypadku wysokiej i sta³ej warto¶ci funkcji kosztu (ang. \textit{learning rate reduction on plateau})} 
+
+Kolejn± technik± wykorzystywan± podczas uczenia gradientowego jest tzw. \textit{redukcja sta³ej uczenia w wypadku sta³ej i wysokiej warto¶ci kosztu uczenia}. Opiszemy j± szerzej w zwi±zku z tym, ¿e zostanie wykorzystana w rozwi±zaniu opisanym w kolejnych rozdzia³ach tej pracy. Metoda ta, czêsto u¿ywana podczas uczenia gradientowego, zak³ada, ¿e gdy kolejne epoki nie przynosz± znacz±cej poprawy - oznacza to, ¿e lokalny kszta³t funkcji kosztu (w zale¿no¶ci od parametru) zawiera subtelno¶ci, które nie s± dostatecznie dobrze uwzglêdniane przez zbyt du¿± warto¶æ \textit{sta³ej uczenia}. Dlatego zwyk³o siê przemna¿aæ j± przez ustalon± sta³± $p < 1$ (czêsto przyjmuje siê $p=0.1$) w celu uwra¿liwienia metody optymalizacji na znacznie mniejsze, lokalne zmiany gradientu (\ref{r-o-p}).
+
+\begin{figure}\label{r-o-p}
+\centering 
+\includegraphics[scale=0.9]{r-o-p.jpeg}
+\caption{Przyk³ad zmiany funkcji koszty po redukcji sta³ej uczenia - za \cite{res-net}.}
+\end{figure}
+
 
 \subsection{Stochastyczna optymalizacja gradientowa}
 
@@ -449,9 +458,24 @@ Zauwa¿my, ¿e w powy¿sze rozumowanie z ³atwo¶ci± mo¿na rozszerzyæ na przypadek si
 
 Warto równie¿ podkre¶liæ, ¿e technika ta stosowana jest tak¿e w przypadku rekurencyjnych sieci neuronowych, przez odpowiednie przedstawienie sieci rekurencyjnej, jako sieci typu \textit{feed-forward} z dodatkowym kryterium, aby czê¶æ wag w sieci mia³y tak± sam± warto¶æ.
 
-\subsubsection{Zjawisko Covariance shift i technika Batch Normalization}
+\subsubsection{Zjawisko przesuniêcia kowariancji (ang. \textit{covariate shift}) i technika normalizacji porcjowej (ang. \textit{Batch Normalization})}
 
-TODO
+Dosyæ powa¿n± wad± techniki wstecznej propagacji jest wystêpowanie tzw. zjawiska przesuniêcia kowariancji w sieciach typu \textit{feed-forward}. Intuicyjnie polega ono na tym, ¿e pod±¿anie w kierunku najmniejszego spadku w dwóch kolejnych warstwach mo¿e doprowadziæ do tego, ¿e pó¼niejsza z nich bêdzie oczekiwa³a kompletnie innych warto¶ci ni¿ te które dostarcza jej warstwa poprzednia. Czêsto znacznie pogarsza to stabilno¶æ oraz efektywno¶æ procesu uczenia.
+
+Aby unikn±æ tego zjawisko czêsto stosuje siê tzw. \textit{technikê normalizacji porcjowej} (ang. \textit{Batch Normalization} \cite{batch-normalization})  gdzie ka¿da kolejna porcja danych u¿ywana w procesie uczenia - jest u¶redniana przez swoj± ¶redni± porcjow± $y^k_p$:
+
+$$\bar{y}^{(k)} = y^{(k)} - y^{(k)}_{p},$$
+
+standaryzowana przez porcjowe odchylenie standardowe $\sigma^k_p$:
+
+$$\bar{\bar{y}}^{(k)} = \bar{y}^{(k)} - y^{(k)}_{p},$$ 
+
+a nastêpnie przesuwana o wyuczalny wektor $m^{(k)}_p$  i skalowana przez wyuczalny czynnik $c^{(k)}_p$:
+
+$$y^{(k)}_b = \bar{\bar{y}}^{(k)} * c^{(k)}_p + m^{(k)}_p.$$ 
+
+Odbywa siê nie tylko na poziomie normalizacji danych wej¶ciowych, ale tak¿e pomiêdzy ka¿dymi kolejnymi warstwami. Ka¿de wej¶cie do kolejnej warstwy ma tak± sam± ¶redni± $m^{(k)}_p$ oraz odchylenie standardowe $c^{(k)}_p$ dziêki czemu zjawisko \textit{covariate shift} zostaje znacz±co ograniczone. W dniu dzisiejszym \textit{normalizacja porcjowa} uznawana jest za obowi±zkow± technikê normalizacji wiêkszo¶ci architektur sieci neuronowych. 
+
 
 \subsection{Interpretacja probabilistyczna sieci neuronowych}
 
@@ -818,6 +842,16 @@ arXiv:1311.2901
 Learning hierarchical categories in deep neural networks,
 A. M. Saxe et al.,
 Proceedings of the 35th annual meeting of the Cognitive Science Society. (pp. 1271-1276), 2013
+
+\bibitem{res-net}
+Deep Residual Learning for Image Recognition,
+K. He et al.,
+arXiv:1512.03385 
+
+\bibitem{batch-normalization}
+Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift,
+S. Ioffe, Ch. Szegedy,
+arXiv:1502.03167 
 
 \end{thebibliography}
 
