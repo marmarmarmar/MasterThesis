@@ -699,7 +699,7 @@ Definicja sieci konwolucyjnych przedstawiona powy¿ej jest bardzo ogólna - w wiêk
 \item Rzutowaniem o kroku (ang. \textit{stride}) $(s_w, s_h)$ oraz rozmiaru filtra $(f_w, f_h, c)$ bêdziemy nazywaæ zbiór (dla wszystkich poni¿szych przypadków $c'\in\{0, \dots, c- 1\}$, $k \in \{0, \dots, f_w - 1)$ oraz $l \in \{0, \dots, f_h - 1\}$  zak³adamy, ¿e dla wymiarów wykraczaj±cych poza rozmiar macierzy $x_{i, j, k} = 0$ oraz ustalamy liczenie jej wymiarów od $0$):
 \begin{itemize}
 \item $\left\{\left(s_w * i + k, s_h * j + l, c'): i \in \{0, \dots,\lfloor\frac{w}{s_w}\rfloor\}, j \in \{0,\dots,\lfloor\frac{h}{s_h}\rfloor\}\right)\right\}$ dla tzw. \textit{braku dope³nienia}, (ang. \textit{valid padding}),
-\item $\left\{\left(s_w * i + k, s_h * j + l, c'\right): i \in \{-\lfloor\frac{f_w}{2}\rfloor, \dots,\lfloor\frac{w + \lfloor\frac{f_w}{2}\rfloor}{s_w}\rfloor\}, j \in \{-\lfloor\frac{f_h}{2}\rfloor, \dots, \frac{\lfloor\frac{h + f_h}{2}\rfloor}{s_h}\}\right\}$ dla tzw. \textit{ dope³nienia identycznego}, ang. \textit{same padding}.
+\item $\left\{\left(s_w * i + k, s_h * j + l, c'\right): i \in \{-\lfloor\frac{f_w}{2}\rfloor, \dots,\lfloor\frac{w + \lfloor\frac{f_w}{2}\rfloor}{s_w}\rfloor\}, j \in \{-\lfloor\frac{f_h}{2}\rfloor, \dots, \frac{\lfloor\frac{h + f_h}{2}\rfloor}{s_h}\}\right\}$ dla tzw. \textit{ dope³nienia identycznego}, (ang. \textit{same padding}).
 \end{itemize}
 \end{itemize}
 
@@ -713,11 +713,19 @@ Rzutowania te mo¿na zinterpretowaæ jako wycinanie prostok±tów rozmiaru $(f_w, f_
 
 \subsection{Pooling}
 
-TODO
+W wiêkszo¶ci zastosowañ krokiem wiêkszo¶ci warstw jest wektor $(1, 1)$, co przy zastosowaniu dope³nienia identyczno¶ciowego powoduje, ¿e rozmiary $(w, h)$ macierzy wej¶ciowej i wyj¶ciowej s± identyczne. W zwi±zku z tym, ¿e rozmiar $c$ obydwu tych macierzy jest czêsto wiêkszy od $100$ powoduje powa¿ne problemy pamiêciowe przy obliczeniach wykonywanych w sieci. Jednym z rozwi±zañ tego problemu jest zastosowanie tzw. \textit{poolingu}. Mo¿emy zinterpretowaæ go jako filtr konwolucyjny dla którego zachodzi $(f_w, f_h) = (s_w, s_h)$. Powoduje to $(s_w * s_h)$-krotne zmniejszenie rozmiaru macierzy wyj¶ciowej. Pozwala to na znacz±ce ograniczenie pamiêci potrzebnej do wykonania obliczeñ.
 
-\subsubsection{Pooling globalny}
+Dwa najczê¶ciej spotykane rodzaje \textit{pooling} to tzw. \textit{max-pooling} w którym funkcj± aktywacj± jest funkcja $\max$ oraz tzw. \textit{sum-pooling} - gdzie jako aktywacjê stosujê siê sumê po wszystkich elementach rzutowania.
 
-Zauwa¿my, ¿e jedna warstwa sieci neuronowej mo¿e sk³adaæ siê z wielu warstw konwolucyjnych. Intuicyjnie odpowiada to uczeniu przez sieæ wielu rodzajów inwariantnych cech na danym poziomie. Jednak je¶li dla ka¿dej z tych warstw, moc zbioru rzutowañ bêdzie du¿a, mo¿e to doprowadziæ do powstania warstwy z ogromn± ilo¶ci± neuronów. Aby tego unikn±æ postanowiono automatycznie rozszerzyæ ka¿d± warstwê konwolucyjn± o automatycznie z³o¿on± z ni± kolejn±, zazwyczaj nieparametryczn±, warstwê konwolucyjn± o znaczenia mniejszej ilo¶ci neuronów, a tak¿e posiadaj±c± tê w³asno¶æ, ¿e rzutowania j± generuj±ce s± parami roz³±czne, zwan± warstw± \textit{poolingu}. Pozwala to znacznie zmniejszyæ ilo¶æ informacji trzymanej w pamiêci (obliczenia mo¿na dystrybuowaæ tak, aby w danym momencie trzymaæ informacjê tylko z rzutowañ po³±czonych z ustalon± jednostk± z warstwy \textit{poolingu}), a tak¿e zmniejsza ilo¶æ neuronów przekazywanych do kolejnej warstwie.
+\begin{figure}
+\centering 
+\includegraphics[scale=0.5]{pools.png}
+\caption{Przyk³ad obrazuj±cy dzia³anie \textit{poolingu}.}
+\end{figure}
+
+\subsubsection{Pooling globalny (ang. \textit{global pooling})}
+
+Specjalnym przypadkiem \textit{poolingu} jest tzw. \textit{pooling globalny} (ang. \textit{global pooling}), w którym $(f_w, f_h) = (w, h)$. Wraz z brakiem dope³nieñ powoduje to zmniejszenie rozmiaru wyj¶ciowej macierzy do rozmiaru $(w, h) = (1, 1)$ co sprawia, ¿e macierz tak± mo¿emy interpretowaæ jako wektor. Jest to szczególnie przydatne w przypadku gdy rozwi±zujemy zadanie np. klasyfikacji lub regresji, poniewa¿ ostatnie warstwy takich sieci musz± mieæ naturê wektorow± (klasa lub warto¶ci $\mathbb{X}_y$ s± najczê¶ciej kodowane wektorowo) - wiêc w sieci musi istnieæ moment, w którym kolejne warstwy zaczynaj± mieæ tylko i wy³±cznie naturê wektorow±. Przyk³adem takiej warstwy jest w³a¶nie \textit{pooling globalny}.
 
 \section{Przegl±d najpopularniejszych architektur konwolucyjnych}
 

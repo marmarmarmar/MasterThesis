@@ -42,7 +42,7 @@
 \contentsline {section}{\numberline {3.2}Architektura sieci konwolucyjnych}{32}
 \contentsline {subsection}{\numberline {3.2.1}Najpopularniejsze rzutowania}{33}
 \contentsline {subsection}{\numberline {3.2.2}Pooling}{34}
-\contentsline {subsubsection}{Pooling globalny}{34}
+\contentsline {subsubsection}{Pooling globalny (ang. \textit {global pooling})}{35}
 \contentsline {section}{\numberline {3.3}Przegl\k ad najpopularniejszych architektur konwolucyjnych}{35}
 \contentsline {subsection}{\numberline {3.3.1}Pierwsze sieci konwolucyjne}{35}
 \contentsline {subsection}{\numberline {3.3.2}AlexNet}{35}
@@ -50,6 +50,6 @@
 \contentsline {subsection}{\numberline {3.3.4}AlexNet}{35}
 \contentsline {section}{\numberline {3.4}Przyk\IeC {\l }ad sieci neuronowej - ResNet}{35}
 \contentsline {subsection}{\numberline {3.4.1}Po\IeC {\l }\k aczenia residualne}{35}
-\contentsline {subsection}{\numberline {3.4.2}\IeC {\L }odyga sieci}{35}
-\contentsline {subsection}{\numberline {3.4.3}Klasyfikatory pomocnicze}{35}
+\contentsline {subsection}{\numberline {3.4.2}\IeC {\L }odyga sieci}{36}
+\contentsline {subsection}{\numberline {3.4.3}Klasyfikatory pomocnicze}{36}
 \contentsline {chapter}{Bibliografia}{37}
