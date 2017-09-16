@@ -35,11 +35,10 @@
 % (podaæ tytu³/stopieñ imiê i nazwisko opiekuna
 % Instytut
 % ew. Wydzia³ ew. Uczelnia (je¿eli nie MIM UW))
-\opiekun{Prof. dr. hab. Andrzeja Skowrona\\
-  }
+\opiekun{Dr Ewy Szczurek}
 
 % miesi±c i~rok:
-\date{Czerwiec 2015}
+\date{Wrzesieñ 2017}
 
 %Podaæ dziedzinê wg klasyfikacji Socrates-Erasmus:
 \dziedzina{ 
@@ -49,7 +48,8 @@
 %Klasyfikacja tematyczna wedlug AMS (matematyka) lub ACM (informatyka)
 \klasyfikacja{D. Software\\
   D.127. Blabalgorithms\\
-  D.127.6. Numerical blabalysis}
+  D.127.6. Numerical blabalysis,\\
+  TODO}
 
 % S³owa kluczowe:
 \keywords{deep learning, machine learning, uczenie maszynowe, sztuczne sieci neuronowe, 
@@ -87,7 +87,7 @@ W ostatnim czasie, jednym z tematów które najbardziej poch³aniaj± specjalistów o
 
 Spróbujmy przyjrzeæ siê tym podpunktom. Rozwa¿aj±c np. problem rozpoznawania przedmiotów na filmach, mo¿emy natrafiæ na ciekawy symptom. Dziêki wieloletniej historii zapisu cyfrowej, przez lata ludzko¶æ zebra³a na rozmaitych no¶nikach danych niezmierzone ilo¶ci danych z kamer. Dziêki temu wspó³cze¶ni badacze maj± u³atwione zadanie przy budowaniu algorytmów do rozpoznawania filmów - mog± wykorzystaæ tak zdobyta wiedzê do poprawienia rezultatów uzyskiwanych przez ich programy.
 
-Kolejny podpunkt, czyli problematyczno¶æ, mo¿emy doskonale zobrazowaæ przez przyk³ad zaprojektowania sieci rozpoznaj±cej czy dana recenzja na portalu spo³eczno¶ciowym zawiera pozytywn± opiniê o temacie b±d¼ nie. Niech czytelnik pokusi siê o zapisanie na kartce rzeczy, które algorytm powinien sprawdziæ aby uzyskaæ poprawn± odpowied¼. Krótka inspekcja powinna u¶wiadomiæ jak karko³omne zadanie staje przed badaczami, którzy siê tym zajmuj±. Wyniki ostatnich algorytmów pokazuj± jednak, ¿e problem ten nie przekracza zasiegu wspó³czesnych technologii.
+Kolejny podpunkt, czyli problematyczno¶æ, mo¿emy doskonale zobrazowaæ przez przyk³ad zaprojektowania sieci rozpoznaj±cej czy dana recenzja na portalu spo³eczno¶ciowym zawiera pozytywn± opiniê o temacie b±d¼ nie. Niech czytelnik pokusi siê o zapisanie na kartce rzeczy, które algorytm powinien sprawdziæ aby uzyskaæ poprawn± odpowied¼. Krótka inspekcja powinna u¶wiadomiæ jak karko³omne zadanie staje przed badaczami, którzy siê tym zajmuj±. Wyniki ostatnich algorytmów pokazuj± jednak, ¿e problem ten nie przekracza zasiegu wspó³czesnych technologii (\cite{sentiment}).
 
 Ostatnie zagadnienie - najlepiej zobrazowaæ liczbami. Za³ó¿my, ¿e rozwa¿amy obraz który posiada 28 x 28 pikseli oraz, dla uproszczenia, jest czarnobia³y. Ilo¶æ wszystkich mo¿liwych obrazków tego typu przekracza niewyobra¿alnie liczbê atomów we wszech¶wiecie. Natomiast liczba obrazków które prezentuj± nam co¶ interesuj±cego (np. znany problem rozpoznawania cyfr \cite{mnist}) jest liczb± zdecydowanie mniejsz±. Mo¿na powiedzieæ, ¿e interesuj±cy nas zbiór jest niczym galaktyka po¶ród otaczaj±cego j± szumu i pustki.
 
@@ -105,15 +105,15 @@ I wtedy, gdy wydawa³o siê, ¿e perceptron to narzêdzie niemal idealne do wszystki
 
 \section{Dlaczego perceptron zawiód³?}
 
-Odpowied¼ na pytanie dlaczego perceptron zawiód³, nale¿y podzieliæ na dwa fragmenty : jakie by³y matematyczne powody dla których algorytm nie podo³a³ oczekiwaniom oraz dlaczego oczekiwania które zawiód³ by³y tak ogromne. Odpowied¼ na pierwsz± czê¶æ jest prozaiczna. Model McCullocha-Pittsa zastosowany przez Rosenblata, ogranicza dzia³anie algorytmu do rozwa¿ania znaku jaki przyjmuje funkcjona³ afiniczny dla zadanego wektora w $\mathbb{R}^n$. Krótka inspekcja tego faktu pokazuje, ¿e istotnie rozró¿niane wedle tego algorytmu mog± byæ tylko zbioru, które s± separowalne liniowo, tzn. istnieje podprzestrzeñ kowymiaru 1, która je istotnie oddziela. Odpowied¼ na drug± czê¶æ, czyli spo³eczne rozczarowanie, które poci±gn±³ za sob± krach zaufania do perceptronu do dzi¶ ciê¿ko mi zrozumieæ. Byæ mo¿e jest to wynika³o to z ogólnego wówczas zachwytu nad nowymi technologiami wynikaj±cego z wynalezienia komputerów i ogólnie elektroniki? Z ca³± pewno¶ci± po latach - patrz±c na matematyczne podstawy algorytmu Rosenblata - mo¿emy stwierdziæ, ¿e nadmierne oczekiwania w stosunku do tak prostego narzêdzia okaza³y siê po prostu naiwne. Co wiêcej - naiwno¶æ ta nie le¿y tylko w matematycznej podstawie algorytmu, ale tak¿e w biologicznej nieadekwatno¶ci. Skoro naukowcy powo³ywali siê czê¶ciowo na na¶ladowanie mózgu nie sposób dostrzec prostego faktu : organ ten u cz³owieka posiada ok. $10^{11}$ neuronów i z tyle razy mniejszej liczby sk³ada siê perceptron. 
+Odpowied¼ na pytanie dlaczego perceptron zawiód³, nale¿y podzieliæ na dwa fragmenty : jakie by³y matematyczne powody dla których algorytm nie podo³a³ oczekiwaniom oraz dlaczego oczekiwania które zawiód³ by³y tak ogromne. Odpowied¼ na pierwsz± czê¶æ jest prozaiczna. Model McCullocha-Pittsa zastosowany przez Rosenblata, ogranicza dzia³anie algorytmu do rozwa¿ania znaku jaki przyjmuje funkcjona³ afiniczny dla zadanego wektora w $\mathbb{R}^n$. Krótka inspekcja tego faktu pokazuje, ¿e istotnie rozró¿niane wedle tego algorytmu mog± byæ tylko zbioru, które s± separowalne liniowo, tzn. istnieje podprzestrzeñ kowymiaru 1, która je istotnie oddziela. Odpowied¼ na drug± czê¶æ, czyli spo³eczne rozczarowanie, które poci±gn±³ za sob± krach zaufania do perceptronu do dzi¶ ciê¿ko mi zrozumieæ. Byæ mo¿e jest to wynika³o to z ogólnego wówczas zachwytu nad nowymi technologiami wynikaj±cego z wynalezienia komputerów i ogólnie elektroniki? (\cite{lem}) Z ca³± pewno¶ci± po latach - patrz±c na matematyczne podstawy algorytmu Rosenblata - mo¿emy stwierdziæ, ¿e nadmierne oczekiwania w stosunku do tak prostego narzêdzia okaza³y siê po prostu naiwne. Co wiêcej - naiwno¶æ ta nie le¿y tylko w matematycznej podstawie algorytmu, ale tak¿e w biologicznej nieadekwatno¶ci. Skoro naukowcy powo³ywali siê czê¶ciowo na na¶ladowanie mózgu nie sposób dostrzec prostego faktu : organ ten u cz³owieka posiada ok. $10^{11}$ neuronów i z tyle razy mniejszej liczby sk³ada siê perceptron. 
 
 \section{Algorytm wstecznej propagacji - odrodzenie i ponowna zima}
 
 Przez kolejne lata badacze rozwijaj±cy algorytmy zwi±zane z sieciami neuronowymi próbowali pokonaæ przedstawione powy¿ej przeszkody. Naturalnym rozwi±zaniem wydawa³o siê zbudowanie sieci sk³adaj±ce siê z wiêkszej ilo¶ci - tak neuronów, jak i ich warstw. Rozwi±zanie to napotka³o jednak na dosyæ powa¿ny problem - o ile uczenie perceptronu by³o zadaniem banalnie prostym, to wyuczenie sieci o wiêkszej ilo¶ci wartstw okaza³o siê zadaniem o wiele trudniejszym. Podstawowy problem wynika z tego, ¿e aby otrzymaæ now± jako¶æ i przezwyciê¿yæ stare problemy, nale¿y zastosowaæ inn± ni¿ liniow± funkcjê obliczaj±c± wynik neuronu w zale¿no¶ci od informacji której do niego wprowadzimy. Konieczno¶æ ta wyp³ywa ze znanego faktu, ¿e z³o¿enie wielu funkcji liniowych, jest tak¿e funkcj± liniow±. Zatem niezale¿enie od tego ile neuronów bêdzie sk³ada³o siê na strukturê naszej sieci - uzyskane narzêdzie bêdzie równowa¿ne klasycznemu perceptronowi. 
 
-Jednak wprowadzenie nieliniowych tzw. funkcji aktywacji rodzi inne problemy - jak mianowicie skutecznie przeprowadziæ proces uczenia naszego modelu gdy analityczne rozwi±zania na ogó³ s± nieosi±galne? I tutaj pomoc przysz³a z najmniej spodziewanej strony, a mianowicie pochodz±cej z klasycznego rachunku prawdopodobieñstwa regu³y ³añcuchowej. Algorytm, (Rumelhart et al. \cite{backprop} którego istota dzia³ania polega na obliczeniach gradientu b³êdu, a nastêpnie aktualizowania odpowiednich parametrów na podstawie ich wp³ywu na omylno¶æ modelu (wp³yw ten jest oblicznany w³a¶nie przez regu³ê ³añcuchow±) przyniós³ fantastyczne rezultaty. Ze wzglêdu na to, ¿e b³±d obliczany przy dzia³aniu sieci, propaguje siê nastêpnie na odpowiednie parametry, nazwano go algorytmem wstecznej propagacji.
+Jednak wprowadzenie nieliniowych tzw. funkcji aktywacji rodzi inne problemy - jak mianowicie skutecznie przeprowadziæ proces uczenia naszego modelu gdy analityczne rozwi±zania na ogó³ s± nieosi±galne? I tutaj pomoc przysz³a z najmniej spodziewanej strony, a mianowicie pochodz±cej z klasycznego rachunku prawdopodobieñstwa regu³y ³añcuchowej. Algorytm, (Rumelhart et al. \cite{backprop}) którego istota dzia³ania polega na obliczeniach gradientu b³êdu, a nastêpnie aktualizowania odpowiednich parametrów na podstawie ich wp³ywu na omylno¶æ modelu (wp³yw ten jest oblicznany w³a¶nie przez regu³ê ³añcuchow±) przyniós³ fantastyczne rezultaty. Ze wzglêdu na to, ¿e b³±d obliczany przy dzia³aniu sieci, propaguje siê nastêpnie na odpowiednie parametry, nazwano go algorytmem wstecznej propagacji.
 
-Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{backprop, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
+Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci neuronowych, który zaowocowa³ powstaniem wielu technik, które s± popularne do dzi¶ (np. \cite{backprop, recurrent}. Co jednak charakterystyczne, entuzjazm towarzysz±cy badaniom stanowi³ tylko cieñ euforii która towarzyszy³a wynalezieniu perceptronu. Po ok. 10 latach (pocz±tek lat 90' XXw.), z powodu zbyt wolnego rozwoju technologii i algorytmów, a tak¿e nieuzyskiwania oczekiwanych rezultatów, przyszed³ czas ponownego rozczarowania, podczas którego ponownie niemal skre¶lono sieci neuronowe z listy obiecuj±cych kierunków rozwoju. (TODO Vapnik vs ..) Traktowano je bardziej jako wzorowan± na przyrodzie ciekawostkê, ni¿ drogê która mo¿e przynie¶æ rozwi±zanie dla podstawowych problemów sztucznej inteligencji.
 
 \section{Dlaczego sieci ponownie zawiod³y?}
 
@@ -707,6 +707,17 @@ Journal of the Royal Statistical Society. Series B (methodological) 58 (1). Wile
 Learning Deep Architectures for AI,
 Y. Bengio,
 Foundations and Trends in Machine Learning Vol. 2, No. 1 (2009) 1?127
+
+\bibitem{sentiment}
+Domain Adaptation for Large-Scale Sentiment Classification:
+A Deep Learning Approach,
+X. Glorot et al.,
+Proceedings  of  the  28th International  Conference  on  Machine  Learning,  Bellevue,  WA,  USA,  2011.
+
+\bibitem{lem}
+Dialogi,
+S. Lem,
+Wydawnictwo Literackie 1957 
 
 \end{thebibliography}
 
