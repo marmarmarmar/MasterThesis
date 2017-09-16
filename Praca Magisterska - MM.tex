@@ -221,15 +221,28 @@ Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± 
 
 \subsubsection{Zbiory walidacyjne i testowe}
 
-Czêstym i naturalnym przeznaczeniem modelu jest jego zastosowanie na nowych danych. Dlatego to sprawdzenie czy wyniki uzyskiwane na przyk³adach pochodz±cych spoza zbioru treningowego s± porównywalne do tych uzyskiwanych na zbiorze testowym w wielu przypadkach stanowi kluczowy punkt w ocenie przydatno¶ci rozwi±zania. W celu zasymulowania nap³ywu nowych danych stosuje siê tzw. technikê \textit{zbioru testowego}, w której czê¶æ danych nie uczestniczy w dzia³aniu algorytmu optymalizacyjnego - lecz mierzy aktualn± skuteczno¶æ modelu i pozwala np. zaobserwowaæ, ¿e model dzia³a znacznie lepiej na przyk³adach treningowych ni¿ testowych (co jest zaprzeczeniem tego, ¿e model powinien dobrze radziæ sobie dla nowych danych).
+Czêstym i naturalnym przeznaczeniem modelu jest jego zastosowanie na nowych danych. Dlatego sprawdzenie czy wyniki uzyskiwane na przyk³adach pochodz±cych spoza zbioru treningowego s± porównywalne do tych uzyskiwanych na zbiorze testowym w wielu przypadkach stanowi kluczowy punkt w ocenie przydatno¶ci rozwi±zania. W celu zasymulowania nap³ywu nowych danych stosuje siê tzw. technikê \textit{zbioru testowego}, w której czê¶æ danych nie uczestniczy w dzia³aniu algorytmu optymalizacyjnego - lecz mierzy aktualn± skuteczno¶æ modelu i pozwala np. zaobserwowaæ czy model dzia³a znacznie lepiej na przyk³adach treningowych ni¿ testowych (co jest zaprzeczeniem tego, ¿e model powinien dobrze radziæ sobie dla nowych danych).
 
-Czêstym zjawiskiem jest tak¿e wyodrêbnianie jeszcze jednego zbioru - tzw. \textit{zbioru walidacyjnego}. Celem tego wyodrêbnienia jest unikniêcie sytuacji w której rozwijaj±cy rozwi±zanie wykorzystuj± informacjê ze zbioru testowego w trenowaniu. Wówczas nie jest uczciwym powiedzenie, ¿e zbiór testowy \textit{na¶laduje} nap³yw nowych danych. Dlatego ostateczny wynik potwiedzony jest na \textit{zbiorze walidacyjnym}, na którym rozwi±zanie u¿yte jest dok³adnie jeden raz i które wynik jest ostateczn± estymat± u¿yteczno¶ci rozwi±zania.
+Czêstym zjawiskiem jest tak¿e wyodrêbnianie jeszcze jednego zbioru - tzw. \textit{zbioru walidacyjnego}. Celem tego wyodrêbnienia jest unikniêcie sytuacji w której rozwijaj±cy rozwi±zanie wykorzystuj± informacjê ze zbioru testowego w trenowaniu. Wówczas nie jest uczciwym powiedzenie, ¿e zbiór testowy \textit{na¶laduje} nap³yw nowych danych. Dlatego ostateczny wynik potwiedzony jest na osobnym \textit{zbiorze walidacyjnym}, na którym rozwi±zanie u¿yte jest dok³adnie jeden raz i które wynik jest ostateczn± estymat± u¿yteczno¶ci rozwi±zania.
 
 Warto podkre¶liæ, ¿e w niektórych ¼ród³ach okre¶la siê osobny zbiór wykorzystywany podczas trenowania mianem \textit{zbioru testowego}, a ostateczny wynik uzyskiwany jest na zbiorze okre¶lanym mianem \textit{zbioru walidacyjnego} (jest to notacja odwrotna do przedstawionej w tej pracy). 
 
-\subsubsection{Walidacja krzy¿owa (ang. \textit{cross-validation}}
+\subsubsection{Walidacja krzy¿owa (ang. \textit{cross-validation})}
 
-TODO
+Wyra¿nymi wadami techniki \textit{zbioru walidacyjnego} s± dwa nastêpuj±ce fakty:
+
+\begin{itemize}
+\item tylko niewielki procent posiadanych danych zostaje wykorzystany do symulowania nap³yniêcia nowych danych, co czyni estymatê skuteczno¶ci modelu mniej dok³adn±,
+\item wynik modelu mo¿e zostaæ wyra¿nie zaburzony je¶li wydzielony do testowania zbiór bêdzie mia³ dystrybucje znacz±co ró¿n± od dystrybucji zbioru treningowego (tzw. szum podzia³u - ang. \textit{bias split}).
+
+\end{itemize}
+
+Aby unikn±æ tych dwóch niedogodno¶ci stosujê siê tzw. metodê \textit{$k$-walidacji krzy¿owej}, w której zbiór treningowy dzielony jest na $k$ róznych czê¶ci (ang. \textit{folds}), a nastêpnie wybiera siê kolejne $k-1$ elementowe zbiory czê¶ci jako zbiory treningowe, a niewybran± czê¶æ wykorzystuje siê do walidacji. Uzyskane w ten sposób $k$ wyników wykorzystuje siê do ostatecznej estymaty (najczê¶ciej badaj±c ich rozk³ad i bior±c ¶redni± wyników jako ostateczny wynik).
+
+Dzieki tej metodzie ka¿dy element zbioru treningowego uczestniczy w symulowaniu nap³ywu nowych danych, a zjawisko szumu podzia³u jest mniej szkodliwe, jako, ¿e wielokrotne jego powtórzenie jest zjawiskiem bardzo rzadkim. Wszystko to odbywa siê kosztem czasu uczenia - w zwi±zku z wielokrotnym uczeniem modelu technika ta wymaga zazwyczaj znacznie wiêcej czasu ni¿ uczenie wykorzystuj±cy podzia³ na zbiory \textit{treningowy-testowy-walidacyjny}.
+
+Warto dodaæ - ¿e ze zbioru treningowe czêsto wydziela siê osobny zbiór testowy, który uczestniczy w procesie uczenia w sposób opisany w poprzedniej subsekcji.
+
 
 \subsection{Optymalizacja gradientowa}
 
