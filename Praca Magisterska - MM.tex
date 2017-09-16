@@ -630,19 +630,13 @@ Przyjmuje siê, ¿e podstawow± przyczyn± ogromnego sukcesu g³êbokich sieci jest ef
 \item Wiedza opisuj±ca rozpoznawanie mowy równie¿ ma podobn± strukturê - Podstawowe pojêcia tj. g³oski bior± udzia³ w tworzeniu fonemów, które sk³adaj± siê na s³owa tworz±ce zdania etc.
 \end{itemize}
 
-Przyjmuje siê, ¿e w³a¶nie taka postaæ wiedzy - naturalnie uchwycana przez model o hierarchicznej strukturze - stanowi podstawê sukcesów \textit{g³êbokich sieci}. W codziennej praktyce czêsto potwierdza siê - ¿e modele takie nie dzia³aj± tak efektywnie dla problemów o prostszej strukturze - chocia¿by ze wzglêdu na z³o¿ono¶æ przestrzeni parametrów, a tak¿e - z³o¿ono¶æ obliczeniow± procesu uczenia.
+Przyjmuje siê, ¿e w³a¶nie taka postaæ wiedzy - naturalnie uchwycana przez model o hierarchicznej strukturze - stanowi podstawê sukcesów \textit{g³êbokich sieci}. W codziennej praktyce czêsto potwierdza siê - ¿e modele takie nie dzia³aj± tak efektywnie dla problemów o prostszej strukturze - chocia¿by ze wzglêdu na z³o¿ono¶æ przestrzeni parametrów, a tak¿e - z³o¿ono¶æ obliczeniow± procesu uczenia. 
 
-\chapter{Rozwój metod uczenia}
+\chapter{Sieci konwolucyjne}
 
-W swojej pracy przyj±³em konwencjê wedle której zamierzam przedstawiaæ szczegó³y technik \textit{deep learningowych} zgodnie chronologi± ich powstania. Uwa¿am tak± formê za odpowiedni±, poniewa¿ przedstawia je zgodnie z rosn±cym poziomem trudno¶ci oraz skomplikowania. Dlatego rozpoczniemy od pierwszej rewolucji, która pchnê³a sieci neuronowe w kierunku budowania bardziej realistycznej hierarchii cech - czyli wynalezienia sieci konwolucyjnych, a tak¿e omówienia pierwszej zaawansowanej i dzia³aj±cej sieci korzystaj±cej z tego paradygmatu czyli s³ynnej \textit{LeNet} autorstwa Yana LeCun'a.
+Jednym z najpopularniejszych zastosowañ metod \textit{g³êbokiego uczenia} s± tzw. \textit{konwolucyjne sieci neuronowe} (ang. \textit{convolutional neural networks - CNN}). Ze wzglêdu na swoj± architekturê s± one niezwykle skuteczne w niemal wszystkich zagadnieniach wizji komputerowej (ang. \textit{computer vision - CV}). W poni¿szym rozdziale zaczniemy od opisu zjawiska \textit{inwariancji} - wa¿nego dla zrozumienia ogromnego sukcesu sieci konwolucyjnych. Nastêpnie dok³adnie zdefiniujemy sieci, a tak¿e rozmaite pojêcia pojawiaj±ce siê w nomenklaturze ich architektur. Nastêpnie po krótce opiszemy najwa¿niejsze historycznie sieci - aby na koñcu dok³adnie opisaæ tzw. sieci residualne - stanowi±ce podstawê implementacji sieci neuronowej opisanej w tej pracy. 
 
- Kolejnym etapem bêdzie przedstawienie rewolucji zwi±zanej z now± form± treningu wstêpnego sieci, która przynios³a olbrzymi skok w jako¶ci uczenia. Przyjrzymy siê zatem powodom, dla których regularyzacja gwarantowana przez inicjacjê sieci jako autoenkoder lub Ograniczon± Maszynê Boltzmanna pozwoli³y przenie¶æ skuteczno¶æ dzia³ania sieci neuronowych na wy¿szy poziom.
-
-Kolejne dwie sieci przenios± nas w ¶wiat nowoczesnych implementacji oraz skoku, który by³ zwi±zany z g³ównie ze wzrostem skuteczno¶ci obliczeñ, a zakoñczymy przegl±dem innych interesuj±cych sieci, których znajomo¶æ z pewno¶ci± poszerzy nasze intuicje dotycz±ce mo¿liwo¶ci jakie rozpo¶ciera przed badaczami \textit{deep learning}.  
-
-\section{Sieci konwolucyjne oraz LeNet}
-
-\subsection{Inwariancja}
+\section{Inwariancja}
 
 W rozdziale opisuj±cym szczegó³y dzia³ania sieci neuronowych wspomniali¶my o tym, ¿e struktura sieci neuronowej wraz z wagami j± parametryzuj±cymi koduje pewn± ustalon± hierarchiê cech niezbêdnych do rozwi±zania postawionego przed ni± problemu. Powinny one zatem odwzorowywaæ wiêkszo¶æ w³asno¶ci, które posiadaj± rzeczywiste struktury rozwa¿anych problemów. Jedn± z takich w³asno¶ci, któr± posiada wiele zadañ do których rozwi±zania wykorzystujemy techniki \textit{deep learning} stanowi tzw. w³asno¶æ \textit{inwariancji}, czyli zamkniêto¶æ pewnej cechy na przekszta³canie argumentów przy pomocy ustalonej rodziny przekszta³ceñ. I tak np. cecha bycia okiem przez fragment obrazu lub zdjêcia jest zamkniêta na przekszta³cenia skalowania, przesuniêcia oraz obroty. Kwestia bycia d¼wiêkiem s³owa \textit{mama} jest zamkniêta na zmiany tonu g³osu, g³o¶no¶æ, a tak¿e umiejscowanie na ¶cie¿ce d¼wiêkowej. Przyk³ady mo¿na mno¿yæ - jednak zauwa¿my, ¿e w³asno¶æ inwariancji poci±ga za sob± dwie bardzo powa¿ne konsekwencje :
 
@@ -657,7 +651,7 @@ W rozdziale opisuj±cym szczegó³y dzia³ania sieci neuronowych wspomniali¶my o tym
 
 Aby zrozumieæ skalê problemu, spróbujmy sobie wyobraziæ przypadek w którym chcieliby¶my nauczyæ sieæ neuronow± rozpoznawania oka na obrazku, w przypadku w którym nasza sieæ nie mog³aby realizowaæ w³asno¶ci \textit{inwariancji} ze wzglêdu na przesuniêcia na obrazku. W skrajnym przypadku musieliby¶my kodowaæ w³asno¶æ bycia ¶rodkiem oka dla ka¿dego piksela z osobno, co sprawia, ¿e problem jest o rz±d wielko¶ci trudniejszy, ni¿ w przypadku gdy mogliby¶my cechê bycia okiem zakodowaæ raz i \textit{zamkn±æ} nasz± strukturê ze wzglêdu na przekszta³cenie translacji.
 
-\subsection{Sieci konwolucyjne}
+\section{Architektura sieci konwolucyjnych}
 
 Sieci konwolucyjne to opisana w \cite{conv} i rozwiniêta przez Yana LeCuna oraz Geoffrey'a Hintona architektura, która pozwala uchwyciæ inawariancjê ze wzglêdu na translacje w obrêbie wektora wej¶æ. Matematyczna struktura stoj±ca za sieciami konwolucyjnymi jest banalnie prosta. Oznaczmy przez $P_{i_{1}, i_{2}, \dots. i_{k}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, gdzie $n \geq k$ operator rzutowania, tzn. 
 
@@ -674,7 +668,7 @@ $$\left[f^{conv}_{\mathsf{P}}\left((x_{1}, x_{2}, \dots. x_{n}\right)\right]_{i}
 
 Zwróæmy uwagê, ¿e powy¿sz± warstwê mo¿na zinterpretowaæ jako warstwê w której ka¿dy neuron po³±czony jest tylko i wy³±cznie z pewnym $k$-elementowym podzbiorem indeksów argumentu, a tak¿e ¿e wszystkie neurony wspó³dziel± wagi miêdzy sob±. Pozwala to na inwariancje w tym sensie, ¿e wagi $w_0, w_1, \dots, w_n$ uczestnicz± w wykrywaniu pewnej cechy w kodowanych przez rzutowania regionach obrazu. 
 
-Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo ogólna. W szczególno¶ci nie do koñca jasnym mo¿e byæ sk±d wziê³o siê okre¶lenie sieci jako \textit{konwolucyjnej}. Pewnym wyt³umaczeniem mog± byæ poni¿sze przyk³ady obrazuj±ce dwa historyczne przyk³ady pierwszych topologii konwolucyjnych.
+Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo ogólna. W szczególno¶ci nie do koñca jasnym mo¿e byæ sk±d wziê³o siê okre¶lenie sieci jako \textit{konwolucyjnej}. Pewnym wyt³umaczeniem mog± byæ poni¿sze przyk³ady na poni¿szym obrazku przedstawiaj±ce dwa historyczne przyk³ady pierwszych topologii konwolucyjnych.
 
 \begin{figure}
 \centering 
@@ -690,23 +684,57 @@ Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo o
 
 Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadzi to do uczenia inwariantnych ze wzglêdu na translacje cech z innych inwariantnych na przesuniêcia konceptów nauczonych przez ni¿sze warstwy. 
 
+\subsection{Najpopularniejsze rzutowania}
+
+TODO
+
+\subsection{Padding}
+
+TODO
+
 \subsection{Pooling}
+
+TODO
+
+\subsubsection{Pooling globalny}
 
 Zauwa¿my, ¿e jedna warstwa sieci neuronowej mo¿e sk³adaæ siê z wielu warstw konwolucyjnych. Intuicyjnie odpowiada to uczeniu przez sieæ wielu rodzajów inwariantnych cech na danym poziomie. Jednak je¶li dla ka¿dej z tych warstw, moc zbioru rzutowañ bêdzie du¿a, mo¿e to doprowadziæ do powstania warstwy z ogromn± ilo¶ci± neuronów. Aby tego unikn±æ postanowiono automatycznie rozszerzyæ ka¿d± warstwê konwolucyjn± o automatycznie z³o¿on± z ni± kolejn±, zazwyczaj nieparametryczn±, warstwê konwolucyjn± o znaczenia mniejszej ilo¶ci neuronów, a tak¿e posiadaj±c± tê w³asno¶æ, ¿e rzutowania j± generuj±ce s± parami roz³±czne, zwan± warstw± \textit{poolingu}. Pozwala to znacznie zmniejszyæ ilo¶æ informacji trzymanej w pamiêci (obliczenia mo¿na dystrybuowaæ tak, aby w danym momencie trzymaæ informacjê tylko z rzutowañ po³±czonych z ustalon± jednostk± z warstwy \textit{poolingu}), a tak¿e zmniejsza ilo¶æ neuronów przekazywanych do kolejnej warstwie.
 
-\subsection{LeNet}
+\section{Przegl±d najpopularniejszych architektur konwolucyjnych}
 
-Pierwsz± 	
+TODO
 
-\section{Autoenkodery, sieæ Hintona i Salakhudinowa}
+\subsection{Pierwsze sieci konwolucyjne}
 
-\section{Sieæ Kryzhevskiego}
+TODO
 
-\section{GoogLeNet}
+\subsection{AlexNet}
 
-\section{Inne sieci}
+TODO
 
-\chapter{Moja implementacja}
+\subsection{VGG}
+
+TODO
+
+\subsection{AlexNet}
+
+TODO
+
+\section{Przyk³ad sieci neuronowej - ResNet}
+
+TODO
+
+\subsection{Po³±czenia residualne}
+
+TODO
+
+\subsection{£odyga sieci}
+
+TODO
+
+\subsection{Klasyfikatory pomocnicze}
+
+
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
