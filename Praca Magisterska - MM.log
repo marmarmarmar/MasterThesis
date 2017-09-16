@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 22:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 23:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -434,18 +434,35 @@ File: 1d_conv.png Graphic file (type png)
  <use 1d_conv.png>
 Package pdftex.def Info: 1d_conv.png used on input line 681.
 (pdftex.def)             Requested size: 226.94632pt x 92.04324pt.
- [32 <./2d_conv.png>] [33 <./1d_conv.png>] [34] [35
+ [32 <./2d_conv.png>]
+Overfull \hbox (7.13329pt too wide) in paragraph at lines 701--702
+[]$[]$ \T1/cmr/m/n/10.95 dla tzw. \T1/cmr/m/it/10.95 braku do-
+ []
 
-] [36] (./Praca Magisterska - MM.aux)
+
+Overfull \hbox (13.96541pt too wide) in paragraph at lines 702--703
+[]$[]$ \T1/cmr/m/n/10.95 dla
+ []
+
+[33 <./1d_conv.png>] <conv1.png, id=160, 604.2575pt x 521.95pt>
+File: conv1.png Graphic file (type png)
+
+<use conv1.png>
+Package pdftex.def Info: conv1.png used on input line 710.
+(pdftex.def)             Requested size: 362.5573pt x 313.17241pt.
+ [34 <./conv1.png (PNG copy)>] [35] [36
+
+] [37] [38]
+(./Praca Magisterska - MM.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4194 strings out of 493013
- 57073 string characters out of 6135682
+ 4199 strings out of 493013
+ 57137 string characters out of 6135682
  139577 words of memory out of 5000000
- 7627 multiletter control sequences out of 15000+600000
+ 7631 multiletter control sequences out of 15000+600000
  26394 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,12n,25p,1576b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -473,10 +490,10 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (38 pages, 963883 bytes).
+Output written on "Praca Magisterska - MM.pdf" (40 pages, 1184311 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 170 compressed objects within 2 object streams
+ 265 PDF objects out of 1000 (max. 8388607)
+ 174 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

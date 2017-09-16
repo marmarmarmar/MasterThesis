@@ -686,11 +686,30 @@ Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadz
 
 \subsection{Najpopularniejsze rzutowania}
 
-TODO
+Definicja sieci konwolucyjnych przedstawiona powy¿ej jest bardzo ogólna - w wiêkszo¶ci przypadków mo¿na rzutowania przedstawiæ w sposób znacznie bardziej zwiêz³y. W poni¿szych rozwa¿aniach ograniczymy siê do tzw. \textit{konwolucji dwuwymiarowych} które mo¿na interpretowaæ jako konwolucje obrazkowe. Przyjmijmy ponadto kilka dodatkowych za³o¿eñ:
 
-\subsection{Padding}
+\begin{itemize}
+\item Wej¶ciem oraz wyj¶ciem z warstwy konwolucyjnej bêd± macierze o kszta³cie $(w, h, c)$, gdzie $w$ to szeroko¶æ obrazka, $h$ to wysoko¶æ, natomiast $c$ to tzw. wymiar cech (ang. \textit{channels}). Ostatni wymiar mo¿emy interpretowaæ w sposób nastêpuj±cy:
+\begin{itemize}
+\item W wypadku gdy argumentami ca³ej sieci s± obraz \textit{RGB} wymiar kana³ów ma warto¶æ $3$ i mo¿emy je interpretowaæ jako wektor zawieraj±cy warto¶ci poszczególnych kolorów,
+\item W wypadku gdy argumentami ca³ej sieci s± obraz czarnobia³y -  wymiar kana³ów ma warto¶æ $1$ i mo¿emy je interpretowaæ jako jednowymiarowy wektor zawieraj±cy warto¶æ odcienia szaro¶ci (ang. \textit{grayscale}),
+\item W wypadku warstw niewej¶ciowych - wymiar kana³ów nale¿y interpretowaæ jako kana³ trzymaj±cy warto¶ci otrzymane z obliczeñ w poprzedniej warstwie.
+\end{itemize}
+\item Przez \textit{filtr} bêdziemy rozumieæ pojedyncz± wspó³rzêdn± z wektora wyj¶ciowego rzutowañ. Jest on to¿samy z trójwymiarow± macierz± o wymiarach $(f_w, f_h, c)$ gdzie $f_w$ bêdziemy okre¶laæ mianem \textit{szeroko¶ci} filtra, $f_h$ bêdziemy okre¶laæ mianem \textit{wysoko¶ci} filtra, natomiast $c$ jest równe warto¶ci wymiaru kana³ów warstwy wej¶ciowej filtra.
+\item Rzutowaniem o kroku (ang. \textit{stride}) $(s_w, s_h)$ oraz rozmiaru filtra $(f_w, f_h, c)$ bêdziemy nazywaæ zbiór (dla wszystkich poni¿szych przypadków $c'\in\{0, \dots, c- 1\}$, $k \in \{0, \dots, f_w - 1)$ oraz $l \in \{0, \dots, f_h - 1\}$  zak³adamy, ¿e dla wymiarów wykraczaj±cych poza rozmiar macierzy $x_{i, j, k} = 0$ oraz ustalamy liczenie jej wymiarów od $0$):
+\begin{itemize}
+\item $\left\{\left(s_w * i + k, s_h * j + l, c'): i \in \{0, \dots,\lfloor\frac{w}{s_w}\rfloor\}, j \in \{0,\dots,\lfloor\frac{h}{s_h}\rfloor\}\right)\right\}$ dla tzw. \textit{braku dope³nienia}, (ang. \textit{valid padding}),
+\item $\left\{\left(s_w * i + k, s_h * j + l, c'\right): i \in \{-\lfloor\frac{f_w}{2}\rfloor, \dots,\lfloor\frac{w + \lfloor\frac{f_w}{2}\rfloor}{s_w}\rfloor\}, j \in \{-\lfloor\frac{f_h}{2}\rfloor, \dots, \frac{\lfloor\frac{h + f_h}{2}\rfloor}{s_h}\}\right\}$ dla tzw. \textit{ dope³nienia identycznego}, ang. \textit{same padding}.
+\end{itemize}
+\end{itemize}
 
-TODO
+Rzutowania te mo¿na zinterpretowaæ jako wycinanie prostok±tów rozmiaru $(f_w, f_h)$ z obrazka. Na parametry $(s_w, s_h)$ mo¿na natomiast spojrzeæ ile kroków nale¿y zrobiæ w lewo ($s_w$) lub w dó³ $(s_h)$ aby wyci±æ kolejny. Dope³nienia determinuj± czy wycinane kwadraty bêd± wycinane tylko i wy³±cznie z macierzy wej¶ciowej (brak dope³nienia) lub dodatkowe $0$ bêd± dopisane dooko³a obrazka / mapy cech w celu utrzymania rozmiaru wyj¶ciowej mapy cech proporcjonalnego do rozmiaru macierzy wej¶ciowej.
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.6]{conv1.png}
+\caption{Przyk³ad obrazuj±cy dzia³anie filtrów konwolucyjnych.}
+\end{figure}
 
 \subsection{Pooling}
 
