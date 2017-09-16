@@ -219,6 +219,18 @@ Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± 
 
 \end{przyklad}
 
+\subsubsection{Zbiory walidacyjne i testowe}
+
+Czêstym i naturalnym przeznaczeniem modelu jest jego zastosowanie na nowych danych. Dlatego to sprawdzenie czy wyniki uzyskiwane na przyk³adach pochodz±cych spoza zbioru treningowego s± porównywalne do tych uzyskiwanych na zbiorze testowym w wielu przypadkach stanowi kluczowy punkt w ocenie przydatno¶ci rozwi±zania. W celu zasymulowania nap³ywu nowych danych stosuje siê tzw. technikê \textit{zbioru testowego}, w której czê¶æ danych nie uczestniczy w dzia³aniu algorytmu optymalizacyjnego - lecz mierzy aktualn± skuteczno¶æ modelu i pozwala np. zaobserwowaæ, ¿e model dzia³a znacznie lepiej na przyk³adach treningowych ni¿ testowych (co jest zaprzeczeniem tego, ¿e model powinien dobrze radziæ sobie dla nowych danych).
+
+Czêstym zjawiskiem jest tak¿e wyodrêbnianie jeszcze jednego zbioru - tzw. \textit{zbioru walidacyjnego}. Celem tego wyodrêbnienia jest unikniêcie sytuacji w której rozwijaj±cy rozwi±zanie wykorzystuj± informacjê ze zbioru testowego w trenowaniu. Wówczas nie jest uczciwym powiedzenie, ¿e zbiór testowy \textit{na¶laduje} nap³yw nowych danych. Dlatego ostateczny wynik potwiedzony jest na \textit{zbiorze walidacyjnym}, na którym rozwi±zanie u¿yte jest dok³adnie jeden raz i które wynik jest ostateczn± estymat± u¿yteczno¶ci rozwi±zania.
+
+Warto podkre¶liæ, ¿e w niektórych ¼ród³ach okre¶la siê osobny zbiór wykorzystywany podczas trenowania mianem \textit{zbioru testowego}, a ostateczny wynik uzyskiwany jest na zbiorze okre¶lanym mianem \textit{zbioru walidacyjnego} (jest to notacja odwrotna do przedstawionej w tej pracy). 
+
+\subsubsection{Walidacja krzy¿owa (ang. \textit{cross-validation}}
+
+TODO
+
 \subsection{Optymalizacja gradientowa}
 
 Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algorytmy rozwi±zuj±ce pewne zadanie optymalizacyjne. Aktualnie tylko dla niewielkiej czê¶ci z nich potrafimy odnale¼æ rozwi±zanie w sposób ¶ci¶le analityczny. Dlatego dla du¿ej grupy problemów uczenia maszynowego stosuje siê tzw. metody optymalizacji gradientowej. Schemat dzia³ania wiêkszo¶ci z tych metod przybli¿a poni¿szy algorytm (\cite{gradient-descents}).
@@ -237,8 +249,12 @@ Jak wspominali¶my w podsekcji \ref{defucz}, algorytmy uczenia to de facto algory
 \end{algorithm}
 
 Oczywi¶cie powy¿szy schemat zosta³ uproszczony w celu uchwycenia g³ównej idei. Zgodnie z matematycznym faktem, który mówi, ¿e gradient wyznacza kierunek najwy¿szego wzrostu, pod±¿anie w kierunku przeciwnym do wyznaczonego przez niego jest to¿same pod±¿aniu w kierunku najwiêkszego spadku. 
-Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{szybko¶ci± uczenia} (ang. \textit{learning rate}) i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji (\cite{adam} \cite{nadam}).
+Sta³a $\eta$, która pojawia siê w algorytmie nazywana jest \textit{sta³± uczenia} (ang. \textit{learning rate}) i powinna byæ dobierana ostro¿nie. W wielu algorytmach mo¿e ona zmieniaæ siê wraz z rosn±c± liczb± iteracji, a najskuteczniejsze aktualnie metody gradientowe ustalaj± j± nawet jako funkcjê wag oraz historii kolejnych iteracji (\cite{adam} \cite{nadam}).
 Warunek stopu wystêpuj±cy w warunku pêtli natomiast najczê¶ciej ustalany jest jako zej¶cie warto¶ci funkcji kosztu $J_\mathcal{X}$ poni¿ej pewnej ustalonej warto¶ci $\epsilon$ lub brak dostatecznej poprawy (wzglêdnej lub bezwzglêdnej) w stosunku do warto¶ci obliczonej w poprzedniej iteracji. 
+
+TODO: Dopisz o epokach
+
+\subsubsection{Redukcja sta³ej uczenia w wypadku wysokiej i sta³ej warto¶ci funkcji kosztu (ang. \textit{learning rate reduction on plateau})} 
 
 \subsection{Stochastyczna optymalizacja gradientowa}
 
@@ -312,6 +328,14 @@ Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
 \end{figure}
 
 Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \cite{TODO} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
+
+\subsubsection{Logistyczna funkcja kosztu - (ang. \textit{log-loss})}
+
+TODO
+
+\subsubsection{Uogólnienie funkcji \textit{log-loss} do zagadnienia multiklasyfikacji}
+
+TODO
 
 \section{Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}
 
@@ -411,6 +435,10 @@ Warto¶ci te mo¿emy nastêpnie wykorzystaæ do obliczenia pochodnych ze wzglêdu na 
 Zauwa¿my, ¿e w powy¿sze rozumowanie z ³atwo¶ci± mo¿na rozszerzyæ na przypadek sieci w których istniej± po³±czenia miêdzy warstwami. Wzory te - w ogólnej postaci, mo¿na równie¿ rozszerzyæ na inne przypadki funkcji b³êdu oraz aktywacji. 
 
 Warto równie¿ podkre¶liæ, ¿e technika ta stosowana jest tak¿e w przypadku rekurencyjnych sieci neuronowych, przez odpowiednie przedstawienie sieci rekurencyjnej, jako sieci typu \textit{feed-forward} z dodatkowym kryterium, aby czê¶æ wag w sieci mia³y tak± sam± warto¶æ.
+
+\subsubsection{Zjawisko Covariance shift i technika Batch Normalization}
+
+TODO
 
 \subsection{Interpretacja probabilistyczna sieci neuronowych}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 15:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 15:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -376,57 +376,57 @@ Underfull \vbox (badness 6380) has occurred while \output is active []
 
  [14 <./torus_tsne.png>] [15 <./overfitting.png>] [16] [17]
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 301.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 317.
 
 <Sigmoid-wykres.png, id=92, 607.26875pt x 352.31625pt>
 File: Sigmoid-wykres.png Graphic file (type png)
 
 <use Sigmoid-wykres.png>
-Package pdftex.def Info: Sigmoid-wykres.png used on input line 310.
+Package pdftex.def Info: Sigmoid-wykres.png used on input line 326.
 (pdftex.def)             Requested size: 425.08524pt x 246.61969pt.
 
 
-LaTeX Warning: Citation `TODO' on page 18 undefined on input line 314.
+LaTeX Warning: Citation `TODO' on page 18 undefined on input line 330.
 
-[18 <./Sigmoid-wykres.png>] <SiecXor.png, id=97, 377.41pt x 253.94875pt>
+[18] [19 <./Sigmoid-wykres.png>] <SiecXor.png, id=100, 377.41pt x 253.94875pt>
 File: SiecXor.png Graphic file (type png)
 
 <use SiecXor.png>
-Package pdftex.def Info: SiecXor.png used on input line 336.
+Package pdftex.def Info: SiecXor.png used on input line 360.
 (pdftex.def)             Requested size: 264.1852pt x 177.76291pt.
- [19 <./SiecXor.png>]
-<Recurrent.png, id=102, 161.60374pt x 201.75375pt>
+ <Recurrent.png, id=101, 161.60374pt x 201.75375pt>
 File: Recurrent.png Graphic file (type png)
- <use Recurrent.png>
-Package pdftex.def Info: Recurrent.png used on input line 344.
-(pdftex.def)             Requested size: 113.12184pt x 141.22665pt.
- [20 <./Recurrent.png>] <Backprop.png, id=107, 263.98625pt x 306.14375pt>
-File: Backprop.png Graphic file (type png)
 
-<use Backprop.png>
-Package pdftex.def Info: Backprop.png used on input line 370.
+<use Recurrent.png>
+Package pdftex.def Info: Recurrent.png used on input line 368.
+(pdftex.def)             Requested size: 113.12184pt x 141.22665pt.
+ [20 <./SiecXor.png>]
+<Backprop.png, id=106, 263.98625pt x 306.14375pt>
+File: Backprop.png Graphic file (type png)
+ <use Backprop.png>
+Package pdftex.def Info: Backprop.png used on input line 394.
 (pdftex.def)             Requested size: 184.78911pt x 214.29915pt.
- [21 <./Backprop.png>] [22] [23] [24] [25]
-<zeilercnnfeatures.jpeg, id=127, 876.27374pt x 336.25626pt>
+ [21 <./Recurrent.png>] [22 <./Backprop.png>] [23] [24] [25]
+<zeilercnnfeatures.jpeg, id=126, 876.27374pt x 336.25626pt>
 File: zeilercnnfeatures.jpeg Graphic file (type jpg)
 
 <use zeilercnnfeatures.jpeg>
-Package pdftex.def Info: zeilercnnfeatures.jpeg used on input line 536.
+Package pdftex.def Info: zeilercnnfeatures.jpeg used on input line 564.
 (pdftex.def)             Requested size: 420.60661pt x 161.40117pt.
- [26 <./zeilercnnfeatures.jpeg>] [27] [28
+ [26] [27 <./zeilercnnfeatures.jpeg>] [28
 
 ]
 Rozdzia\l  3.
 [29] <2d_conv.png, id=141, 312.16624pt x 168.63pt>
 File: 2d_conv.png Graphic file (type png)
  <use 2d_conv.png>
-Package pdftex.def Info: 2d_conv.png used on input line 598.
+Package pdftex.def Info: 2d_conv.png used on input line 626.
 (pdftex.def)             Requested size: 218.51488pt x 118.04018pt.
 
 <1d_conv.png, id=142, 324.21124pt x 131.49126pt>
 File: 1d_conv.png Graphic file (type png)
  <use 1d_conv.png>
-Package pdftex.def Info: 1d_conv.png used on input line 604.
+Package pdftex.def Info: 1d_conv.png used on input line 632.
 (pdftex.def)             Requested size: 226.94632pt x 92.04324pt.
  [30]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -449,7 +449,7 @@ Here is how much of TeX's memory you used:
  7619 multiletter control sequences out of 15000+600000
  26394 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,12n,25p,1576b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,12n,25p,1576b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
@@ -474,7 +474,7 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (38 pages, 938484 bytes).
+Output written on "Praca Magisterska - MM.pdf" (38 pages, 944004 bytes).
 PDF statistics:
  257 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams
