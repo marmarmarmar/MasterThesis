@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 17:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  16 SEP 2017 18:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -397,41 +397,42 @@ LaTeX Warning: Citation `TODO' on page 19 undefined on input line 352.
 File: SiecXor.png Graphic file (type png)
 
 <use SiecXor.png>
-Package pdftex.def Info: SiecXor.png used on input line 382.
+Package pdftex.def Info: SiecXor.png used on input line 400.
 (pdftex.def)             Requested size: 264.1852pt x 177.76291pt.
- <Recurrent.png, id=105, 161.60374pt x 201.75375pt>
+ [21] <Recurrent.png, id=108, 161.60374pt x 201.75375pt>
 File: Recurrent.png Graphic file (type png)
 
 <use Recurrent.png>
-Package pdftex.def Info: Recurrent.png used on input line 390.
+Package pdftex.def Info: Recurrent.png used on input line 408.
 (pdftex.def)             Requested size: 113.12184pt x 141.22665pt.
- [21 <./SiecXor.png>]
-<Backprop.png, id=110, 263.98625pt x 306.14375pt>
+ [22 <./SiecXor.png> <./Recurrent.png>]
+<Backprop.png, id=114, 263.98625pt x 306.14375pt>
 File: Backprop.png Graphic file (type png)
  <use Backprop.png>
-Package pdftex.def Info: Backprop.png used on input line 416.
+Package pdftex.def Info: Backprop.png used on input line 434.
 (pdftex.def)             Requested size: 184.78911pt x 214.29915pt.
- [22 <./Recurrent.png>] [23 <./Backprop.png>] [24] [25] [26] [27]
-<zeilercnnfeatures.jpeg, id=134, 876.27374pt x 336.25626pt>
+ [23]
+[24 <./Backprop.png>] [25] [26] [27] [28]
+<zeilercnnfeatures.jpeg, id=137, 876.27374pt x 336.25626pt>
 File: zeilercnnfeatures.jpeg Graphic file (type jpg)
 
 <use zeilercnnfeatures.jpeg>
-Package pdftex.def Info: zeilercnnfeatures.jpeg used on input line 601.
+Package pdftex.def Info: zeilercnnfeatures.jpeg used on input line 619.
 (pdftex.def)             Requested size: 420.60661pt x 161.40117pt.
- [28 <./zeilercnnfeatures.jpeg>] [29] [30
-
-]
+ [29 <./zeilercnnfeatures.jpeg>] [30]
 Rozdzia\l  3.
-[31] <2d_conv.png, id=148, 312.16624pt x 168.63pt>
+[31
+
+] <2d_conv.png, id=148, 312.16624pt x 168.63pt>
 File: 2d_conv.png Graphic file (type png)
  <use 2d_conv.png>
-Package pdftex.def Info: 2d_conv.png used on input line 663.
+Package pdftex.def Info: 2d_conv.png used on input line 681.
 (pdftex.def)             Requested size: 218.51488pt x 118.04018pt.
 
 <1d_conv.png, id=149, 324.21124pt x 131.49126pt>
 File: 1d_conv.png Graphic file (type png)
  <use 1d_conv.png>
-Package pdftex.def Info: 1d_conv.png used on input line 669.
+Package pdftex.def Info: 1d_conv.png used on input line 687.
 (pdftex.def)             Requested size: 226.94632pt x 92.04324pt.
  [32]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -448,10 +449,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4193 strings out of 493013
- 57055 string characters out of 6135682
- 140572 words of memory out of 5000000
- 7626 multiletter control sequences out of 15000+600000
+ 4194 strings out of 493013
+ 57073 string characters out of 6135682
+ 140577 words of memory out of 5000000
+ 7627 multiletter control sequences out of 15000+600000
  26394 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,12n,25p,1576b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -479,7 +480,7 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (40 pages, 959509 bytes).
+Output written on "Praca Magisterska - MM.pdf" (40 pages, 964258 bytes).
 PDF statistics:
  264 PDF objects out of 1000 (max. 8388607)
  174 compressed objects within 2 object streams

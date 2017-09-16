@@ -23,19 +23,20 @@
 \contentsline {subsubsection}{Sigmoidalna funkcja aktywacji}{19}
 \contentsline {subsubsection}{Logistyczna funkcja kosztu - (ang. \textit {log-loss})}{20}
 \contentsline {subsubsection}{Uog\'olnienie funkcji \textit {log-loss} do zagadnienia multiklasyfikacji}{20}
-\contentsline {section}{\numberline {2.3}Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}{20}
-\contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{20}
-\contentsline {subsection}{\numberline {2.3.2}Wielowarstwowa sie\'c neuronowa jako uniwersalny aproksymator}{21}
-\contentsline {subsection}{\numberline {2.3.3}Algorytm wstecznej propagacji}{22}
+\contentsline {subsubsection}{Uog\'olnienie powy\.zszych funkcji kosztu do dowolnego modelu}{21}
+\contentsline {section}{\numberline {2.3}Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}{21}
+\contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{21}
+\contentsline {subsection}{\numberline {2.3.2}Wielowarstwowa sie\'c neuronowa jako uniwersalny aproksymator}{22}
+\contentsline {subsection}{\numberline {2.3.3}Algorytm wstecznej propagacji}{23}
 \contentsline {subsubsection}{Zjawisko przesuni\k ecia kowariancji (ang. \textit {covariate shift}) i technika normalizacji porcjowej (ang. \textit {Batch Normalization})}{24}
-\contentsline {subsection}{\numberline {2.3.4}Interpretacja probabilistyczna sieci neuronowych}{24}
+\contentsline {subsection}{\numberline {2.3.4}Interpretacja probabilistyczna sieci neuronowych}{25}
 \contentsline {subsection}{\numberline {2.3.5}Regularyzacja sieci neuronowych}{26}
-\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{2}$}{26}
-\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{1}$}{26}
-\contentsline {subsection}{\numberline {2.3.6}Czym r\'o\.zni\k a si\k e powy\.zsze kary?}{27}
-\contentsline {subsection}{\numberline {2.3.7}Intuicje dotycz\k ace warstw sieci neuronowych}{27}
-\contentsline {subsection}{\numberline {2.3.8}Reprezentacja rozproszona}{28}
-\contentsline {subsubsection}{G\IeC {\l }\k eboka hierarchiczna struktura przyczyn\k a sukcesu algorytm\'ow z rodziny Deep Learning}{28}
+\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{2}$}{27}
+\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{1}$}{27}
+\contentsline {subsection}{\numberline {2.3.6}Czym r\'o\.zni\k a si\k e powy\.zsze kary?}{28}
+\contentsline {subsection}{\numberline {2.3.7}Intuicje dotycz\k ace warstw sieci neuronowych}{28}
+\contentsline {subsection}{\numberline {2.3.8}Reprezentacja rozproszona}{29}
+\contentsline {subsubsection}{G\IeC {\l }\k eboka hierarchiczna struktura przyczyn\k a sukcesu algorytm\'ow z rodziny Deep Learning}{29}
 \contentsline {chapter}{\numberline {3}Rozw\'oj metod uczenia}{31}
 \contentsline {section}{\numberline {3.1}Sieci konwolucyjne oraz LeNet}{31}
 \contentsline {subsection}{\numberline {3.1.1}Inwariancja}{31}

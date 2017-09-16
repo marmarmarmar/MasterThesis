@@ -317,7 +317,7 @@ Jednym z najpopularniejszych algorytmów uczenia maszynowego jest aktualnie algor
 \begin{defi}
 Modelem regresji logistycznej parametryzowanej wektorem $\left(\theta_0, \theta_1, \dots, \theta_n\right)$ bêdziemy nazywali funkcjê $f : \mathbb{R}^n \rightarrow (0,1)$ zadan± wzorem:
 
-$$f(x) = \phi\left(\theta_0 + \sum_{i = 1}^{n}\theta_i x_i\right),$$
+$$f_\theta(x) = \phi\left(\theta_0 + \sum_{i = 1}^{n}\theta_i x_i\right),$$
 
 gdzie $\phi$ to sigmoidalna funkcja aktywacji opisana w paragrafie \ref{sigmoid}.
 
@@ -351,13 +351,31 @@ Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
 
 Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \cite{TODO} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
 
+Wynik regresji logistycznej uznawany jest prawdopodobieñstwo przynale¿no¶ci do pewnej ustalonej klasy - zatem rozwi±zuje ona zagadnienie klasyfikacji binarnej. 
+
 \subsubsection{Logistyczna funkcja kosztu - (ang. \textit{log-loss})}
 
-TODO
+
+Jedn± z podstaw sukcesu regresji logistycznej by³a nowa funkcja kosztu zadana wzorem:
+
+$$J_{\mathcal{X}, \theta} = -\frac{1}{|\mathcal{X}|}\sum_{x\in\mathcal{X}}\log\left(f_\theta(x)\mathbb{I}_{y_x = 1} + \log(1 - f_\theta(x))\mathbb{I}_{y_x = 0}\right),$$
+
+gdzie $y_x \ \left\{0, 1\right\}$ to prawid³owa klasa przyk³adu $x\in\mathcal{X}$.
+Funkcja ta okaza³a siê dalece bardziej skuteczna od klasycznego b³êdu ¶redniokwadratowego oraz posiada teorioinformacyjn± interpretacjê jako tzw. odleg³o¶æ \textit{Kullbacka-Leiblera} pomiêdzy rozk³adem wyznaczonym przez $f_{\theta}$, a uczony rozk³adem pochodz±cym z danych (\cite{kullback-leibler}). Innym okre¶leniem logistycznej funkcji kosztu jest \textit{binarna entropia krzy¿owa} (ang. \textit{binary crossentropy}).
 
 \subsubsection{Uogólnienie funkcji \textit{log-loss} do zagadnienia multiklasyfikacji}
 
-TODO
+Istnieje naturalne przed³u¿enie regresji logistycznej do zagadnienia multiklasyfikacji zwane regresj± multinomialn±. W tym wypadku zamiast funkcjona³u u¿ywamy wielowymiarowego przekszta³cenia liniowego, miast funkcji sigmoidalnej u¿ywa siê tzw. funkcji \textit{softmax} $Soft: \mathbb{R}^n\rightarrow\mathbb{R}^n$, zadanej wzorem:
+
+$$Soft_\theta(x)_i = \frac{e^{(\theta_i x)_i}}{\sum_{j = 1}^{n}e^{(\theta_j x)_j}},$$
+
+gdzie $\theta$ to macierz przekszta³cenia liniowego, natomiast funkcja kosztu (nazywana \textit{kategoryczn± entropi± krzy¿ow±} - ang. \textit{categorical crossentropy} - lub \textit{entropi± krzy¿ow± typu softmax} - ang. \textit{softmax crossentropy}) zadana jest wzorem:
+
+$$J_{\mathcal{X}, \theta} = -\frac{1}{|\mathcal{X}|}\sum_{x\in\mathcal{X}}\sum_{i=1}^{k}\left(\log Soft_\theta(x)_i\mathbb{I}_{y_x = i} + \log\left(1 -  Soft_\theta(x)_i\right)\mathbb{I}_{y_x \neq i}\right).$$
+
+\subsubsection{Uogólnienie powy¿szych funkcji kosztu do dowolnego modelu}
+
+Zarówno dla \textit{logistycznej funkcji kosztu} oraz \textit{kategorycznej entropii krzy¿owej} nie jest wymagane aby wyniki u¿ywane do jej obliczenia pochodzi³y z przekszta³ceñ liniowych. Regresjê logistyczn± mo¿emy zast±piæ dowoln± funkcj± $model_b: \mathbb{R}^n\rightarrow\mathbb{R}$ z³o¿on± z funkcj± sigmoidaln± $S$, natomiast regresjê mutlinomialn± mo¿emy zast±piæ dowoln± funkcj± $model_c: \mathbb{R}^n\rightarrow\mathbb{R}^k$ z³o¿on± z funkcj± $Soft$ i nadal uzyskaæ u¿yteczn± funkcjê kosztu. W dalszej czê¶ci funkcje $model_b$ i $model_c$ bêd± pewnymi sieciami neuronowymi.
 
 \section{Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}
 
@@ -852,6 +870,11 @@ arXiv:1512.03385
 Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift,
 S. Ioffe, Ch. Szegedy,
 arXiv:1502.03167 
+
+\bibitem{kullback-leibler}
+On information and sufficiency,
+S. Kullback, R.A. Leibler,
+Annals of Mathematical Statistics 22, 79-86
 
 \end{thebibliography}
 
