@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  17 SEP 2017 00:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  17 SEP 2017 15:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -458,19 +458,25 @@ Package pdftex.def Info: pools.png used on input line 722.
 
 Underfull \vbox (badness 5245) has occurred while \output is active []
 
- [34 <./conv1.png (PNG copy)>] [35 <./pools.png>] [36] [37
+ [34 <./conv1.png (PNG copy)>] <lenet.png, id=165, 803.0pt x 235.88126pt>
+File: lenet.png Graphic file (type png)
+ <use lenet.png>
+Package pdftex.def Info: lenet.png used on input line 740.
+(pdftex.def)             Requested size: 401.49902pt x 117.94034pt.
 
-] [38]
+[35 <./pools.png>] [36 <./lenet.png>] [37
+
+] [38] [39]
 (./Praca Magisterska - MM.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4204 strings out of 493013
- 57201 string characters out of 6135682
- 139577 words of memory out of 5000000
- 7635 multiletter control sequences out of 15000+600000
+ 4211 strings out of 493013
+ 57289 string characters out of 6135682
+ 139587 words of memory out of 5000000
+ 7641 multiletter control sequences out of 15000+600000
  26394 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,12n,25p,1576b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -498,10 +504,10 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (40 pages, 1198857 bytes).
+Output written on "Praca Magisterska - MM.pdf" (41 pages, 1334464 bytes).
 PDF statistics:
- 267 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
+ 272 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 
