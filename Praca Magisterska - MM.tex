@@ -821,23 +821,68 @@ Kolejn± wa¿n± sieci± w historii rozwoju nowoczesnych g³êbokich sieci konwolucyjn
 
 Co warte podkre¶lenia - aktualnie architektura powoli staje siê lekko archaiczna ze wzglêdu na du¿± ilo¶æ obliczeñ wykonywanych przy maksymalnej rozdzielczo¶ci (w tym przypadku równej $(224, 224)$), co powoduje powa¿ne problemy natury pamiêciowej i czasowej.
 
-\subsection{AlexNet}
+\subsection{GoogLeNet}
+
+W tym samym roku co \textit{VGG} powsta³a inna rewolucyjna sieæ zwanna \textit{GoogLeNet} (aluzja do \textit{LeNet}) lub \textit{Incepcj±} (od tytu³u artyku³u \textit{Going Deeper with Convolutions} \cite{inception} oraz popularnego filmu \textit{Incepcja} \cite{inception-movie}). Przyjrzyjmy siê bli¿ej rewolucyjnym zmian± zastosowanym w \textit{Incepcji}:
+\begin{figure}
+\centering 
+\includegraphics[scale=0.9]{inception-net.png}
+\caption{Schemat architektury sieci \textit{Google Inception v1}}
+\end{figure}
+\subsubsection{£odyga (ang. \textit{stem}) sieci}
+
+Przez \textit{³odygê} (ang. \textit{stem}) sieci rozumiemy pocz±tkowe warstwy sieci konwolucyjnej które dokonuj± znacz±cej redukcji wymiarowo¶ci na przestrzeni 2-4 warstw. Tak jak wspominali¶my przy okazji sieci \textit{VGG} pocz±tkowe warstwy sieci cierpi± z powodów pamiêciowych poniewa¿ rozdzielczo¶æ map cech jest wtedy najwiêksza. Autorzy zastosowali po kolei: 
+
+\begin{enumerate}
+\item Du¿e filtry z dwukrotnym \textit{krokiem}: $(f_w, f_h) = (7, 7)$ i $(s_w, s_h) = (2, 2)$, 
+\item \textit{Max Pooling} z $(f_w, f_h) = (3, 3)$ i $(s_w, s_h) = (2, 2)$,
+\item Ma³y filtry z pojedynczym \text{krokiem}: $(f_w, f_h) = (3, 3)$ i $(s_w, s_h) = (1, 1)$,
+\item \textit{Max Pooling} z $(f_w, f_h) = (3, 3)$ i $(s_w, s_h) = (2, 2)$.
+\end{enumerate}
+
+Dziêki tej technice po zaledwie czterech warstwach rozmiary przestrzenne map cech zosta³y zmniejszone po $8$-kroæ (z $(224, 224)$ do $(28, 28)$) co pozwala na znacznie efektywniejsze pamiêciowo i czasowe obliczenia w g³ebszych czê¶ciach sieci.
+
+\subsubsection{Konwolucja $(f_w, f_h) = (1, 1)$ - redukcja wymiarowo¶ci}
+
+Na pierwszy rzut oka konwolucja z $(f_w, f_h) = (1, 1)$ mo¿e nie mieæ wiêkszego sensu - gdy¿ jest \textit{de facto} przekszta³ceniem filtrów z pojedynczego piksela mapy cech. Pozwala jednakowo¿ wykonaæ dwie bardzo przydatne czynno¶ci:
+
+\begin{itemize}
+\item Pozwala na skuteczn± rozmiaru wyj¶cia z filtrów - mog±c byæ interpretowana jako swoisty semantyczny \textit{pooling} w wymiarze kana³ów.
+\item Pozwala na adaptowalne dopasowanie wyj¶cia z wielu warstw sieci konwolucjynch w taki sposób aby posiada³y dok³adnie tak± sam± ilo¶æ filtrów wyj¶ciowych.
+\end{itemize}
+
+Szczególnie ta druga w³asno¶æ uczyni konwolucjê przydatnych zarówno dla \textit{GoogLeNet} jak i opisanego w pó¼niejszych czê¶ciach pracy \textit{ResNeta}.
+
+\subsubsection{Klasyfikatory pomocnicze}
+
+Kolejn± bardzo interesuj±c± modyfikacj± by³o wprowadzenie tzw. \textit{klasyfikatorów pomocniczych}. Klasyfikatory pomocnicze to dodatkowe wyj¶cia z sieci (umieszczane w warstwach bli¿szych warstwie wej¶ciowej) w których dodawane s± pomocnicze warstwy wyj¶ciowe rozmiaru takiego samego jak ostateczne wyj¶cie z sieci - maj±ce optymalizowaæ dok³adnie tê sam± funkcjê kosztu co jednostki wyj¶ciowe sieci (czêsto nadaje siê tym kosztom ni¿sz± wagê). Celami stosowania klasyfikatorów pomocniczych s±:
+
+\begin{itemize}
+\item Przekazywanie rozs±dnego sygna³u ucz±cego (gradientu) dla ni¿szych warstw sieci - dla których \textit{dotarcie} gradientu z ostatnich warstw mo¿e okazaæ siê trudne przez co przyspieszane jest uczenie sieci,
+\item Zmuszenie ni¿szych warstw sieci aby uczy³y siê \textit{rozs±dnych cech}, tj. takich które same w sobie mog± rozwi±zaæ wyj¶ciowy problem.
+\end{itemize}
+
+\subsubsection{Blok incepcyjny - \textit{sieæ w sieci}}
+	
+Najwa¿niejszym wk³adem \textit{Incepcji} by³o jednakowo¿ wprowadzenie specjalnych bloków incepcyjnych - w których ró¿nego rodzaju konwolucje by³y stosowane do tej samej warstwy wej¶ciowej - po czym wyniki z³±czane by³y wzd³u¿ wymiaru kana³ów. Pozwala³o to na wykrywanie cech w ró¿nych skalach, a przez to, ¿e obliczenia mog³y byæ wykonywane równolegle - równocze¶nie zwiêkszano skuteczno¶æ i pojemno¶æ sieci bez zbytniego spowalniania obliczeñ. 
+
+\subsubsection{Kolejne wersji Incepcji}
+
+Warto wspomnieæ, ¿e sieæ ta jest bujnie rozwijana. Obecnie dostêpne jest jej ju¿ kilkana¶cie wersji. Opisywanie ich wykracza poza ramy tej pracy - o szczegó³ach mo¿na przeczytaæ w \cite{batch-normalization}, \cite{inception-v3} (warto wspomnieæ o udziale naukowca z naszego wydzia³u - Zbigniewa Wojny) oraz \cite{inception-v4}.
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.9]{inception-block.jpeg}
+\caption{Przyk³ad bloku incepcyjnego - \textit{sieci w sieci}.}
+\end{figure}
+
+\subsection{Sieci residualne ResNet}
 
 TODO
 
-\section{Przyk³ad sieci neuronowej - ResNet}
+\subsubsection{Po³±czenia residualne}
 
 TODO
-
-\subsection{Po³±czenia residualne}
-
-TODO
-
-\subsection{£odyga sieci}
-
-TODO
-
-\subsection{Klasyfikatory pomocnicze}
 
 
 
@@ -1034,6 +1079,26 @@ arXiv:1409.0575
 Very Deep Convolutional Networks for Large-Scale Image Recognition,
 K. Simonyan, A. Zisserman,
 arXiv:1409.1556
+
+\bibitem{inception}
+Going Deeper with Convolutions,
+Ch. Szegedy et al.,
+arXiv:1409.4842 
+
+\bibitem{inception-movie}
+Inception (2010),
+www.imdb.com/title/tt1375666
+IMDB
+
+\bibitem{inception-v3}
+Rethinking the Inception Architecture for Computer Vision,
+Ch. Szegedy et al,
+arXiv:1512.00567 
+
+\bibitem{inception-v4}
+Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning,
+Ch. Szegedy et al.,
+arXiv:1602.07261
 
 \end{thebibliography}
 

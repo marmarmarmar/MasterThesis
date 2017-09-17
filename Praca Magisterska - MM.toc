@@ -52,9 +52,14 @@
 \contentsline {subsubsection}{Augmentacja obraz\'ow}{38}
 \contentsline {subsubsection}{Dropout}{38}
 \contentsline {subsection}{\numberline {3.3.3}VGG}{39}
-\contentsline {subsection}{\numberline {3.3.4}AlexNet}{39}
-\contentsline {section}{\numberline {3.4}Przyk\IeC {\l }ad sieci neuronowej - ResNet}{39}
-\contentsline {subsection}{\numberline {3.4.1}Po\IeC {\l }\k aczenia residualne}{41}
-\contentsline {subsection}{\numberline {3.4.2}\IeC {\L }odyga sieci}{41}
-\contentsline {subsection}{\numberline {3.4.3}Klasyfikatory pomocnicze}{41}
+\contentsline {subsection}{\numberline {3.3.4}GoogLeNet}{39}
+\contentsline {subsubsection}{\IeC {\L }odyga (ang. \textit {stem}) sieci}{41}
+\contentsline {subsubsection}{Konwolucja $(f_w, f_h) = (1, 1)$ - redukcja wymiarowo\'sci}{41}
+\contentsline {subsubsection}{Klasyfikatory pomocnicze}{41}
+\contentsline {subsubsection}{Blok incepcyjny - \textit {sie\'c w sieci}}{42}
+\contentsline {subsubsection}{Kolejne wersji Incepcji}{42}
+\contentsline {section}{\numberline {3.4}Przyk\IeC {\l }ad sieci neuronowej - ResNet}{42}
+\contentsline {subsection}{\numberline {3.4.1}Po\IeC {\l }\k aczenia residualne}{42}
+\contentsline {subsection}{\numberline {3.4.2}\IeC {\L }odyga sieci}{42}
+\contentsline {subsection}{\numberline {3.4.3}Klasyfikatory pomocnicze}{42}
 \contentsline {chapter}{Bibliografia}{43}
