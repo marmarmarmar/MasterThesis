@@ -812,7 +812,14 @@ Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶
 
 \subsection{VGG}
 
-TODO
+Kolejn± wa¿n± sieci± w historii rozwoju nowoczesnych g³êbokich sieci konwolucyjnych by³a tzw. sieæ \textit{VGG} \cite{vgg} autorstwa K. Simonyana i A. Zissermana z Oksfordzkiej grupy \textit{Visual Geometry Group} (sk±d nazwa). Wystêpuje ona w ró¿nych wersjach - w zale¿no¶ci od ilo¶ci warstw - \textit{VGG-16} oraz \textit{VGG-19}. Co ciekawe - znajduje siê w tym zestawieniu ze wzglêdu na znacz±ce poprawienie rezultatu - w roku og³oszenia nie pobi³a nawet rekordu w ImageNet 2014 \cite{imagenet}. To co okaza³o siê kluczowym dla jej popularno¶ci to niewiarygodnie prosta teleskopowa architektura - w której kolejne filtry maj± ten sam rozmiar ($(f_w, f_h) = (3, 3)$), a wyst±pienie \textit{poolingu maksymalnego} kompensowane jest podwojeniem ilo¶ci filtrów. Uk³ad ten sta³ siê na tyle inspiruj±cy, ¿e po dzi¶ dzieñ architektura jest zwykle pierwszym wyborem pocz±tkuj±cych \textit{developerów} sieci konwolucyjnych oraz naukowców z innych dziedzin próbuj±cych wykorzystaæ \textit{deep learning} do swoich zastosowañ. 
+\begin{figure}
+\centering 
+\includegraphics[scale=0.5]{vgg-19.png}
+\caption{Schemat architektury sieci \textit{VGG-19}.}
+\end{figure}
+
+Co warte podkre¶lenia - aktualnie architektura powoli staje siê lekko archaiczna ze wzglêdu na du¿± ilo¶æ obliczeñ wykonywanych przy maksymalnej rozdzielczo¶ci (w tym przypadku równej $(224, 224)$), co powoduje powa¿ne problemy natury pamiêciowej i czasowej.
 
 \subsection{AlexNet}
 
@@ -1022,6 +1029,11 @@ NIPS 2012
 ImageNet Large Scale Visual Recognition Challenge,
 Russakovsky et al.,
 arXiv:1409.0575 
+
+\bibitem{vgg}
+Very Deep Convolutional Networks for Large-Scale Image Recognition,
+K. Simonyan, A. Zisserman,
+arXiv:1409.1556
 
 \end{thebibliography}
 

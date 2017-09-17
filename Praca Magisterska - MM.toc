@@ -54,7 +54,7 @@
 \contentsline {subsection}{\numberline {3.3.3}VGG}{39}
 \contentsline {subsection}{\numberline {3.3.4}AlexNet}{39}
 \contentsline {section}{\numberline {3.4}Przyk\IeC {\l }ad sieci neuronowej - ResNet}{39}
-\contentsline {subsection}{\numberline {3.4.1}Po\IeC {\l }\k aczenia residualne}{39}
-\contentsline {subsection}{\numberline {3.4.2}\IeC {\L }odyga sieci}{39}
-\contentsline {subsection}{\numberline {3.4.3}Klasyfikatory pomocnicze}{39}
-\contentsline {chapter}{Bibliografia}{41}
+\contentsline {subsection}{\numberline {3.4.1}Po\IeC {\l }\k aczenia residualne}{41}
+\contentsline {subsection}{\numberline {3.4.2}\IeC {\L }odyga sieci}{41}
+\contentsline {subsection}{\numberline {3.4.3}Klasyfikatory pomocnicze}{41}
+\contentsline {chapter}{Bibliografia}{43}
