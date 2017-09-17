@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  17 SEP 2017 22:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  17 SEP 2017 22:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -456,32 +456,32 @@ File: pools.png Graphic file (type png)
 Package pdftex.def Info: pools.png used on input line 722.
 (pdftex.def)             Requested size: 426.59271pt x 107.90285pt.
 
-Underfull \vbox (badness 5245) has occurred while \output is active []
-
- [34 <./conv1.png (PNG copy)>] <lenet.png, id=165, 803.0pt x 235.88126pt>
+[34 <./conv1.png (PNG copy)>] <lenet.png, id=165, 803.0pt x 235.88126pt>
 File: lenet.png Graphic file (type png)
- <use lenet.png>
+
+<use lenet.png>
 Package pdftex.def Info: lenet.png used on input line 739.
 (pdftex.def)             Requested size: 401.49902pt x 117.94034pt.
-
-<alex-net.png, id=166, 335.2525pt x 151.56625pt>
+ <alex-net.png, id=166, 335.2525pt x 151.56625pt>
 File: alex-net.png Graphic file (type png)
- <use alex-net.png>
+
+<use alex-net.png>
 Package pdftex.def Info: alex-net.png used on input line 748.
 (pdftex.def)             Requested size: 301.72446pt x 136.40836pt.
- [35 <./pools.png>] <relu.png, id=172, 259.97125pt x 194.7275pt>
+ [35 <./pools.png>]
+<relu.png, id=172, 259.97125pt x 194.7275pt>
 File: relu.png Graphic file (type png)
  <use relu.png>
 Package pdftex.def Info: relu.png used on input line 759.
 (pdftex.def)             Requested size: 207.97728pt x 155.7822pt.
-
-<leaky-relu.png, id=173, 501.875pt x 438.63875pt>
+ [36 <./lenet.png> <./alex-net.png>] <leaky-relu.png, id=178, 501.875pt x 438.6
+3875pt>
 File: leaky-relu.png Graphic file (type png)
- <use leaky-relu.png>
+
+<use leaky-relu.png>
 Package pdftex.def Info: leaky-relu.png used on input line 772.
 (pdftex.def)             Requested size: 250.93687pt x 219.31883pt.
- [36 <./lenet.png> <./alex-net.png>] <gpu-cpu.png, id=179, 672.5928pt x 458.673
-6pt>
+ <gpu-cpu.png, id=179, 672.5928pt x 458.6736pt>
 File: gpu-cpu.png Graphic file (type png)
 
 <use gpu-cpu.png>
@@ -521,24 +521,30 @@ File: inception-block.jpeg Graphic file (type jpg)
 <use inception-block.jpeg>
 Package pdftex.def Info: inception-block.jpeg used on input line 875.
 (pdftex.def)             Requested size: 279.14029pt x 147.24875pt.
- [42 <./inception-block.jpeg>] [43
+ [42 <./inception-block.jpeg>]
+<residual.png, id=209, 297.11pt x 170.6375pt>
+File: residual.png Graphic file (type png)
+ <use residual.png>
+Package pdftex.def Info: residual.png used on input line 896.
+(pdftex.def)             Requested size: 267.39651pt x 153.57231pt.
+ [43 <./residual.png>] [44
 
-] [44]
-Underfull \hbox (badness 1226) in paragraph at lines 1100--1103
+] [45] [46]
+Underfull \hbox (badness 1226) in paragraph at lines 1105--1108
 []\T1/cmr/m/n/10.95 Rethinking the In-cep-tion Ar-chi-tec-ture for Com-pu-ter V
 i-sion, Ch. Sze-gedy et al,
  []
 
-[45] (./Praca Magisterska - MM.aux)
+[47] (./Praca Magisterska - MM.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4263 strings out of 493013
- 58150 string characters out of 6135682
- 139622 words of memory out of 5000000
- 7684 multiletter control sequences out of 15000+600000
+ 4270 strings out of 493013
+ 58246 string characters out of 6135682
+ 139632 words of memory out of 5000000
+ 7690 multiletter control sequences out of 15000+600000
  26394 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,12n,25p,1576b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -566,10 +572,10 @@ f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
 fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
 /fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (47 pages, 1801710 bytes).
+Output written on "Praca Magisterska - MM.pdf" (49 pages, 1810862 bytes).
 PDF statistics:
- 306 PDF objects out of 1000 (max. 8388607)
- 189 compressed objects within 2 object streams
+ 315 PDF objects out of 1000 (max. 8388607)
+ 194 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
 

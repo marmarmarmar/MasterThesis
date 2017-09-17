@@ -689,14 +689,14 @@ Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadz
 Definicja sieci konwolucyjnych przedstawiona powy¿ej jest bardzo ogólna - w wiêkszo¶ci przypadków mo¿na rzutowania przedstawiæ w sposób znacznie bardziej zwiêz³y. W poni¿szych rozwa¿aniach ograniczymy siê do tzw. \textit{konwolucji dwuwymiarowych} które mo¿na interpretowaæ jako konwolucje obrazkowe. Przyjmijmy ponadto kilka dodatkowych za³o¿eñ:
 
 \begin{itemize}
-\item Wej¶ciem oraz wyj¶ciem z warstwy konwolucyjnej bêd± macierze o kszta³cie $(w, h, c)$, gdzie $w$ to szeroko¶æ obrazka, $h$ to wysoko¶æ, natomiast $c$ to tzw. wymiar cech (ang. \textit{channels}). Ostatni wymiar mo¿emy interpretowaæ w sposób nastêpuj±cy:
+\item Wej¶ciem oraz wyj¶ciem z warstwy konwolucyjnej bêd± macierze o kszta³cie $(w, h, c)$, gdzie $w$ to szeroko¶æ obrazka, $h$ to wysoko¶æ, natomiast $c$ to tzw. wymiar cech (lub kana³ów - ang. \textit{channels}). Ostatni wymiar mo¿emy interpretowaæ w sposób nastêpuj±cy:
 \begin{itemize}
 \item W wypadku gdy argumentami ca³ej sieci s± obraz \textit{RGB} wymiar kana³ów ma warto¶æ $3$ i mo¿emy je interpretowaæ jako wektor zawieraj±cy warto¶ci poszczególnych kolorów,
 \item W wypadku gdy argumentami ca³ej sieci s± obraz czarnobia³y -  wymiar kana³ów ma warto¶æ $1$ i mo¿emy je interpretowaæ jako jednowymiarowy wektor zawieraj±cy warto¶æ odcienia szaro¶ci (ang. \textit{grayscale}),
 \item W wypadku warstw niewej¶ciowych - wymiar kana³ów nale¿y interpretowaæ jako kana³ trzymaj±cy warto¶ci otrzymane z obliczeñ w poprzedniej warstwie.
 \end{itemize}
-\item Przez \textit{filtr} bêdziemy rozumieæ pojedyncz± wspó³rzêdn± z wektora wyj¶ciowego rzutowañ. Jest on to¿samy z trójwymiarow± macierz± o wymiarach $(f_w, f_h, c)$ gdzie $f_w$ bêdziemy okre¶laæ mianem \textit{szeroko¶ci} filtra, $f_h$ bêdziemy okre¶laæ mianem \textit{wysoko¶ci} filtra, natomiast $c$ jest równe warto¶ci wymiaru kana³ów warstwy wej¶ciowej filtra.
-\item Rzutowaniem o kroku (ang. \textit{stride}) $(s_w, s_h)$ oraz rozmiaru filtra $(f_w, f_h, c)$ bêdziemy nazywaæ zbiór (dla wszystkich poni¿szych przypadków $c'\in\{0, \dots, c- 1\}$, $k \in \{0, \dots, f_w - 1)$ oraz $l \in \{0, \dots, f_h - 1\}$  zak³adamy, ¿e dla wymiarów wykraczaj±cych poza rozmiar macierzy $x_{i, j, k} = 0$ oraz ustalamy liczenie jej wymiarów od $0$):
+\item Przez \textit{filtr} bêdziemy rozumieæ pojedyncz± wspó³rzêdn± z wektora wyj¶ciowego rzutowañ. Jest on to¿samy z trójwymiarow± macierz± o wymiarach $(f_w, f_h, c)$ gdzie $f_w$ bêdziemy okre¶laæ mianem \textit{szeroko¶ci} filtra, $f_h$ bêdziemy okre¶laæ mianem \textit{wysoko¶ci} filtra, natomiast $c$ jest równe warto¶ci wymiaru kana³ów warstwy wej¶ciowej filtra wraz z funkcj± aktywacji.
+\item Rzutowaniem o kroku (ang. \textit{stride}) $(s_w, s_h)$ oraz rozmiarze filtra $(f_w, f_h, c)$ bêdziemy nazywaæ zbiór (dla wszystkich poni¿szych przypadków $c'\in\{0, \dots, c- 1\}$, $k \in \{0, \dots, f_w - 1)$ oraz $l \in \{0, \dots, f_h - 1\}$  zak³adamy, ¿e dla wymiarów wykraczaj±cych poza rozmiar macierzy $x_{i, j, k} = 0$ oraz ustalamy liczenie jej wymiarów od $0$):
 \begin{itemize}
 \item $\left\{\left(s_w * i + k, s_h * j + l, c'): i \in \{0, \dots,\lfloor\frac{w}{s_w}\rfloor\}, j \in \{0,\dots,\lfloor\frac{h}{s_h}\rfloor\}\right)\right\}$ dla tzw. \textit{braku dope³nienia}, (ang. \textit{valid padding}),
 \item $\left\{\left(s_w * i + k, s_h * j + l, c'\right): i \in \{-\lfloor\frac{f_w}{2}\rfloor, \dots,\lfloor\frac{w + \lfloor\frac{f_w}{2}\rfloor}{s_w}\rfloor\}, j \in \{-\lfloor\frac{f_h}{2}\rfloor, \dots, \frac{\lfloor\frac{h + f_h}{2}\rfloor}{s_h}\}\right\}$ dla tzw. \textit{ dope³nienia identycznego}, (ang. \textit{same padding}).
@@ -713,7 +713,7 @@ Rzutowania te mo¿na zinterpretowaæ jako wycinanie prostok±tów rozmiaru $(f_w, f_
 
 \subsection{Pooling}
 
-W wiêkszo¶ci zastosowañ krokiem wiêkszo¶ci warstw jest wektor $(1, 1)$, co przy zastosowaniu dope³nienia identyczno¶ciowego powoduje, ¿e rozmiary $(w, h)$ macierzy wej¶ciowej i wyj¶ciowej s± identyczne. W zwi±zku z tym, ¿e rozmiar $c$ obydwu tych macierzy jest czêsto wiêkszy od $100$ powoduje powa¿ne problemy pamiêciowe przy obliczeniach wykonywanych w sieci. Jednym z rozwi±zañ tego problemu jest zastosowanie tzw. \textit{poolingu}. Mo¿emy zinterpretowaæ go jako filtr konwolucyjny dla którego zachodzi $(f_w, f_h) = (s_w, s_h)$. Powoduje to $(s_w * s_h)$-krotne zmniejszenie rozmiaru macierzy wyj¶ciowej. Pozwala to na znacz±ce ograniczenie pamiêci potrzebnej do wykonania obliczeñ.
+W wiêkszo¶ci zastosowañ krokiem wiêkszo¶ci warstw jest wektor $(1, 1)$, co przy zastosowaniu dope³nienia identyczno¶ciowego powoduje, ¿e rozmiary $(w, h)$ macierzy wej¶ciowej i wyj¶ciowej s± identyczne. W zwi±zku z tym, ¿e rozmiar $c$ obydwu tych macierzy jest czêsto wiêkszy od $100$ powoduje powa¿ne problemy pamiêciowe przy obliczeniach wykonywanych w sieci. Jednym z rozwi±zañ tego problemu jest zastosowanie tzw. \textit{poolingu}. Mo¿emy zinterpretowaæ go jako filtr konwolucyjny dla którego zachodzi $(f_w, f_h) \sim (s_w, s_h)$. Powoduje to $(s_w * s_h)$-krotne zmniejszenie rozmiaru macierzy wyj¶ciowej. Pozwala to na znacz±ce ograniczenie pamiêci potrzebnej do wykonania obliczeñ.
 
 Dwa najczê¶ciej spotykane rodzaje \textit{pooling} to tzw. \textit{max-pooling} w którym funkcj± aktywacj± jest funkcja $\max$ oraz tzw. \textit{sum-pooling} - gdzie jako aktywacjê stosujê siê sumê po wszystkich elementach rzutowania.
 
@@ -733,7 +733,7 @@ Spo³eczno¶æ badaczy sieci konwolucyjnych jest w dzisiejszych czasach bardzo szer
 
 \subsection{Pierwsze sieci konwolucyjne}
 
-Biologicz± podstawê dzia³ania konwolucyjny sieci neuronowych odkryto i sformu³owano ok. 1968r. gdy odkryto, ¿e widzenie odbywa siê przy pomocy tzw. pól receptywnych (ang. \textit{receptive fields}) (\cite{receptive-field}). Jednak za prawdziw± datê ich powstania uznajê siê 1986r. i pracê (\cite{backprop}) (\textit{nota bene} tê sam± w której zdefiniowano \textit{wsteczn± propagacjê}). Przez wiele lat jednak brak dostatecznie du¿ych zbiorów danych oraz mocy obliczeniowej nie pozwala³ sieciom konwolucyjnym na pokazanie pe³nego potencja³u. Chlubnym wyj±tkim by³a sieæ LeNet (\cite{lenet}) autorstwa Yana LeCuna która dziêki wsparciu biologów pracuj±cych nad percepcj± wzrokow± w mózgu byli w stanie uzyskaæ satysfakcjonuj±ce rezultaty.
+Biologicz± podstawê dzia³ania konwolucyjny sieci neuronowych odkryto i sformu³owano ok. 1968r. gdy odkryto, ¿e widzenie odbywa siê przy pomocy tzw. pól receptywnych (ang. \textit{receptive fields}) (\cite{receptive-field}). Jednak za prawdziw± datê ich powstania uznajê siê 1986r. i pracê (\cite{backprop}) (\textit{nota bene} tê sam± w której zdefiniowano \textit{wsteczn± propagacjê}). Przez wiele lat jednak brak dostatecznie du¿ych zbiorów danych oraz mocy obliczeniowej nie pozwala³ sieciom konwolucyjnym na pokazanie pe³nego potencja³u. Chlubnym wyj±tkim by³a sieæ LeNet (\cite{lenet}) autorstwa Yana LeCuna która dziêki wsparciu biologów pracuj±cych nad percepcj± wzrokow± w mózgu by³a w stanie uzyskaæ satysfakcjonuj±ce rezultaty.
 \begin{figure}
 \centering 
 \includegraphics[scale=0.5]{lenet.png}
@@ -803,7 +803,7 @@ Wymaga³o to od sieci uchwycenia inwariancji nietylko ze wzglêdu na przesuniêcia,
 
 \subsubsection{Dropout}
 
-Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶wiadczaj± zjawiska przeuczenia. Jednym z rodzajów takiego przeuczenia jest wyodrêbnianie siê w sieci konglomeratu jednostek które ucz± siê \textit{de facto} na pamiêæ podrodziny przyk³adów. Uwa¿a siê, ¿e zjawisko takie pogarsza generalizacjê - dlatego w swojej pracy Krizhevsky po raz pierwszy zastosowa³ specjaln± metodê stworzon± w celu unikniêcia tego zjawiska. Technika ta zwana \textit{dropoutem} polega na losowym (z prawdopodobieñstem $p \in (0, 1)$) wy³±czeniu podczas pojedynczej iteracji uczenia ka¿dego neuronu z osobna. Dziêki temu - tworzenie siê takiego zespo³u jednostek sieci jest utrudniane przez to, ¿e w ka¿dej z iteracji czê¶æ takiej podsieci jest losowo wy³±czana.
+Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶wiadczaj± zjawiska przeuczenia. Jednym z rodzajów takiego przeuczenia jest wyodrêbnianie siê w sieci konglomeratu jednostek które ucz± siê \textit{de facto} na pamiêæ podrodziny przyk³adów. Uwa¿a siê, ¿e zjawisko takie pogarsza generalizacjê - dlatego w swojej pracy Krizhevsky po raz pierwszy zastosowa³ specjaln± metodê stworzon± w celu unikniêcia tego zjawiska. Technika ta zwana \textit{dropoutem} \cite{dropout} polega na losowym (z prawdopodobieñstem $p \in (0, 1)$) wy³±czeniu podczas pojedynczej iteracji uczenia ka¿dego neuronu z osobna. Dziêki temu - tworzenie siê takiego zespo³u jednostek sieci jest utrudniane przez to, ¿e w ka¿dej z iteracji czê¶æ takiej podsieci jest losowo wy³±czana.
 \begin{figure}
 \centering 
 \includegraphics[scale=0.5]{dropout-nn.png}
@@ -878,13 +878,24 @@ Warto wspomnieæ, ¿e sieæ ta jest bujnie rozwijana. Obecnie dostêpne jest jej ju¿
 
 \subsection{Sieci residualne ResNet}
 
-TODO
+Ostatni± z nowoczesnych architektur któr± opiszemy w tej pracy jest \textit{architektura po³±czeñ residualnych - ResNet} \cite{resnet}. Opracowana w laboratoriach firmy Microsoft sieæ wystêpuje w kilkunastu wersjach w zale¿no¶ci od ilo¶ci warstw - \textit{ResNet 18, ResNet 34, ResNet 50, ResNet 101 i ResNet 151}. W architekturze tej wykorzystywane s± elementy opisane ju¿ wcze¶niej - czyli klasyfikatory pomocnicze oraz ³odyga. Rewolucyjnym elementem architektur residualnych jest natomiast tzw. \textit{po³±czenie residualne} (ang. \textit{residual connection}) które pozwoli³o na osi±ganie niewyobra¿alnych wcze¶niej g³êboko¶ci.
 
 \subsubsection{Po³±czenia residualne}
 
-TODO
+\textit{Po³±czeniem residualnym} nazywamy blok warstw konwolucyjnych w którym wyj¶cie z tego bloku zostaje poddane jednej z dwóch nastêpuj±cych operacji:
 
+\begin{itemize}
+\item dodania do warstwy wej¶ciowej (wymagane jest aby wyj¶cie mia³o dok³adnie taki sam rozmiar $(w, h, c)$ jak wej¶cie,
+\item do³±czenia do warstwy wej¶ciowej (wymagane jest aby wyj¶cie mia³o takie same $w$ i $h$ jak wej¶cie).
+\end{itemize}
 
+W architekturach $ResNet$ wykorzystywany jest blok z operacj± dodawania. Intuicyjnym wyt³umaczeniem skuteczno¶ci dzia³ania po³±czeñ residualnych w tym wypadku jest to, ¿e sieæ uczy siê ci±gu kolejnych zaburzeñ poprzednich warstw które prowadz± do dobrego wyniku, zamiast ci±gu transformacji prowadz±cego do celu (transformacje te mog± kompletnie gubiæ naturê swoich argumentów - czêsto znacznie u³atwiaj±c± rozwi±zanie zadania). Dziêki temu - problemy z przekazywaniem sygna³u ucz±cego w ni¿sze warstwy sieci s± znacznie mniejsze - co pozwala na znacz±ce zwiêkszenie g³êboko¶ci sieci.
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.9]{residual.png}
+\caption{Przyk³ad po³±czenia residualnego.}
+\end{figure}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
@@ -1099,6 +1110,16 @@ arXiv:1512.00567
 Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning,
 Ch. Szegedy et al.,
 arXiv:1602.07261
+
+\bibitem{resnet}
+Deep Residual Learning for Image Recognition,
+K. He, et al.,
+arXiv:1512.03385
+
+\bibitem{dropout}
+Improving neural networks by preventing co-adaptation of feature detectors,
+G. Hinton,
+arXiv:1207.0580
 
 \end{thebibliography}
 
