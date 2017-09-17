@@ -858,7 +858,7 @@ Szczególnie ta druga w³asno¶æ uczyni konwolucjê przydatnych zarówno dla \textit{
 Kolejn± bardzo interesuj±c± modyfikacj± by³o wprowadzenie tzw. \textit{klasyfikatorów pomocniczych}. Klasyfikatory pomocnicze to dodatkowe wyj¶cia z sieci (umieszczane w warstwach bli¿szych warstwie wej¶ciowej) w których dodawane s± pomocnicze warstwy wyj¶ciowe rozmiaru takiego samego jak ostateczne wyj¶cie z sieci - maj±ce optymalizowaæ dok³adnie tê sam± funkcjê kosztu co jednostki wyj¶ciowe sieci (czêsto nadaje siê tym kosztom ni¿sz± wagê). Celami stosowania klasyfikatorów pomocniczych s±:
 
 \begin{itemize}
-\item Przekazywanie rozs±dnego sygna³u ucz±cego (gradientu) dla ni¿szych warstw sieci - dla których \textit{dotarcie} gradientu z ostatnich warstw mo¿e okazaæ siê trudne przez co przyspieszane jest uczenie sieci,
+\item Przekazywanie rozs±dnego sygna³u ucz±cego (gradientu) dla ni¿szych warstw sieci - dla których \textit{dotarcie} gradientu z ostatnich warstw mo¿e okazaæ siê trudne przez co uczenie sieci jest znacz±co przyspieszane,
 \item Zmuszenie ni¿szych warstw sieci aby uczy³y siê \textit{rozs±dnych cech}, tj. takich które same w sobie mog± rozwi±zaæ wyj¶ciowy problem.
 \end{itemize}
 
@@ -896,6 +896,27 @@ W architekturach $ResNet$ wykorzystywany jest blok z operacj± dodawania. Intuicy
 \includegraphics[scale=0.9]{residual.png}
 \caption{Przyk³ad po³±czenia residualnego.}
 \end{figure}
+
+\chapter{Implementacja - zastosowanie CNN do rozpoznawania raka jelita grubego}
+
+W poni¿szym rozdziale opiszemy zastosowanie sieci konwolucyjnej do rozpoznania typu tkanki pobranej z jelita grubego. Rozwi±zanie to osi±gnê³o doskona³e wyniki porównywalne z wynikami przedstawionymi w renomowanym czasopi¶mie naukowym \textit{Nature} \cite{nature-cancer}. W kolejnych rozdzia³ach opiszemy rozwi±zywany problem, zbiór danych, architekturê sieci oraz porównamy wyniki modelu z najlepszymi obecnie wynikami uzyskanymi na podanymi w \cite{nature-cancer}.
+
+\section{Opis problemu}
+
+Rak jelita grubego (³ac. \textit{carcinoma intestini crassi}) jest jednym z najczê¶ciej rozpoznawanych nowotworów na ¶wiecie. W 2012 roku w Europie rozpoznano 450 000 przypadków raka jelita grubego i 215 000 przypadków zgonów \cite{wiki-cancer}. Jednym ze sposobów rozpoznawania choroby jest analiza obrazów pobranych tkanek uzyskanych przy pomocy mikroskopu elektronowego. Ten w³a¶nie sposób stanowi podstawê algorytmów opisanych w tej pracy.
+
+\section{Opis zbioru danych i dotychczasowych wyników}
+
+W \cite{nature-cancer} - badacze przygotowali pierwszy zbiór danych do analizy i porównywania wyników modeli przeznaczonych do rozpoznawania komórek rakowych w tkankach jelita grubego. Poni¿ej opiszemy przedstawiony zbior danych oraz wyniki uzyskane przez badaczy.
+
+\subsection{Zbiór danych}
+
+\subsection{Otrzymane wyniki}
+
+\section{Opis eksperymentów i sieci}
+
+\section{Porównanie wyników}
+
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
@@ -1120,6 +1141,15 @@ arXiv:1512.03385
 Improving neural networks by preventing co-adaptation of feature detectors,
 G. Hinton,
 arXiv:1207.0580
+
+\bibitem{nature-cancer}
+Multi-class texture analysis in colorectal cancer histology,
+J.N. Kather,
+Scientific Reports 6, Article number: 27988 (2016)
+
+\bibitem{wiki-cancer}
+Rak jelita grubego,
+Wikipedia Polska
 
 \end{thebibliography}
 

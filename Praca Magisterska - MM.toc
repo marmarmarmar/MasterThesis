@@ -60,4 +60,11 @@
 \contentsline {subsubsection}{Kolejne wersji Incepcji}{42}
 \contentsline {subsection}{\numberline {3.3.5}Sieci residualne ResNet}{42}
 \contentsline {subsubsection}{Po\IeC {\l }\k aczenia residualne}{42}
-\contentsline {chapter}{Bibliografia}{45}
+\contentsline {chapter}{\numberline {4}Implementacja - zastosowanie CNN do rozpoznawania raka jelita grubego}{45}
+\contentsline {section}{\numberline {4.1}Opis problemu}{45}
+\contentsline {section}{\numberline {4.2}Opis zbioru danych i dotychczasowych wynik\'ow}{45}
+\contentsline {subsection}{\numberline {4.2.1}Zbi\'or danych}{45}
+\contentsline {subsection}{\numberline {4.2.2}Otrzymane wyniki}{45}
+\contentsline {section}{\numberline {4.3}Opis eksperyment\'ow i sieci}{45}
+\contentsline {section}{\numberline {4.4}Por\'ownanie wynik\'ow}{45}
+\contentsline {chapter}{Bibliografia}{47}
