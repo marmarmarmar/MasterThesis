@@ -734,7 +734,6 @@ Spo³eczno¶æ badaczy sieci konwolucyjnych jest w dzisiejszych czasach bardzo szer
 \subsection{Pierwsze sieci konwolucyjne}
 
 Biologicz± podstawê dzia³ania konwolucyjny sieci neuronowych odkryto i sformu³owano ok. 1968r. gdy odkryto, ¿e widzenie odbywa siê przy pomocy tzw. pól receptywnych (ang. \textit{receptive fields}) (\cite{receptive-field}). Jednak za prawdziw± datê ich powstania uznajê siê 1986r. i pracê (\cite{backprop}) (\textit{nota bene} tê sam± w której zdefiniowano \textit{wsteczn± propagacjê}). Przez wiele lat jednak brak dostatecznie du¿ych zbiorów danych oraz mocy obliczeniowej nie pozwala³ sieciom konwolucyjnym na pokazanie pe³nego potencja³u. Chlubnym wyj±tkim by³a sieæ LeNet (\cite{lenet}) autorstwa Yana LeCuna która dziêki wsparciu biologów pracuj±cych nad percepcj± wzrokow± w mózgu byli w stanie uzyskaæ satysfakcjonuj±ce rezultaty.
-
 \begin{figure}
 \centering 
 \includegraphics[scale=0.5]{lenet.png}
@@ -743,7 +742,73 @@ Biologicz± podstawê dzia³ania konwolucyjny sieci neuronowych odkryto i sformu³ow
 
 \subsection{AlexNet}
 
-TODO
+Za pierwsz± z tzw. \textit{nowoczesnych} sieci konwolucyjnych uznaje siê tzw. sieæ \textit{AlexNet} (\cite{alex-net}) autorstwa Alexa Krizhevskiego. Osi±gnê³a ona fantastyczne rezultaty w ImageNet Large Scale Visual Recognition Challange 2012 \cite{imagenet} (przez wielu uznawanym za najwa¿niejszy konkurs rozpoznawania obrazu na ¶wiecie) bij±c o kilkana¶cie procent dotychczasowe rekordy algorytmów opartch o klasyczne metody wizji komputerowej. Rozpali³a tym wyobra¼nie badaczy kompletnie zmieniaj±c krajobraz ¶rodowiska specjalistów od wizji komputerowej. W ci±gu 3 lat - sieci konwolucyjne z interesuj±cej ciekawostki sta³y siê dominuj±cym rozwi±zaniem w kategorii rozpoznania obrazu. Przeanalizujmy najwa¿niejsze innowacje wprowadzone przez A. Krizhevskiego w swojej pracy:
+\begin{figure}
+\centering 
+\includegraphics[scale=0.9]{alex-net.png}
+\caption{Schemat architektury sieci \textit{AlexNet}.}
+\end{figure}
+\subsubsection{Recitified Linear unit - ReLU}
+Pierwsz± z niach by³o wprowadzenie nowej funkcji aktywacji - tzw. \textit{ReLU} (ang. \textit{Rectified Linear Unit)}. Jest ona zadana nies³ychanie prostym wzorem:
+$$Relu(x) = x\mathbb{I}_{x > 0},$$
+z równie prostym wzorem na s³ab± pochodn±:
+$$Relu'(x) = \mathbb{I}_{x > 0}.$$
+Co wiêcej - obliczenia potrzebne do ich policzenia s± niewyobra¿alnie proste - sprowadzaj± siê \textit{de facto} do wykonania pojedynczego porównania - przez co obliczenia wykonywane przy obliczaniu jej warto¶ci, a tak¿e przy wstecznej propagacji by³y znacznie szybsze do popularnych w tym czasie funkcji $\tanh$ oraz funkcji sigmoidalnej (które wymaga³y chocia¿by obliczenia funkcji $exp$).
+\begin{figure}
+\centering 
+\includegraphics[scale=0.8]{relu.png}
+\caption{Wykres funkcji i s³abej pochodnej \textit{ReLU}.}
+\end{figure}
+
+\paragraph{Leaky ReLU}
+
+Jedn± z najwiêkszych wad funkcji \textit{ReLU} by³a kompletna saturacja dla ujemnych warto¶ci argumentów. Aby temu zaradziæ wprowadzono tzw. funkcjê \textit{Leaky ReLU}. Jest to tak w³a¶ciwie rodzina funkcji parametryzowana parametrem $\alpha \in (0, 1)$ zadana wzorem:
+$$LeakyReLu_\alpha(x) = x(\mathbb{I}_{x > 0} + \alpha\mathbb{I}_{x \leq 0}),$$
+z pochodn±:
+$$LeakyReLu'_\alpha(x) = \mathbb{I}_{x > 0} + \alpha\mathbb{I}_{x \leq 0}.$$
+Dziêki mniejszej warto¶ci wspó³czynnika kierunkowego funkcja jednocze¶nie nie posiada w³asno¶ci kompletnej saturacji i nie jest liniowa. Ponadto jej obliczenie jej i jej gradientu nadal jest szybkie gdy¿ sprowadza siê w najgorszym przypadku do porównania i mno¿enia przez sta³±.
+\begin{figure}
+\centering 
+\includegraphics[scale=0.5]{leaky-relu.png}
+\caption{Wykres funkcji \textit{Leaky ReLU}.}
+\end{figure}
+
+\subsubsection{Obliczenia na kartach graficznych}
+
+Kolejn± przyczyn± niewyobra¿alnego sukcesu \textit{AlexNet} by³ fakt, ¿e obliczenia by³y efektywnie przeniesione na dwie karty graficzne. W zwi±zku z tym, ¿e podstaw± obliczeñ w sieciach neuronowych s± mno¿enia macierzy - które s± równie¿ podstaw± wy¶wietlania obrazu przy pomocy jednostek \textit{GPU} (ang. \textit{Graphic Process Unit}) - Krizhevsky postanowi³ u¿yæ ogromnej mocy obliczeniowej i optymalizacji dostarczanych przez g³ównych producentów kart graficznych w celu przyspieszenia trenowania sieci. Ostatecznie trening \textit{AlexNet} trwa³ ok. 2 tygodni co jak na tamten okres by³o czasem niewiarygodnie krótkim.
+\begin{figure}
+\centering 
+\includegraphics[scale=0.4]{gpu-cpu.png}
+\caption{Przyspieszanie kart graficznych oraz zwiêkszanie ró¿nicy pomiêdzy obliczeniami wykonywanymi na GPU / CPU.}
+\end{figure}
+
+Co warto wspomnieæ - od tego czasu wielu producentów kart graficznych (szczególnie NVidia) po¶wiêca bardzo wiele pracy na optymalizacjê nowoczesnych kart graficznych specyficznie do \textit{Deep Learningu} dziêki czemu obliczenia algorytmów sieci neuronowych z roku na rok przyspieszaj± coraz bardziej.
+
+\subsubsection{Augmentacja obrazów}
+
+Kolejn± technik± która przynios³a ogromne poprawienie rezultatów by³a tzw. \textit{augmentacja obrazów}. W kolejnych iteracjach obrazki podawane sieci by³y poddawane rozmaitym operacjom, w tym m.in.:
+\begin{itemize}
+\item powiêkszanie - zmniejszanie o losowy czynnik,
+\item wycinanie losowego prostok±ta z obrazu,
+\item obrót o losowy k±t,
+\item losowa symetria wzd³u¿ ustalonych osi,
+\item przesuniêcie kolorów o losowy sk³adnik.
+\end{itemize}
+Wymaga³o to od sieci uchwycenia inwariancji nietylko ze wzglêdu na przesuniêcia, ale tak¿e mnogo¶æ innych transformacji - ograniczaj±c w ten sposób zjawisko przeuczenia. Co wiêcej - w zwi±zku z tym, ¿e zbiór potencjalnych operacji jest nieograniczony (np. ze wzglêdu na mo¿liwe k±ty obrotu czy warto¶ci przesuniêcia) - augmentacja czyni zbiór danych treningowych potencjalnie nieskoñczonym.
+\begin{figure}
+\centering 
+\includegraphics[scale=1.4]{augmentation.png}
+\caption{Przyk³ady obrazków uzyskanych z pojedynczego obrazka ze zbioru treningowego przy pomocy losowych augmentacji.}
+\end{figure}
+
+\subsubsection{Dropout}
+
+Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶wiadczaj± zjawiska przeuczenia. Jednym z rodzajów takiego przeuczenia jest wyodrêbnianie siê w sieci konglomeratu jednostek które ucz± siê \textit{de facto} na pamiêæ podrodziny przyk³adów. Uwa¿a siê, ¿e zjawisko takie pogarsza generalizacjê - dlatego w swojej pracy Krizhevsky po raz pierwszy zastosowa³ specjaln± metodê stworzon± w celu unikniêcia tego zjawiska. Technika ta zwana \textit{dropoutem} polega na losowym (z prawdopodobieñstem $p \in (0, 1)$) wy³±czeniu podczas pojedynczej iteracji uczenia ka¿dego neuronu z osobna. Dziêki temu - tworzenie siê takiego zespo³u jednostek sieci jest utrudniane przez to, ¿e w ka¿dej z iteracji czê¶æ takiej podsieci jest losowo wy³±czana.
+\begin{figure}
+\centering 
+\includegraphics[scale=0.5]{dropout-nn.png}
+\caption{Przyk³ady architektury sieci w której zastosowane technikê \textit{dropout}.}
+\end{figure}
 
 \subsection{VGG}
 
@@ -946,6 +1011,17 @@ Proc. of IEEE, November 1998
 Receptive fields and functional architecture of monkey striate cortex,
 D. H. Hubel, T. N. Wiesel,
 The Journal of Physiology. 195 (1): 215?243
+
+\bibitem{alex-net}
+ImageNet Classification with Deep Convolutional
+Neural Networks,
+A. Krizhevsky et al,
+NIPS 2012
+
+\bibitem{imagenet}
+ImageNet Large Scale Visual Recognition Challenge,
+Russakovsky et al.,
+arXiv:1409.0575 
 
 \end{thebibliography}
 
