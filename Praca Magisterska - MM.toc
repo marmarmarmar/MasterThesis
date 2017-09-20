@@ -9,11 +9,13 @@
 \contentsline {section}{\numberline {2.1}Uczenie}{11}
 \contentsline {subsection}{\numberline {2.1.1}Formalna definicja uczenia}{11}
 \contentsline {subsection}{\numberline {2.1.2}Uczenie z nadzorem}{12}
-\contentsline {subsection}{\numberline {2.1.3}Uczenie bez nadzoru}{13}
-\contentsline {subsection}{\numberline {2.1.4}Generalizacja oraz przeuczenie}{14}
+\contentsline {subsection}{\numberline {2.1.3}Uczenie bez nadzoru}{12}
+\contentsline {subsection}{\numberline {2.1.4}Generalizacja oraz przeuczenie}{13}
 \contentsline {subsubsection}{Zbiory walidacyjne i testowe}{15}
 \contentsline {subsubsection}{Walidacja krzy\.zowa (ang. \textit {cross-validation})}{15}
 \contentsline {subsection}{\numberline {2.1.5}Optymalizacja gradientowa}{16}
+\contentsline {subsubsection}{Losowa inicjalizacja}{16}
+\contentsline {subsubsection}{Lokalne minima}{16}
 \contentsline {subsubsection}{Redukcja sta\IeC {\l }ej uczenia w wypadku wysokiej i sta\IeC {\l }ej warto\'sci funkcji kosztu (ang. \textit {learning rate reduction on plateau})}{17}
 \contentsline {subsection}{\numberline {2.1.6}Stochastyczna optymalizacja gradientowa}{17}
 \contentsline {subsection}{\numberline {2.1.7}Metaoptymalizacja}{18}
@@ -28,9 +30,9 @@
 \contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{21}
 \contentsline {subsection}{\numberline {2.3.2}Wielowarstwowa sie\'c neuronowa jako uniwersalny aproksymator}{22}
 \contentsline {subsection}{\numberline {2.3.3}Algorytm wstecznej propagacji}{23}
-\contentsline {subsubsection}{Zjawisko przesuni\k ecia kowariancji (ang. \textit {covariate shift}) i technika normalizacji porcjowej (ang. \textit {Batch Normalization})}{24}
+\contentsline {subsubsection}{Zjawisko przesuni\k ecia warto\'sci (ang. \textit {covariate shift}) i technika normalizacji porcjowej (ang. \textit {Batch Normalization})}{25}
 \contentsline {subsection}{\numberline {2.3.4}Interpretacja probabilistyczna sieci neuronowych}{25}
-\contentsline {subsection}{\numberline {2.3.5}Regularyzacja sieci neuronowych}{26}
+\contentsline {subsection}{\numberline {2.3.5}Regularyzacja sieci neuronowych}{27}
 \contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{2}$}{27}
 \contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{1}$}{27}
 \contentsline {subsection}{\numberline {2.3.6}Czym r\'o\.zni\k a si\k e powy\.zsze kary?}{28}
@@ -64,7 +66,17 @@
 \contentsline {section}{\numberline {4.1}Opis problemu}{45}
 \contentsline {section}{\numberline {4.2}Opis zbioru danych i dotychczasowych wynik\'ow}{45}
 \contentsline {subsection}{\numberline {4.2.1}Zbi\'or danych}{45}
-\contentsline {subsection}{\numberline {4.2.2}Otrzymane wyniki}{45}
-\contentsline {section}{\numberline {4.3}Opis eksperyment\'ow i sieci}{45}
-\contentsline {section}{\numberline {4.4}Por\'ownanie wynik\'ow}{45}
-\contentsline {chapter}{Bibliografia}{47}
+\contentsline {paragraph}{Spos\'ob zebrania}{46}
+\contentsline {section}{\numberline {4.3}Opis sieci i eksperymentu}{46}
+\contentsline {subsection}{\numberline {4.3.1}Opis architektury sieci}{46}
+\contentsline {paragraph}{Wej\'scie}{47}
+\contentsline {paragraph}{\IeC {\L }odyga}{47}
+\contentsline {paragraph}{Blok 1}{47}
+\contentsline {paragraph}{Blok 2}{47}
+\contentsline {paragraph}{Interpretacja wyj\'s\'c}{47}
+\contentsline {paragraph}{Normalizacja porcjowa oraz funkcja aktywacji}{47}
+\contentsline {subsection}{\numberline {4.3.2}Szczeg\'o\IeC {\l }y funkcji kosztu}{48}
+\contentsline {subsection}{\numberline {4.3.3}Szczeg\'o\IeC {\l }y algorytmu optymalizacyjnego}{48}
+\contentsline {subsection}{\numberline {4.3.4}Szczeg\'o\IeC {\l }y procesu uczenia}{48}
+\contentsline {section}{\numberline {4.4}Por\'ownanie wynik\'ow}{50}
+\contentsline {chapter}{Bibliografia}{51}
