@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  20 SEP 2017 00:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.9.16)  21 SEP 2017 10:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -167,14 +167,22 @@ Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen117
 \Gin@req@width=\dimen118
 )
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip46
+\enit@outerparindent=\dimen119
+\enit@toks=\toks23
+\enit@inbox=\box28
+\enitdp@description=\count102
+)
 (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2013/01/06 v5.00 algorithms environments
-\c@AlgoLine=\count102
+\c@AlgoLine=\count103
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\algocf@hangindent=\skip46
+\algocf@hangindent=\skip47
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
@@ -189,45 +197,45 @@ Package `algorithm2e' Release 5.1 -- october 19 2015 --
 subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 - Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
 ********************************************************
-\skiptotal=\skip47
-\skiplinenumber=\skip48
-\skiprule=\skip49
-\skiphlne=\skip50
-\skiptext=\skip51
-\skiplength=\skip52
-\algomargin=\skip53
-\skipalgocfslide=\skip54
-\algowidth=\dimen119
-\inoutsize=\dimen120
-\inoutindent=\dimen121
-\interspacetitleruled=\dimen122
-\interspacealgoruled=\dimen123
-\interspacetitleboxruled=\dimen124
-\algocf@ruledwidth=\skip55
-\algocf@inoutbox=\box28
-\algocf@inputbox=\box29
-\AlCapSkip=\skip56
-\AlCapHSkip=\skip57
-\algoskipindent=\skip58
-\algocf@nlbox=\box30
-\algocf@hangingbox=\box31
-\algocf@untilbox=\box32
-\algocf@skipuntil=\skip59
-\algocf@capbox=\box33
-\algoheightruledefault=\skip60
-\algoheightrule=\skip61
-\algotitleheightruledefault=\skip62
-\algotitleheightrule=\skip63
-\c@algocfline=\count103
-\c@algocfproc=\count104
-\c@algocf=\count105
-\algocf@algoframe=\box34
-\algocf@algobox=\box35
+\skiptotal=\skip48
+\skiplinenumber=\skip49
+\skiprule=\skip50
+\skiphlne=\skip51
+\skiptext=\skip52
+\skiplength=\skip53
+\algomargin=\skip54
+\skipalgocfslide=\skip55
+\algowidth=\dimen120
+\inoutsize=\dimen121
+\inoutindent=\dimen122
+\interspacetitleruled=\dimen123
+\interspacealgoruled=\dimen124
+\interspacetitleboxruled=\dimen125
+\algocf@ruledwidth=\skip56
+\algocf@inoutbox=\box29
+\algocf@inputbox=\box30
+\AlCapSkip=\skip57
+\AlCapHSkip=\skip58
+\algoskipindent=\skip59
+\algocf@nlbox=\box31
+\algocf@hangingbox=\box32
+\algocf@untilbox=\box33
+\algocf@skipuntil=\skip60
+\algocf@capbox=\box34
+\algoheightruledefault=\skip61
+\algoheightrule=\skip62
+\algotitleheightruledefault=\skip63
+\algotitleheightrule=\skip64
+\c@algocfline=\count104
+\c@algocfproc=\count105
+\c@algocf=\count106
+\algocf@algoframe=\box35
+\algocf@algobox=\box36
 )
-\c@defi=\count106
-\c@przyklad=\count107
-\c@uwaga=\count108
-\c@twierdzenie=\count109
+\c@defi=\count107
+\c@przyklad=\count108
+\c@uwaga=\count109
+\c@twierdzenie=\count110
  (./Praca Magisterska - MM.aux)
 \openout1 = `"Praca Magisterska - MM.aux"'.
 
@@ -246,17 +254,17 @@ LaTeX Font Info:    ... okay on input line 67.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count110
-\scratchdimen=\dimen125
-\scratchbox=\box36
-\nofMPsegments=\count111
-\nofMParguments=\count112
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count113
-\MPscratchDim=\dimen126
-\MPnumerator=\count114
-\makeMPintoPDFobject=\count115
-\everyMPtoPDFconversion=\toks24
+\scratchcounter=\count111
+\scratchdimen=\dimen126
+\scratchbox=\box37
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count114
+\MPscratchDim=\dimen127
+\MPnumerator=\count115
+\makeMPintoPDFobject=\count116
+\everyMPtoPDFconversion=\toks25
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -340,65 +348,61 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
  [5
 
-] [6
-
-]
+] [6]
 Rozdzia\l  1.
-[7] [8] [9] [10
+[7
+
+] [8] [9] [10
 
 ]
 Rozdzia\l  2.
 [11] <Regresja1.png, id=63, 607.26875pt x 352.31625pt>
 File: Regresja1.png Graphic file (type png)
  <use Regresja1.png>
-Package pdftex.def Info: Regresja1.png used on input line 160.
+Package pdftex.def Info: Regresja1.png used on input line 162.
 (pdftex.def)             Requested size: 303.63364pt x 176.15768pt.
 
 [12 <./Regresja1.png (PNG copy)>] <torus_tsne.png, id=69, 578.16pt x 433.62pt>
 File: torus_tsne.png Graphic file (type png)
 
 <use torus_tsne.png>
-Package pdftex.def Info: torus_tsne.png used on input line 200.
+Package pdftex.def Info: torus_tsne.png used on input line 202.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
  [13] <overfitting.png, id=74, 1233.6489pt x 574.5465pt>
 File: overfitting.png Graphic file (type png)
 
 <use overfitting.png>
-Package pdftex.def Info: overfitting.png used on input line 217.
+Package pdftex.def Info: overfitting.png used on input line 219.
 (pdftex.def)             Requested size: 456.44295pt x 212.57887pt.
 
-Overfull \hbox (15.42522pt too wide) in paragraph at lines 217--218
+Overfull \hbox (15.42522pt too wide) in paragraph at lines 219--220
  [] 
  []
 
-[14 <./torus_tsne.png> <./overfitting.png>] [15] [16]
+[14 <./overfitting.png> <./torus_tsne.png>] [15] [16]
 <r-o-p.png, id=88, 1027.84pt x 770.88pt>
 File: r-o-p.png Graphic file (type png)
  <use r-o-p.png>
-Package pdftex.def Info: r-o-p.png used on input line 284.
+Package pdftex.def Info: r-o-p.png used on input line 286.
 (pdftex.def)             Requested size: 359.74939pt x 269.81204pt.
- [17 <./r-o-p.png (PNG copy)>] [18]
+ [17 <./r-o-p.png (PNG copy)>] [18] [19]
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 348.
- <Sigmoid-wykres.png, id=96, 607.26875pt x 352.31625pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 363.
+ <Sigmoid-wykres.png, id=99, 607.26875pt x 352.31625pt>
 File: Sigmoid-wykres.png Graphic file (type png)
 
 <use Sigmoid-wykres.png>
-Package pdftex.def Info: Sigmoid-wykres.png used on input line 357.
+Package pdftex.def Info: Sigmoid-wykres.png used on input line 372.
 (pdftex.def)             Requested size: 425.08524pt x 246.61969pt.
-
-
-LaTeX Warning: Citation `TODO' on page 19 undefined on input line 361.
-
-[19]
-Overfull \hbox (1.73753pt too wide) in paragraph at lines 377--378
+ [20 <./Sigmoid-wykres.png>]
+Overfull \hbox (1.73753pt too wide) in paragraph at lines 392--393
 \T1/cmr/m/n/10.95 prze-ksztaª-ce-nia li-nio-wego, miast funk-cji sig-mo-idal-ne
 j u»ywa si¦ tzw. funk-cji \T1/cmr/m/it/10.95 so-ft-max $\OML/cmm/m/it/10.95 Sof
 tmax \OT1/cmr/m/n/10.95 :
  []
 
-[20 <./Sigmoid-wykres.png>]
-Overfull \hbox (15.07568pt too wide) in paragraph at lines 391--392
+
+Overfull \hbox (15.07568pt too wide) in paragraph at lines 406--407
 \T1/cmr/m/it/10.95 mul-ti-no-mialn¡ $\OML/cmm/m/it/10.95 F$ \T1/cmr/m/n/10.95 b
 ¦-dziemy na-zy-wa¢ funk-cj¦ $\U/msb/m/n/10.95 R[] \OMS/cmsy/m/n/10.95 ! \U/msb/
 m/n/10.95 R[]$ \T1/cmr/m/n/10.95 za-dan¡ wzo-rem $\OML/cmm/m/it/10.95 F[]\OT1/c
@@ -410,151 +414,147 @@ oftmax\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 M[]\OT1/cmr/m/n/10.95 (\OML/cmm/m
 [21] <SiecXor.png, id=107, 377.41pt x 253.94875pt>
 File: SiecXor.png Graphic file (type png)
  <use SiecXor.png>
-Package pdftex.def Info: SiecXor.png used on input line 419.
+Package pdftex.def Info: SiecXor.png used on input line 440.
 (pdftex.def)             Requested size: 264.1852pt x 177.76291pt.
-
-<Recurrent.png, id=108, 161.60374pt x 201.75375pt>
+ [22]
+<Recurrent.png, id=111, 161.60374pt x 201.75375pt>
 File: Recurrent.png Graphic file (type png)
  <use Recurrent.png>
-Package pdftex.def Info: Recurrent.png used on input line 427.
+Package pdftex.def Info: Recurrent.png used on input line 448.
 (pdftex.def)             Requested size: 113.12184pt x 141.22665pt.
- [22 <./SiecXor.png>] <Backprop.png, id=113, 263.98625pt x 306.14375pt>
+ [23 <./SiecXor.png> <./Recurrent.png>]
+<Backprop.png, id=118, 263.98625pt x 306.14375pt>
 File: Backprop.png Graphic file (type png)
-
-<use Backprop.png>
-Package pdftex.def Info: Backprop.png used on input line 453.
+ <use Backprop.png>
+Package pdftex.def Info: Backprop.png used on input line 474.
 (pdftex.def)             Requested size: 184.78911pt x 214.29915pt.
- [23 <./Recurrent.png>] [24 <./Backprop.png>] [25] [26]
-[27] [28] <zeilercnnfeatures.jpeg, id=137, 876.27374pt x 336.25626pt>
+ [24 <./Backprop.png>]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 521.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [25]
+[26] [27] [28] [29]
+<zeilercnnfeatures.jpeg, id=142, 876.27374pt x 336.25626pt>
 File: zeilercnnfeatures.jpeg Graphic file (type jpg)
 
 <use zeilercnnfeatures.jpeg>
-Package pdftex.def Info: zeilercnnfeatures.jpeg used on input line 638.
+Package pdftex.def Info: zeilercnnfeatures.jpeg used on input line 665.
 (pdftex.def)             Requested size: 420.60661pt x 161.40117pt.
- [29 <./zeilercnnfeatures.jpeg>] [30]
-Rozdzia\l  3.
-[31
+ [30 <./zeilercnnfeatures.jpeg>] [31] [32
 
-] <2d_conv.png, id=148, 312.16624pt x 168.63pt>
+]
+Rozdzia\l  3.
+[33] <2d_conv.png, id=155, 312.16624pt x 168.63pt>
 File: 2d_conv.png Graphic file (type png)
  <use 2d_conv.png>
-Package pdftex.def Info: 2d_conv.png used on input line 694.
+Package pdftex.def Info: 2d_conv.png used on input line 721.
 (pdftex.def)             Requested size: 218.51488pt x 118.04018pt.
 
-<1d_conv.png, id=149, 324.21124pt x 131.49126pt>
+<1d_conv.png, id=156, 324.21124pt x 131.49126pt>
 File: 1d_conv.png Graphic file (type png)
  <use 1d_conv.png>
-Package pdftex.def Info: 1d_conv.png used on input line 700.
+Package pdftex.def Info: 1d_conv.png used on input line 727.
 (pdftex.def)             Requested size: 226.94632pt x 92.04324pt.
- [32 <./2d_conv.png>]
-Overfull \hbox (7.13329pt too wide) in paragraph at lines 720--721
+ [34 <./2d_conv.png>]
+Overfull \hbox (7.13329pt too wide) in paragraph at lines 748--749
 []$[]$ \T1/cmr/m/n/10.95 dla tzw. \T1/cmr/m/it/10.95 braku do-
  []
 
-
-Overfull \hbox (13.96541pt too wide) in paragraph at lines 721--722
+[35 <./1d_conv.png>]
+Overfull \hbox (13.96541pt too wide) in paragraph at lines 749--750
 []$[]$ \T1/cmr/m/n/10.95 dla
  []
 
-[33 <./1d_conv.png>] <conv1.png, id=160, 604.2575pt x 521.95pt>
+<conv1.png, id=168, 604.2575pt x 521.95pt>
 File: conv1.png Graphic file (type png)
-
-<use conv1.png>
-Package pdftex.def Info: conv1.png used on input line 729.
+ <use conv1.png>
+Package pdftex.def Info: conv1.png used on input line 757.
 (pdftex.def)             Requested size: 362.5573pt x 313.17241pt.
- <pools.png, id=161, 853.1875pt x 215.80624pt>
+ [36 <./conv1.png (PNG copy)>] <pools.png, id=172, 853.1875pt x 215.80624pt>
 File: pools.png Graphic file (type png)
  <use pools.png>
-Package pdftex.def Info: pools.png used on input line 741.
+Package pdftex.def Info: pools.png used on input line 769.
 (pdftex.def)             Requested size: 426.59271pt x 107.90285pt.
 
-[34 <./conv1.png (PNG copy)>] <lenet.png, id=165, 803.0pt x 235.88126pt>
+<lenet.png, id=173, 803.0pt x 235.88126pt>
 File: lenet.png Graphic file (type png)
-
-<use lenet.png>
-Package pdftex.def Info: lenet.png used on input line 758.
+ <use lenet.png>
+Package pdftex.def Info: lenet.png used on input line 786.
 (pdftex.def)             Requested size: 401.49902pt x 117.94034pt.
- <alex-net.png, id=166, 335.2525pt x 151.56625pt>
-File: alex-net.png Graphic file (type png)
 
-<use alex-net.png>
-Package pdftex.def Info: alex-net.png used on input line 767.
+<alex-net.png, id=174, 335.2525pt x 151.56625pt>
+File: alex-net.png Graphic file (type png)
+ <use alex-net.png>
+Package pdftex.def Info: alex-net.png used on input line 795.
 (pdftex.def)             Requested size: 301.72446pt x 136.40836pt.
- [35 <./pools.png>]
-<relu.png, id=172, 259.97125pt x 194.7275pt>
+ [37 <./pools.png>] <relu.png, id=179, 259.97125pt x 194.7275pt>
 File: relu.png Graphic file (type png)
  <use relu.png>
-Package pdftex.def Info: relu.png used on input line 778.
+Package pdftex.def Info: relu.png used on input line 806.
 (pdftex.def)             Requested size: 207.97728pt x 155.7822pt.
- [36 <./lenet.png> <./alex-net.png>] <leaky-relu.png, id=178, 501.875pt x 438.6
+ [38 <./lenet.png> <./alex-net.png>] <leaky-relu.png, id=185, 501.875pt x 438.6
 3875pt>
 File: leaky-relu.png Graphic file (type png)
 
 <use leaky-relu.png>
-Package pdftex.def Info: leaky-relu.png used on input line 791.
+Package pdftex.def Info: leaky-relu.png used on input line 819.
 (pdftex.def)             Requested size: 250.93687pt x 219.31883pt.
- <gpu-cpu.png, id=179, 672.5928pt x 458.6736pt>
+ <gpu-cpu.png, id=186, 672.5928pt x 458.6736pt>
 File: gpu-cpu.png Graphic file (type png)
 
 <use gpu-cpu.png>
-Package pdftex.def Info: gpu-cpu.png used on input line 800.
+Package pdftex.def Info: gpu-cpu.png used on input line 828.
 (pdftex.def)             Requested size: 269.03235pt x 183.46619pt.
- [37 <./relu.png> <./leaky-relu.png (PNG copy)>]
-<augmentation.png, id=184, 301.125pt x 107.90312pt>
+ [39 <./relu.png> <./leaky-relu.png (PNG copy)>]
+<augmentation.png, id=191, 301.125pt x 107.90312pt>
 File: augmentation.png Graphic file (type png)
  <use augmentation.png>
-Package pdftex.def Info: augmentation.png used on input line 819.
+Package pdftex.def Info: augmentation.png used on input line 847.
 (pdftex.def)             Requested size: 421.57211pt x 151.06332pt.
 
-<dropout-nn.png, id=185, 789.95125pt x 770.88pt>
+<dropout-nn.png, id=192, 789.95125pt x 770.88pt>
 File: dropout-nn.png Graphic file (type png)
  <use dropout-nn.png>
-Package pdftex.def Info: dropout-nn.png used on input line 828.
+Package pdftex.def Info: dropout-nn.png used on input line 856.
 (pdftex.def)             Requested size: 394.97466pt x 385.43906pt.
- [38 <./gpu-cpu.png>] <vgg-19.png, id=190, 853.1875pt x 242.9075pt>
+ [40 <./gpu-cpu.png>] <vgg-19.png, id=197, 853.1875pt x 242.9075pt>
 File: vgg-19.png Graphic file (type png)
  <use vgg-19.png>
-Package pdftex.def Info: vgg-19.png used on input line 837.
+Package pdftex.def Info: vgg-19.png used on input line 865.
 (pdftex.def)             Requested size: 426.59271pt x 121.45345pt.
 
-<inception-net.png, id=191, 436.63126pt x 116.435pt>
+<inception-net.png, id=198, 436.63126pt x 116.435pt>
 File: inception-net.png Graphic file (type png)
  <use inception-net.png>
-Package pdftex.def Info: inception-net.png used on input line 848.
+Package pdftex.def Info: inception-net.png used on input line 876.
 (pdftex.def)             Requested size: 392.9645pt x 104.79051pt.
 
-Underfull \vbox (badness 2980) has occurred while \output is active []
-
- [39 <./augmentation.png>] [40 <./dropout-nn.png (PNG copy)> <./vgg-19.png>] [4
-1 <./inception-net.png>] <inception-block.jpeg, id=205, 310.15875pt x 163.61125
-pt>
+[41 <./augmentation.png>] [42 <./dropout-nn.png (PNG copy)> <./vgg-19.png>]
+[43 <./inception-net.png>]
+<inception-block.jpeg, id=212, 310.15875pt x 163.61125pt>
 File: inception-block.jpeg Graphic file (type jpg)
 
 <use inception-block.jpeg>
-Package pdftex.def Info: inception-block.jpeg used on input line 894.
+Package pdftex.def Info: inception-block.jpeg used on input line 922.
 (pdftex.def)             Requested size: 279.14029pt x 147.24875pt.
- [42 <./inception-block.jpeg>]
-<residual.png, id=209, 297.11pt x 170.6375pt>
+ [44 <./inception-block.jpeg>]
+<residual.png, id=216, 297.11pt x 170.6375pt>
 File: residual.png Graphic file (type png)
  <use residual.png>
-Package pdftex.def Info: residual.png used on input line 915.
+Package pdftex.def Info: residual.png used on input line 943.
 (pdftex.def)             Requested size: 267.39651pt x 153.57231pt.
- [43 <./residual.png>] [44
+ [45 <./residual.png>] [46
 
 ]
 Rozdzia\l  4.
-[45] <cancer.jpg, id=220, 223.0734pt x 181.8795pt>
+[47] <cancer.jpg, id=228, 223.0734pt x 181.8795pt>
 File: cancer.jpg Graphic file (type jpg)
  <use cancer.jpg>
-Package pdftex.def Info: cancer.jpg used on input line 952.
+Package pdftex.def Info: cancer.jpg used on input line 981.
 (pdftex.def)             Requested size: 312.30061pt x 254.62955pt.
- [46 <./cancer.jpg>]
-
-LaTeX Warning: Citation `bilinear-interpolation' on page 47 undefined on input 
-line 974.
-
-
-Overfull \hbox (11.2042pt too wide) in paragraph at lines 990--991
+ [48 <./cancer.jpg>]
+Overfull \hbox (11.2042pt too wide) in paragraph at lines 1018--1019
 []\T1/cmr/m/n/10.95 warstwy kon-wo-lu-cyj-nej \T1/cmr/m/it/10.95 K \T1/cmr/m/n/
 10.95 o pa-ra-me-trach fil-tra $\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 f[]; f[
 ]; c\OT1/cmr/m/n/10.95 )  =  (3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OML/c
@@ -563,7 +563,7 @@ mr/m/n/10.95 (\OML/cmm/m/it/10.95 s[]; s[]\OT1/cmr/m/n/10.95 )  =
  []
 
 
-Overfull \hbox (11.2042pt too wide) in paragraph at lines 1005--1006
+Overfull \hbox (11.2042pt too wide) in paragraph at lines 1033--1034
 []\T1/cmr/m/n/10.95 warstwy kon-wo-lu-cyj-nej \T1/cmr/m/it/10.95 K \T1/cmr/m/n/
 10.95 o pa-ra-me-trach fil-tra $\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 f[]; f[
 ]; c\OT1/cmr/m/n/10.95 )  =  (3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OML/c
@@ -571,74 +571,104 @@ mm/m/it/10.95 ; \OT1/cmr/m/n/10.95 64)$ \T1/cmr/m/n/10.95 oraz kro-kach $\OT1/c
 mr/m/n/10.95 (\OML/cmm/m/it/10.95 s[]; s[]\OT1/cmr/m/n/10.95 )  =
  []
 
-<stem-schema.png, id=224, 1156.32pt x 867.24pt>
+<stem-schema.png, id=233, 1156.32pt x 867.24pt>
 File: stem-schema.png Graphic file (type png)
  <use stem-schema.png>
-Package pdftex.def Info: stem-schema.png used on input line 1012.
+Package pdftex.def Info: stem-schema.png used on input line 1040.
 (pdftex.def)             Requested size: 323.7674pt x 242.82555pt.
 
-<network-schema.png, id=225, 1156.32pt x 867.24pt>
+<network-schema.png, id=234, 1156.32pt x 867.24pt>
 File: network-schema.png Graphic file (type png)
  <use network-schema.png>
-Package pdftex.def Info: network-schema.png used on input line 1018.
+Package pdftex.def Info: network-schema.png used on input line 1046.
 (pdftex.def)             Requested size: 485.6511pt x 364.23833pt.
 
-Overfull \hbox (44.63336pt too wide) in paragraph at lines 1018--1019
+Overfull \hbox (44.63336pt too wide) in paragraph at lines 1046--1047
  [][] 
  []
 
+[49] [50 <./stem-schema.png>] [51 <./network-schema.png>]
+Overfull \hbox (17.48772pt too wide) in paragraph at lines 1077--1078
+\T1/cmr/m/n/10.95 Model zo-staª za-im-ple-men-to-wany przy po-mocy pa-kietu \T1
+/cmtt/m/n/10.95 Keras \T1/cmr/m/n/10.95 [[]] opar-tym na pa-kie-cie \T1/cmtt/m/
+n/10.95 TensorFlow
+ []
 
-LaTeX Warning: Citation `yolo' on page 47 undefined on input line 1028.
+[52] <kather-cm.png, id=249, 602.25pt x 481.8pt>
+File: kather-cm.png Graphic file (type png)
+ <use kather-cm.png>
+Package pdftex.def Info: kather-cm.png used on input line 1117.
+(pdftex.def)             Requested size: 391.45786pt x 313.16628pt.
 
-[47] [48 <./stem-schema.png>] [49 <./network-schema.png>] [50] [51
+<marcin-cm.png, id=250, 1027.84pt x 1064.97874pt>
+File: marcin-cm.png Graphic file (type png)
+ <use marcin-cm.png>
+Package pdftex.def Info: marcin-cm.png used on input line 1123.
+(pdftex.def)             Requested size: 277.52051pt x 287.5481pt.
 
-] [52]
-Underfull \hbox (badness 1226) in paragraph at lines 1253--1256
+<roc-kather.png, id=251, 602.25pt x 481.8pt>
+File: roc-kather.png Graphic file (type png)
+ <use roc-kather.png>
+Package pdftex.def Info: roc-kather.png used on input line 1129.
+(pdftex.def)             Requested size: 391.45786pt x 313.16628pt.
+
+<marcin-roc.png, id=252, 619.31375pt x 599.23875pt>
+File: marcin-roc.png Graphic file (type png)
+ <use marcin-roc.png>
+Package pdftex.def Info: marcin-roc.png used on input line 1135.
+(pdftex.def)             Requested size: 260.11pt x 251.67856pt.
+
+[53 <./kather-cm.png>] [54 <./marcin-cm.png> <./roc-kather.png>] [55 <./marcin-
+roc.png>] [56
+
+]
+Rozdzia\l  5.
+[57] [58
+
+] [59] [60]
+Underfull \hbox (badness 1226) in paragraph at lines 1354--1357
 []\T1/cmr/m/n/10.95 Rethinking the In-cep-tion Ar-chi-tec-ture for Com-pu-ter V
 i-sion, Ch. Sze-gedy et al,
  []
 
-[53] (./Praca Magisterska - MM.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[61] [62] (./Praca Magisterska - MM.aux) ) 
 Here is how much of TeX's memory you used:
- 4290 strings out of 493013
- 58576 string characters out of 6135682
- 139642 words of memory out of 5000000
- 7706 multiletter control sequences out of 15000+600000
- 26394 words of font info for 66 fonts, out of 8000000 for 9000
+ 4651 strings out of 493013
+ 64800 string characters out of 6135682
+ 146152 words of memory out of 5000000
+ 8055 multiletter control sequences out of 15000+600000
+ 26708 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,12n,25p,1562b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/publ
-ic/cm-super/sfbi1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1095
-.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/tex
-mf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/publi
-c/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.
-pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texm
-f/fonts/type1/public/cm-super/sfcc1095.pfb></usr/share/texmf/fonts/type1/public
-/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.p
-fb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf
-/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "Praca Magisterska - MM.pdf" (55 pages, 2188714 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-
+super/cm-super-t1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1095.pfb></usr/share/te
+xmf/fonts/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/publ
+ic/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440
+.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/tex
+mf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/publi
+c/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1095.
+pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texm
+f/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public
+/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1095.p
+fb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on "Praca Magisterska - MM.pdf" (64 pages, 2438860 bytes).
 PDF statistics:
- 340 PDF objects out of 1000 (max. 8388607)
- 207 compressed objects within 3 object streams
+ 380 PDF objects out of 1000 (max. 8388607)
+ 229 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 136 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 156 words of extra memory for PDF output out of 10000 (max. 10000000)
 

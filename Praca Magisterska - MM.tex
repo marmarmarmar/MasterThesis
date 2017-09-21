@@ -7,6 +7,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{enumitem}
 \usepackage[boxed, onelanguage]{algorithm2e}
 
 
@@ -47,10 +48,9 @@
 }
 
 %Klasyfikacja tematyczna wedlug AMS (matematyka) lub ACM (informatyka)
-\klasyfikacja{D. Software\\
-  D.127. Blabalgorithms\\
-  D.127.6. Numerical blabalysis,\\
-  TODO}
+\klasyfikacja{97-XX Mathematics education,\\
+  97RXX 		Computer science applications\\
+  97R40   	Artificial intelligence}
 
 % S³owa kluczowe:
 \keywords{deep learning, machine learning, uczenie maszynowe, sztuczne sieci neuronowe, 
@@ -94,6 +94,8 @@ Ostatnie zagadnienie - najlepiej zobrazowaæ liczbami. Za³ó¿my, ¿e rozwa¿amy obra
 
 W swojej pracy chcia³bym przedstawiæ w jaki sposób poradzono sobie z powy¿szymi zagadnieniami. Zamierzam zacz±æ od historii powstania tych algorytmów, któr± uwa¿am za bardzo wa¿n± w zrozumieniu istoty ich dzia³ania, by potem zg³êbiæ podstawy matematycznych narzêdzi stoj±cych za sukcesem \textit{deep learningu}. W kolejnych rozmiarach zamierzam, na podstawie historycznych algorytmów, przedstawiæ to, co stanowi esencjê sukcesu metod g³êbokiego uczenia. Wydajê mi siê, ¿e ta droga wyt³umaczy najlepiej, dlaczego niemal ka¿dy szanuj±cy siê o¶rodek naukowy posiada dzi¶ grupê zajmuj±c± siê metodami g³êbokiego uczenia.
 
+Zwieñczeniem pracy bêdzie implementacja g³êbokiej sieci neuronowej przeznaczonej do rozpoznawania komórek guza raka jelita grubego. Osi±gniête rezultaty poprawiaj± aktualnie najlepsze na ¶wiecie wyniki w tej dziedzinie o ponad $4\%$. Co wiêcej - rezultaty te wskazuj± na to, ¿e istnieje mo¿liwo¶æ dalszej poprawy wyników oraz rozszerzenia u¿ywania przedstawionej architektury do innych zastosowañ z zakresu analizy medycznej zdjêæ.
+
 \chapter{Historia}
 
 \section{Pocz±tki i perceptron}
@@ -120,7 +122,7 @@ Od momentu prezentacji algorytmu (1986 r.) nast±pi³ ponowny, bujny rozwój sieci 
 
 Ponowna zima jednak, podobnie jak i entuzjazm który towarzyszy³ powrotowi sieci neuronowych do ³ask, okaza³a siê du¿o mniej intensywna ni¿ poprzednia. Spróbujmy jednak przyjrzeæ siê podstawowym przyczynom, które sprawi³y, ¿e modele te zawiod³y oczekiwania rozwijaj±cych je badaczy.
 
-Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³omie lat 90' XX w. udowodniono, ¿e sieæ z jedn± tzw. warstw± ukryt± jest w stanie nauczyæ siê niemal ka¿dej funkcji $f:\mathbb{R}^n\rightarrow \mathbb{R}$ ci±g³ej o zwartym no¶niku \cite{cybenko, hornik}, to nie do koñca zdawano sobie sprawe, ¿e zadanie nauczenia chocia¿by rozpoznawania obrazu lub ludzkiej mowy, choæ mo¿liwe, mog± byæ bardzo trudne. W szczególno¶ci, w dowodach powy¿szego faktu, niedostrze¿ono alarmuj±cego wzrostu z³o¿ono¶ci problemu wraz ze wzrostem jego skomplikowania. Doprowadzi³o to do nieuzasadnionego rozczarowania tym, ¿e \textit{de facto} nie mo¿emy nauczyæ sieci wszystkiego na pamiêæ. 
+Pierwsz± przyczyn± stanowi³y ponownie zbyt du¿e oczekiwania. Jakkolwiek na prze³omie lat 90' XX w. udowodniono, ¿e sieæ z jedn± tzw. warstw± ukryt± jest w stanie nauczyæ siê niemal ka¿dej funkcji $f:\mathbb{R}^n\rightarrow \mathbb{R}$ ci±g³ej o zwartym no¶niku \cite{cybenko, hornik}, to nie do koñca zdawano sobie sprawe, ¿e zadania nauczenia chocia¿by rozpoznawania obrazu lub ludzkiej mowy, choæ mo¿liwe, mog± byæ bardzo trudne. W szczególno¶ci, w dowodach powy¿szego faktu, niedostrze¿ono alarmuj±cego wzrostu z³o¿ono¶ci problemu wraz ze wzrostem jego skomplikowania. Efektywne uczenie oparte na metodzie przedstawionej dowodach aproksymowalno¶ci wymaga albowiem ekspotencjalnego wzrostu w ilo¶ci wymaganych przyk³adów treningowych.
 
 Drug± przyczynê, zwi±zan± w³a¶nie ze wspomnianym powy¿ej problemem, stanowi³y niedostateczne warunki sprzêtowe, które uniemo¿liwia³y wykorzystanie potencja³u drzemi±cego w algorytmie. Niedostateczno¶æ ta nie wynika³a tylko ze zbyt ma³ych mo¿liwo¶ci obliczeniowych, ale tak¿e znacznego niedoboru danych (tak w sensie ich zebrania, jak i przechowywania). Najwiêksze zebrane zbiory treningowe nie liczy³y, na pocz±tku lat 90', wiêcej ni¿ 100 000 elementów. Z perspektywy wyuczenia chocia¿by zagadnieñ zwi±zanych z obrazem lub mow± ludzk± liczba ta jawi siê jako niemal¿e ¶miesznie ma³a. Problemy te jednak rozwi±za³ czas - wraz z rozwojem technologii pojawi³y siê tak i nowoczesne komputery, które przyspieszy³y proces uczenia oraz ewaluacji, jak i ogromne, zró¿nicowane zbiory danych, które sprawi³y, ¿e problemy o rozwi±zaniu których marzyli eksperci od sztucznej inteligencji, znalaz³y siê jak najbardziej w zasiêgu ludzkich mo¿liwo¶ci.
 
@@ -149,8 +151,8 @@ Przy okazji tej definicji nale¿y podnie¶æ kilka istotnych kwestii, które s± ¶ci¶
 Przez uczenie z nadzorem rozumiemy przypadek, w którym mo¿emy wyró¿niæ dwa zbiory $\mathbb{X}_\mathcal{X}$ (zbiór argumentów) oraz $\mathbb{Y}_\mathcal{X}$ (zbiór warto¶ci) takie, ¿e $\mathcal{X} \subset 
 \mathbb{X}_\mathcal{X} \times \mathbb{Y}_\mathcal{X}$. Oznacza to, ¿e na ka¿dy element zbioru treningowego mo¿emy patrzyæ jak na parê argument - warto¶æ, a rodzinê modeli $\Theta$ z których wybieramy okre¶liæ jako rodzinê funkcji najlepiej przybli¿aj±c± relacjê jak± na $\mathbb{X}_\mathcal{X} \times \mathbb{Y}_\mathcal{X}$ generuje zbiór $\mathcal{X}$. Dobr± ilustracjê do tego zagadnienia ilustruje poni¿szy przyk³ad.
 
-\begin{przyklad}
-W poni¿szym przyk³adzie za zbiór treningowy $\mathcal{X}$ uznamy punkty zaznaczone czarnymi okrêgami, przyjmuj±c, ¿e pierwsza wspó³rzêdna odpowiada argumentom, a druga - warto¶ciom. Funkcj± kosztu bêdzie funkcja :
+\begin{przyklad}\label{mse}
+W poni¿szym przyk³adzie za zbiór treningowy $\mathcal{X}$ uznamy punkty zaznaczone czarnymi okrêgami, przyjmuj±c, ¿e pierwsza wspó³rzêdna odpowiada argumentom, a druga - warto¶ciom. Funkcj± kosztu (tzw. b³êdem ¶redniokwadratowym) bêdzie funkcja :
 
 $$J\left(\theta\right) = \sum_{x \in \mathbb{X}_\mathcal{X}}\left(y_x - f_{\theta}(x) \right)^2,$$
 
@@ -188,14 +190,14 @@ gdzie $\sigma_i \in \mathbb{R}^2$ dla $i = 1, \dots n$ to ustalone wcze¶niej par
 
 $$J_{\theta} = \sum_{i \neq j} p_{ij}\log\frac{p_{ij}}{q_{ij}}.$$
 
-Rozwi±zanie tego typu problemu mo¿emy uznaæ jako znalezienie odpowiedniej reprezentacji $\theta_i$ dla ka¿dego z punktów $x_i$, gdzie $i = 1, \dots, n$. Na poni¿szym obrazku prezentujemy przyk³adowe rozwi±zanie dla nastêpuj±cego zbioru :
+Rozwi±zanie tego typu problemu mo¿emy uznaæ jako znalezienie odpowiedniej reprezentacji $\theta_i$ dla ka¿dego z punktów $x_i$, gdzie $i = 1, \dots, n$. Na poni¿szym obrazku (\figurename{ \ref{torus-tsne}}) prezentujemy przyk³adowe rozwi±zanie dla nastêpuj±cego zbioru :
 
 $$\mathcal{X} = \left\{\left(\sin\alpha, \cos\alpha, sin\beta, \cos\beta\right): \alpha, \beta = 0, \frac{2\pi}{n}, \frac{4\pi}{n}, \dots, 2\pi\right\} \subset \mathbb{R}^4,$$
 
 czyli czterowymiarowego zanurzenia torusa w wypadku gdy $m=3$, $n=50$ oraz 
 $$\sigma_1, \sigma_2, \dots, \sigma_{2500} = 1.$$
 
-\begin{figure}
+\begin{figure}[b!]\label{torus-tsne}
 \begin{center}
 \includegraphics[scale = 0.5]{torus_tsne.png}
 \caption{Na obrazku widaæ, ¿e \textit{p±czkowata} struktura torusa zosta³a uchwycona w trójwymiarowej reprezentacji zbioru $\mathcal{X}$. Potwierdza to efektywn± redukcjê wymiarowo¶ci gdy¿ 4-wymiarowe zanurzenie torusa zosta³o efektywnie przedstawione w $\mathbb{R}^3$.}
@@ -223,13 +225,13 @@ Widzimy, ¿e w przypadku wielomianów stopnia pierwszego mamy do czynienia z ma³± 
 
 \subsubsection{Zbiory walidacyjne i testowe}
 
-Czêstym i naturalnym przeznaczeniem modelu jest jego zastosowanie na nowych danych. Dlatego sprawdzenie czy wyniki uzyskiwane na przyk³adach pochodz±cych spoza zbioru treningowego s± porównywalne do tych uzyskiwanych na zbiorze testowym w wielu przypadkach stanowi kluczowy punkt w ocenie przydatno¶ci rozwi±zania. W celu zasymulowania nap³ywu nowych danych stosuje siê tzw. technikê \textit{zbioru testowego}, w której czê¶æ danych nie uczestniczy w dzia³aniu algorytmu optymalizacyjnego - lecz mierzy aktualn± skuteczno¶æ modelu i pozwala np. zaobserwowaæ czy model dzia³a znacznie lepiej na przyk³adach treningowych ni¿ testowych (co jest zaprzeczeniem tego, ¿e model powinien dobrze radziæ sobie dla nowych danych).
+Czêstym i naturalnym przeznaczeniem modelu jest jego zastosowanie na nowych danych. Dlatego sprawdzenie czy wyniki uzyskiwane na przyk³adach pochodz±cych spoza zbioru treningowego s± porównywalne do tych uzyskiwanych na zbiorze testowym w wielu przypadkach stanowi kluczowy punkt w ocenie przydatno¶ci rozwi±zania. W celu zasymulowania nap³ywu nowych danych stosuje siê tzw. technikê \textit{zbioru testowego}, w której czê¶æ danych nie uczestniczy w dzia³aniu algorytmu optymalizacyjnego - lecz testuje aktualn± skuteczno¶æ modelu i pozwala np. zaobserwowaæ czy model dzia³a znacznie lepiej na przyk³adach treningowych ni¿ testowych (co jest zaprzeczeniem tego, ¿e model powinien dobrze radziæ sobie dla nowych danych).
 
-Czêstym zjawiskiem jest tak¿e wyodrêbnianie jeszcze jednego zbioru - tzw. \textit{zbioru walidacyjnego}. Celem tego wyodrêbnienia jest unikniêcie sytuacji w której rozwijaj±cy rozwi±zanie wykorzystuj± informacjê ze zbioru testowego w trenowaniu. Wówczas nie jest uczciwym powiedzenie, ¿e zbiór testowy \textit{na¶laduje} nap³yw nowych danych. Dlatego ostateczny wynik potwiedzony jest na osobnym \textit{zbiorze walidacyjnym}, na którym rozwi±zanie u¿yte jest dok³adnie jeden raz i które wynik jest ostateczn± estymat± u¿yteczno¶ci rozwi±zania. 
+Czêstym zjawiskiem jest tak¿e wyodrêbnianie jeszcze jednego zbioru - tzw. \textit{zbioru walidacyjnego}. Celem tego wyodrêbnienia jest unikniêcie sytuacji w której rozwijaj±cy rozwi±zanie wykorzystuj± informacjê ze zbioru testowego w trenowaniu. Wówczas nie jest uczciwym powiedzenie, ¿e zbiór testowy \textit{na¶laduje} nap³yw nowych danych. Dlatego ostateczny wynik walidowany jest na osobnym \textit{zbiorze walidacyjnym}, na którym rozwi±zanie u¿yte jest dok³adnie jeden raz i które wynik jest ostateczn± estymat± u¿yteczno¶ci rozwi±zania. 
 
 \subsubsection{Walidacja krzy¿owa (ang. \textit{cross-validation})}
 
-Wyra¿nymi wadami techniki \textit{zbioru walidacyjnego} s± dwa nastêpuj±ce fakty:
+Wyra¿nymi wadami techniki \textit{zbiorów testowego-walidacyjnego} s± dwa nastêpuj±ce fakty:
 
 \begin{itemize}
 \item tylko niewielki procent posiadanych danych zostaje wykorzystany do symulowania nap³yniêcia nowych danych, co czyni estymatê skuteczno¶ci modelu mniej dok³adn±,
@@ -237,11 +239,11 @@ Wyra¿nymi wadami techniki \textit{zbioru walidacyjnego} s± dwa nastêpuj±ce fakty
 
 \end{itemize}
 
-Aby unikn±æ tych dwóch niedogodno¶ci stosujê siê tzw. metodê \textit{$k$-walidacji krzy¿owej}, w której zbiór treningowy dzielony jest na $k$ róznych czê¶ci (ang. \textit{folds}), a nastêpnie wybiera siê kolejne $k-1$ elementowe zbiory czê¶ci jako zbiory treningowe, a niewybran± czê¶æ wykorzystuje siê do walidowania. Uzyskane w ten sposób $k$ wyników wykorzystuje siê do ostatecznej estymaty (najczê¶ciej badaj±c ich rozk³ad i bior±c ¶redni± wyników jako ostateczny wynik).
+Aby unikn±æ tych dwóch niedogodno¶ci stosujê siê tzw. metodê \textit{$k$-walidacji krzy¿owej}, w której zbiór danych dzielony jest na $k$ róznych czê¶ci (ang. \textit{folds}), z których nastêpnie wybiera siê kolejne $k-1$ elementowe zbiory czê¶ci jako zbiory treningowe, a niewybran± czê¶æ wykorzystuje siê do walidowania uzyskanego modelu. Uzyskane w ten sposób $k$ wyników wykorzystuje siê do ostatecznej estymaty (najczê¶ciej badaj±c ich rozk³ad i bior±c ¶redni± wyników jako ostateczny wynik).
 
-Dzieki tej metodzie ka¿dy element zbioru treningowego uczestniczy w symulowaniu nap³ywu nowych danych, a zjawisko szumu podzia³u jest mniej szkodliwe, jako, ¿e wielokrotne jego powtórzenie jest zjawiskiem bardzo rzadkim. Wszystko to odbywa siê kosztem czasu uczenia - w zwi±zku z wielokrotnym uczeniem modelu technika ta wymaga znacznie wiêcej czasu ni¿ uczenie wykorzystuj±cy podzia³ na zbiory \textit{treningowy-testowy-walidacyjny}.
+Dzieki tej metodzie ka¿dy element wyj¶ciowego zbioru danych uczestniczy w symulowaniu nap³ywu nowych danych, a zjawisko szumu podzia³u jest mniej szkodliwe, jako, ¿e wielokrotne jego powtórzenie jest zjawiskiem bardzo rzadkim. Wszystko to odbywa siê kosztem czasu uczenia - w zwi±zku z wielokrotnym uczeniem modelu technika ta wymaga znacznie wiêcej czasu ni¿ uczenie wykorzystuj±cy podzia³ na zbiory \textit{treningowy-testowy-walidacyjny}.
 
-Warto dodaæ - ¿e ze zbioru treningowe czêsto wydziela siê osobny zbiór testowy, który uczestniczy w procesie uczenia w sposób opisany w poprzedniej subsekcji.
+Warto dodaæ - ¿e ze zbioru treningowego czêsto wydziela siê osobny zbiór testowy, który uczestniczy w procesie uczenia w sposób opisany w poprzedniej subsekcji.
 
 
 \subsection{Optymalizacja gradientowa}
@@ -277,7 +279,7 @@ W zwi±zku z tym, ¿e metody gradientowe gwarantuj± jedynie zmniejszenie funkcji k
 
 \subsubsection{Redukcja sta³ej uczenia w wypadku wysokiej i sta³ej warto¶ci funkcji kosztu (ang. \textit{learning rate reduction on plateau})} 
 
-Kolejn± technik± wykorzystywan± podczas uczenia gradientowego jest tzw. \textit{redukcja sta³ej uczenia w wypadku sta³ej i wysokiej warto¶ci kosztu uczenia}. Opiszemy j± szerzej w zwi±zku z tym, ¿e zostanie wykorzystana w rozwi±zaniu opisanym w kolejnych rozdzia³ach tej pracy. Metoda ta, czêsto u¿ywana podczas uczenia gradientowego, zak³ada, ¿e gdy kolejne epoki nie przynosz± znacz±cej poprawy - oznacza to, ¿e lokalny kszta³t funkcji kosztu (w zale¿no¶ci od parametru) zawiera subtelno¶ci, które nie s± dostatecznie dobrze uwzglêdniane przez zbyt du¿± warto¶æ \textit{sta³ej uczenia}. Dlatego zwyk³o siê przemna¿aæ j± przez ustalon± sta³± $p < 1$ (czêsto przyjmuje siê $p=0.1$) w celu uwra¿liwienia metody optymalizacji na znacznie mniejsze, lokalne zmiany gradientu (\ref{r-o-p}).
+Kolejn± technik± wykorzystywan± podczas uczenia gradientowego jest tzw. \textit{redukcja sta³ej uczenia w wypadku sta³ej i wysokiej warto¶ci kosztu uczenia}. Opiszemy j± szerzej w zwi±zku z tym, ¿e zostanie wykorzystana w rozwi±zaniu opisanym w kolejnych rozdzia³ach tej pracy. Metoda ta, czêsto u¿ywana podczas uczenia gradientowego, zak³ada, ¿e gdy kolejne epoki nie przynosz± znacz±cej poprawy - oznacza to, ¿e lokalny kszta³t funkcji kosztu (w zale¿no¶ci od parametru) zawiera subtelno¶ci, które nie s± dostatecznie dobrze uwzglêdniane przez zbyt du¿± warto¶æ \textit{sta³ej uczenia}. Dlatego zwyk³o siê przemna¿aæ j± przez ustalon± sta³± $p < 1$ (czêsto przyjmuje siê $p=0.1$) w celu uwra¿liwienia metody optymalizacji na znacznie mniejsze, lokalne zmiany gradientu (por. \figurename{ \ref{r-o-p}}).
 
 \begin{figure}\label{r-o-p}
 \begin{center}
@@ -286,6 +288,18 @@ Kolejn± technik± wykorzystywan± podczas uczenia gradientowego jest tzw. \textit{
 \end{center}
 \end{figure}
 
+\subsubsection{Momentum}
+
+W niektórych przypadkach uczenie napotyka na problem odwrotnej natury ni¿ ten opisany w poprzednim paragrafie - tzn. w momencie gdy warto¶æ funkcji kosztu jest du¿a, natomiast jej gradient niewielki i potrzeba d³ugiego czasu aby opu¶ciæ ten niekorzystny obszar (równie¿ okre¶lany mianem \textit{plateau}). Aby skutecznie przyspieszyæ czas trenowania czêsto stosowana jest tzw. metoda \textit{momentum}. Polega ona na tym, aby w algorytmie optymalizacji gradientowej zast±piæ dok³adn± warto¶ci gradientu - ¶redni± krocz±c± gradientów z poprzednich iteracji. Procedura \textit{momentum} wygl±da zatem nastêpuj±co:
+
+\begin{enumerate}
+\item Oblicz warto¶æ gradientu w i-tej operacji: $\delta_i = \frac{\partial J}{\partial w}$,
+\item Zaktualizuj warto¶æ krocz±cej sumy gradientów: $update_i = \alpha *update_{i - 1} + (1 - \alpha)*\delta_i$.
+\end{enumerate}
+
+Jako pocz±tkow± warto¶æ $update_0$ przyjmuje siê zazwyczaj wektor zerowy.
+
+\textit{Momentum} jest szczególnie u¿yteczne w przypadku stochastycznych metod gradientowych. Dziêki temu wyst±pienie znacz±cej perturbacji warto¶ci pochodnej jest równowa¿one przez jej u¶rednianie z warto¶ciami obliczonymi w poprzednich iteracjach, przez co wp³yw losowego zaburzenia jest znacz±co ograniczany.
 
 \subsection{Stochastyczna optymalizacja gradientowa}
 
@@ -297,6 +311,7 @@ Bardzo czêsto, w przypadku gdy liczno¶æ zbioru danych $\mathcal{X}$ jest wyj±tko
 \end{itemize}
 
 Co warte podkre¶lenia, losowanie danych wprowadza do uczenia dosyæ spor± dozê losowo¶ci. Mo¿e to oczywi¶cie znacz±co spowolniæ proces uczenia lub doprowadziæ do tego, ¿e odnaleziony przez nas model bêdzie daleki od optymalnego. Okazuje siê jednak, ¿e w praktyce odpowiedni dobór rozmiaru próbki, w po³±czeniu z zastosowaniem metod granicznych \cite{minibatch} przynosi znacz±ce przyspieszenie algorytmów ucz±cych przy minimalnej stracie poprawno¶ci. Intuicja która za tym stoi, mówi, ¿e pomimo i¿ dana porcja mo¿e delikatnie zaburzyæ nasz model, to ¶rednia z kolejnych porcji aproksymuje gradient dostatecznie dobrze, istotnie poprawiaj±c warto¶ci parametry sieci \cite{loss-landscapes}.
+
 
 \subsection{Metaoptymalizacja}
 
@@ -333,14 +348,14 @@ gdzie $\phi$ to sigmoidalna funkcja aktywacji opisana w paragrafie \ref{sigmoid}
 \end{defi}
 
 Widzimy zatem, ¿e je¶li zinterpretujemy $x_1, x_2, \dots x_n$ warto¶ci impulsów z komórek nerwowych s±siaduj±cych z nasz±, parametry $\theta_1, \theta_2, \dots, \theta_n$ jako si³y po³±czeñ naszego neuronu ze swoimi s±siadami oraz $\theta_0$ jako wewnêtrzn± pobudliwo¶æ neuronów - to widzimy, ¿e w oparciu o interakcjê z s±siadami - nasz neuron oblicza sw± wewnêtrzn± aktywacjê, przekazywan± jako wynik funkcji $f$.
-\subsubsection{Sigmoidalna funkcja aktywacji} \label{sigmoid}
+\subsubsection{Sigmoidalna funkcja aktywacji}\label{sigmoid}
 
 \begin{defi}
 Sigmoidaln± (logistyczn±) funkcj± aktywacji bêdziemy nazywaæ funkcjê :
 $$S(x) = \frac{1}{1 + e^{-x}}.$$
 \end{defi}
 
-Oto niektóre z jej wa¿nych w³asno¶ci:
+Oto niektóre z jej wa¿nych w³asno¶ci (por. \figurename{ \ref{sigmo}}):
 
 \begin{uwaga}
 Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
@@ -353,12 +368,12 @@ Dla funkcji logistycznej zdefiniowanej powy¿ej zachodzi :
 \end{itemize}
 \end{uwaga}
 
-\begin{figure}
+\begin{figure}\label{sigmo}
 \includegraphics[scale=0.7]{Sigmoid-wykres.png}
 \caption{Wykres funkcji sigmoidalnej.}
 \end{figure}
 
-Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \cite{TODO} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
+Zauwa¿my, ¿e na funkcjê sigmoidaln± mo¿emy spojrzeæ jako na ci±g³e przybli¿enie funkcji charakterystycznej zbioru $\{x\in\mathbb{R} : x > 0\}$. Kluczowe w zrozumieniu sekcji \ref{vanishing-gradien} bêdzie natomiast w³asno¶æ saturacji. Zauwa¿my, ¿e dla liczb o du¿ej warto¶ci bezwzglêdnej gradient funkcji logistycznej praktycznie siê zeruje. Mo¿e to spowodowaæ znacz±ce spowolnienie uczenia w wypadku wyboru metody optymalizacji gradientowej.
 
 Wynik regresji logistycznej uznawany jest prawdopodobieñstwo przynale¿no¶ci do pewnej ustalonej klasy - zatem rozwi±zuje ona zagadnienie klasyfikacji binarnej. 
 
@@ -372,7 +387,7 @@ $$J_{\mathcal{X}, \theta} = -\frac{1}{|\mathcal{X}|}\sum_{x\in\mathcal{X}}\log\l
 gdzie $y_x \ \left\{0, 1\right\}$ to prawid³owa klasa przyk³adu $x\in\mathcal{X}$, a $\mathbb{I}_{A}$ to funkcja charakterystyczna zbioru $A$.
 Funkcja ta okaza³a siê dalece bardziej skuteczna od klasycznego b³êdu ¶redniokwadratowego oraz posiada teorioinformacyjn± interpretacjê jako tzw. odleg³o¶æ \textit{Kullbacka-Leiblera} pomiêdzy rozk³adem wyznaczonym przez $f_{\theta}$, a rozk³adem danych \cite{kullback-leibler}. Innym okre¶leniem logistycznej funkcji kosztu jest \textit{binarna entropia krzy¿owa} (ang. \textit{binary crossentropy}).
 
-\subsubsection{Uogólnienie funkcji \textit{log-loss} do zagadnienia multiklasyfikacji}
+\subsubsection{Uogólnienie funkcji \textit{log-loss} do zagadnienia multiklasyfikacji}\label{categorical-cross-entropy}
 
 Istnieje naturalne rozszerzenie regresji logistycznej do zagadnienia multiklasyfikacji zwane regresj± multinomialn±. W tym wypadku zamiast funkcjona³u u¿ywamy wielowymiarowego przekszta³cenia liniowego, miast funkcji sigmoidalnej u¿ywa siê tzw. funkcji \textit{softmax} $Softmax: \mathbb{R}^n\rightarrow\mathbb{R}^n$, zadanej wzorem:
 
@@ -388,9 +403,15 @@ Zauwa¿my, ¿e w naturalny sposób:
 
 Pierwsze dwie w³asno¶ci pokazujê, ¿e funkcja $Softmax$ przekszta³ca wektor $(x_1, x_2, \dots, x_n$ w rozk³ad prawdopodobieñstwa. W³asno¶æ trzeci t³umaczy nazwê funkcji - indeks maksymalny wektora $(x_1, \dots, x_n)$ jest równie¿ indeksem maksymalnym $Softmax(x_1, \dots, x_n)$.
 
-Oznaczmy teraz przez $M_\theta$ przekszta³cenie liniowe $\mathbb{R}^k\rightarrow\mathbb{R}^n$ zadane macierz± $\theta$. \textit{Regresj± multinomialn±} $F$ bêdziemy nazywaæ funkcjê $\mathbb{R}^k\rightarrow\mathbb{R}^n$ zadan± wzorem $F_\theta(x) = Softmax(M_\theta(x))$. Odpowiednikiem funkcji logistycznej funkcji kosztu jest nastêpuj±ca funkcja zwana \textit{kategoryczn± entropi± krzy¿ow±} (ang. \textit{categorical cross entropy}:
+Oznaczmy teraz przez $M_\theta$ przekszta³cenie liniowe $\mathbb{R}^k\rightarrow\mathbb{R}^n$ zadane macierz± $\theta$. \textit{Regresj± multinomialn±} $F$ bêdziemy nazywaæ funkcjê $\mathbb{R}^k\rightarrow\mathbb{R}^n$ zadan± wzorem $F_\theta(x) = Softmax(M_\theta(x))$. Odpowiednikiem funkcji logistycznej funkcji kosztu jest nastêpuj±ca funkcja zwana \textit{kategoryczn± entropi± krzy¿ow±} (ang. \textit{categorical crossentropy}:
 
-$$J_{\mathcal{X}, \theta} = -\frac{1}{|\mathcal{X}|}\sum_{x\in\mathcal{X}}\sum_{i=1}^{k}\left(\log Soft_\theta(x)_i\mathbb{I}_{y_x = i} + \log\left(1 -  Soft_\theta(x)_i\right)\mathbb{I}_{y_x \neq i}\right).$$
+$$J_{\mathcal{X}, \theta} = -\frac{1}{|\mathcal{X}|}\sum_{x\in\mathcal{X}}\sum_{i=1}^{k}\log Soft_\theta(x)_i\mathbb{I}_{y_x = i}.$$
+
+Wariacj± tej funkcji kosztu jest tzw. \textit{wa¿ona entropia krzy¿owa} (ang. \textit{weighted categorical crossentropy}:
+
+$$J_{\mathcal{X}, \theta} = -\frac{1}{|\mathcal{X}|}\sum_{x\in\mathcal{X}}\sum_{i=1}^{k}w_i\log Soft_\theta(x)_i\mathbb{I}_{y_x = i},$$
+
+gdzie $w \in \mathbb{R}_+^k$ to tzw. wektor wag. Intuicyjnie - im wiêksza waga danej klasy - tym bardziej proces uczenia skupia siê na prawid³owym jej klasyfikowaniu. 
 
 \subsubsection{Uogólnienie powy¿szych funkcji kosztu do dowolnego modelu}
 
@@ -495,6 +516,12 @@ Zauwa¿my, ¿e w powy¿sze rozumowanie z ³atwo¶ci± mo¿na rozszerzyæ na przypadek si
 
 Warto równie¿ podkre¶liæ, ¿e technika ta stosowana jest tak¿e w przypadku rekurencyjnych sieci neuronowych, przez odpowiednie przedstawienie sieci rekurencyjnej, jako sieci typu \textit{feed-forward} z dodatkowym kryterium, aby czê¶æ wag w sieci mia³y tak± sam± warto¶æ.
 
+\subsubsection{Zjawisko znikaj±cego gradientu (ang. \textit{vanishing gradient problem})}\label{vanishing-gradien}
+
+Jak mogli¶my zauwa¿yæ - obliczenia pochodnych w danej warstwie zale¿± bezpo¶rednio od warto¶ci pochodnych w warstwach poprzednich. W wypadku sieci o g³êboko¶ci wiêkszych ni¿ $5$ \cite{choromanska} mo¿e to prowadziæ do tzw. zjawiska zanikaj±cego gradientu, gdzie norma gradientu ze wzglêdu na g³êbsze warstwy staje siê na tyle ma³a, spada poni¿ej dok³adno¶ci zmiennoprzecinkowej algorytmów ucz±cych (w wypadku sieci neuronowych jest to najczê¶ciej format \texttt{float 32} którego dok³adno¶æ wynosi ok. $10^{-6}$), ¿e uczenie \textit{de facto} zatrzymuje siê.
+
+Istnieje wiele technik maj±cych na celu unikniêcie tego zjawiska. Min. opisane w rozdziale 4 techniki klasyfikatorów pomocniczych \ref{auxiliary-classifiers} oraz po³±czenia residualne \ref{residual-connections}.
+
 \subsubsection{Zjawisko przesuniêcia warto¶ci (ang. \textit{covariate shift}) i technika normalizacji porcjowej (ang. \textit{Batch Normalization})}
 
 Dosyæ powa¿n± wad± techniki wstecznej propagacji jest wystêpowanie tzw. zjawiska przesuniêcia warto¶ci w sieciach typu \textit{feed-forward}. Intuicyjnie polega ono na tym, ¿e pod±¿anie w kierunku najmniejszego spadku w dwóch kolejnych warstwach mo¿e doprowadziæ do tego, ¿e pó¼niejsza z nich bêdzie oczekiwa³a kompletnie innych warto¶ci ni¿ te które dostarcza jej warstwa poprzednia. Czêsto znacznie pogarsza to stabilno¶æ oraz efektywno¶æ procesu uczenia.
@@ -519,7 +546,7 @@ Odbywa siê nie tylko na poziomie normalizacji danych wej¶ciowych, ale tak¿e pomi
 Dosyæ interesuj±cym spojrzeniem na zagadnienie poszukiwania optymalnych warto¶ci parametrów sieci neuronowej, jest przedstawienie tego zagadnienia optymalizacyjnego jako maksymalizowanie funkcji wiarygodno¶ci (dok³adnie jej logarytmu) modeli sposród ustalonej rodziny. Metodê tê, znan± ze statystyki jako estymacja metod± najwiêkszej wiarygodno¶ci (\textit{ang.} maximum likelihood estimation (MLE)). Rozwa¿my to poni¿szym przyk³adzie.
 
 \begin{przyklad}
-Rozwa¿my przez $f_{\theta}$ parametryzowan± wagami $\theta \in \Theta$ sieæ neuronow± o ustalonej architekturze typu $feed forward$. Rozwa¿my wówczas rodzinê rozk³adów warunkowych zadanych wzorem :
+Rozwa¿my przez $f_{\theta}$ parametryzowan± wagami $\theta \in \Theta$ sieæ neuronow± o ustalonej architekturze typu feed forward. Rozwa¿my wówczas rodzinê rozk³adów warunkowych zadanych wzorem :
  
 $$ \mathbb{P}\left(y | \theta, x\right) \sim \mathcal{N}\left(f_{\theta}(x), \sigma\right),$$
 
@@ -540,7 +567,7 @@ $$\log \mathcal{L}\left(\theta, \mathcal{X}\right) = -\frac{1}{2\sigma}\sum_{i =
 
 gdzie $C = -\frac{n}{2} \log 2\pi\sigma^{2}.$ Widzimy zatem, ¿e zadanie maksymalizacji logarytmu funkcji wiarygodno¶ci jest równowa¿ne rozwi±zaniu zadania minimalizacji ¶redniokwadratowej funkcji b³êdu dla rodziny funkcji neuronowych $f_\theta$, albowiem :
 
-$$\arg \max_{\theta \in \Theta} -\frac{1}{2\sigma}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2 + C = \arg \min_{\theta \in \Theta}\frac{1}{2n}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2.$$
+$$\arg \max_{\theta \in \Theta} -\frac{1}{2\sigma}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2 + C = \arg \min_{\theta \in \Theta}\frac{1}{2\sigma}\sum_{i = 1}^{n}\left(y - f_{\theta}(x)\right)^2.$$
 
 Analogia ta pozwala czêsto skorzystaæ z wygody dualnego patrzenia na zadanie uczenia - jako z jednej strony zagadnienia stricte optymalizacyjnego, a z drugiej - pokrewnego metod± statystycznym. Pozwala to skorzystaæ z wygodnych intuicji probabilistycznych, a tak¿e np. na ³atwe korzystanie z metod Bayesowskich w zagadnieniach machine learningu.
 
@@ -548,9 +575,9 @@ Analogia ta pozwala czêsto skorzystaæ z wygody dualnego patrzenia na zadanie ucz
 
 Oczywi¶cie funkcja ¶redniokwadratowa nie jest jedyn± funkcj± b³êdu, dla której powy¿sza analogia ma miejsce. Je¶li np. zarz±damy aby :
 
-$$ \mathbb{P}\left(y | \theta, x\right) \sim \mathcal{L}\left(f_{\theta}(x), 1\right),$$
+$$ \mathbb{P}\left(y | \theta, x\right) \sim \mathbb{L}\left(f_{\theta}(x), 1\right),$$
 
-gdzie $\mathcal{L}\left(f_{\theta}(x),\ 1\right)$ to rozk³ad Laplace'a z parametrami $f_{\theta}(x)$ oraz $1$, równowa¿n± metodzie MLE metod± optymalizacji bêdzie minimalizacja z nastêpuj±c± funkcj± b³êdu :
+gdzie $\mathbb{L}\left(f_{\theta}(x),\ 1\right)$ to rozk³ad Laplace'a z parametrami $f_{\theta}(x)$ oraz $1$, równowa¿n± metodzie MLE metod± optymalizacji bêdzie minimalizacja z nastêpuj±c± funkcj± b³êdu :
 
 $$J_\mathcal{X}\left(\theta\right) = \sum_{x\in \mathcal{X}} \lVert f_{\theta}(x) - y\rVert_{1}.$$
 
@@ -574,7 +601,7 @@ lub stosuj±c zapis wektorowy :
 
 $$J^{R}_\mathcal{X}(\Theta) = J_\mathcal{X}(\Theta) + \frac{\lambda}{2}\Theta\Theta^{T}.$$
 
-dla pewnego $\lambda \in \mathbb{R}$ Warto zauwa¿yæ, ¿e stosuj±c probabilistyczn± interpretacjê sieci neuronowych, minimalizacja powy¿szej funkcji b³êdu jest równowa¿na maksymalizacji funkcji ufno¶ci przy za³o¿eniu rozk³adu \textit{a priori} na zbiorze parametrów $\Theta$:
+dla pewnego $\lambda \in \mathbb{R}$. Warto zauwa¿yæ, ¿e stosuj±c probabilistyczn± interpretacjê sieci neuronowych, minimalizacja powy¿szej funkcji b³êdu jest równowa¿na maksymalizacji funkcji ufno¶ci przy za³o¿eniu rozk³adu \textit{a priori} na zbiorze parametrów $\Theta$:
 
 $$\theta_{i} \sim \mathcal{N}\left(0 , \frac{1}{\lambda}\right), iid.$$
 
@@ -582,7 +609,7 @@ Za³ó¿my bowiem, ¿e istnieje rozk³ad $p \left(\theta, x\right)$ dla którego :
 
 $$ J_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log p\left(x, \theta\right) + D,$$
 
-ale wówczas dok³adaj±c Bayesowskie za³o¿enie o warto¶ci parametrów $\theta$ otrzymujemy :
+ale wówczas uwzglêdniaj±c bayesowskie za³o¿enie o warto¶ci parametrów $\theta$ otrzymujemy :
 
 $$ J^{R}_\mathcal{X}\left(\theta\right) = -C\sum_{x \in \mathcal{X}} \log \left(\frac{p\left(x, \theta\right)}{p\left(\theta\right)} \right) + D = -C\sum_{x \in \mathcal{X}} \log \left(p\left(x, \theta\right)\right) + \frac{\lambda}{2}\sum_{\theta \in \Theta}\theta^2 + D',$$
 
@@ -597,20 +624,20 @@ J_\mathcal{X}(\Theta) + \lambda\lVert\Theta\rVert_{1}.$$
 
 Analogicznie jak w poprzednim przypadku, mo¿emy potraktowaæ dodatkowy sk³adnik jako do³o¿enie Bayesowskiego za³o¿enia o rozk³adzie parametru wedle wzoru :
 
-$$\theta \sim \mathcal{L}\left(0, \frac{1}{\lambda}\right),$$
+$$\theta \sim \mathbb{L}\left(0, \frac{1}{\lambda}\right),$$
 
-gdzie przez $\mathcal{L}(a,b)$ oznaczamy rozk³ad Laplace'a z parametrami $a,b$.
+gdzie przez $\mathbb{L}(a,b)$ oznaczamy rozk³ad Laplace'a z parametrami $a,b$.
 
 \subsection{Czym ró¿ni± siê powy¿sze kary?}
 
-Warto wspomnieæ o dosyæ powa¿nych koncepcyjnych ró¿nicach pomiêdzy powy¿szymi wagami. Przyjmuje siê \cite{lasso}, ¿e o ile kara $\lVert\Theta\rVert_{2}$ stara siê niedopuszczaæ aby warto¶ci $\theta_i$ by³y wyra¼nie wiêksze od $0$ (funkcja kwadratowa ro¶nie szybko dla liczb $\gg\ 1$, o tyle kara $\lVert\Theta\rVert_{1}$ sprawia, ¿e znacznie czê¶ciej du¿a czê¶æ parametrów zbiór parametrów $\theta_i$ jest zaniedbywalnie wiêksza od $0$. Dlatego te¿ tê drug± metodê zwyk³o nazywaæ siê metod± \textit{lasso} i czêsto stosuje siê j± do eliminacji zbêdnych parametrów, poprzez odrzucenie tych dla których w wyniku uczenia warto¶ci otrzymane spe³nia³y $\theta \approx 0$.
+Warto wspomnieæ o dosyæ powa¿nych koncepcyjnych ró¿nicach pomiêdzy powy¿szymi wagami. Przyjmuje siê \cite{lasso}, ¿e o ile kara $\lVert\Theta\rVert_{2}$ stara siê niedopuszczaæ aby warto¶ci $\theta_i$ by³y wyra¼nie wiêksze od $0$ (funkcja kwadratowa ro¶nie szybko dla liczb $\gg\ 1$, o tyle kara $\lVert\Theta\rVert_{1}$ sprawia, ¿e znacznie czê¶ciej du¿a czê¶æ parametrów zbiór parametrów $\theta_i$ jest zaniedbywalnie wiêksza od $0$. Dlatego te¿ tê drug± metodê zwyk³o nazywaæ siê metod± \textit{lasso} i czêsto stosuje siê j± do eliminacji zbêdnych parametrów, poprzez odrzucenie tych, dla których w wyniku uczenia warto¶ci otrzymane spe³nia³y $\theta \approx 0$.
 
 \subsection{Intuicje dotycz±ce warstw sieci neuronowych}
 
 To, ¿e trójwarstwowa sieæ neuronowa mo¿e poradziæ sobie z praktycznie ka¿dym zadaniem \textit{machine learningowym} jest faktem, udowodnionym teoretycznie, jednakowo¿ dowód ten jest niepraktyczny w tym sensie, ¿e dla zadanego zadania pokazuje istnienie rozwi±zania, bez dok³adnego przepisu na jego uzyskanie. Poni¿ej chcia³bym pokazaæ intuicyjny szkic dowodu tego, ¿e dowolny zbiór otwarty w $\mathbb{R}^n$ mo¿na przybli¿yæ przy pomocy sieci z dwiema warstwami ukrytymi :
 
 \begin{enumerate}
-\item Jednostki z sigmoidaln± funkcj± aktywacji, których argumentami s± neurony z warstwy wej¶ciowej, s± w stanie reprezentowaæ przybli¿one funkcje charakterystyczne pó³przestrzeni kowymiaru 1 (je¶li argumenty $x \in \mathbb{R}^n$.
+\item Jednostki z sigmoidaln± funkcj± aktywacji, których argumentami s± neurony z warstwy wej¶ciowej, s± w stanie reprezentowaæ przybli¿one funkcje charakterystyczne pó³przestrzeni kowymiaru 1 (je¶li argumenty $x \in \mathbb{R}^n$,
 \item Pojedynczy perceptron, z sigmoidaln± funkcj± aktywacji, jest w stanie w przybli¿ony sposób na¶ladowaæ operacje logiczne typu $\textsc{and}$ oraz $\textsc{or}$ je¶li swoje argumenty potraktuje jako przybli¿one warto¶ci \textit{boolowskie}.
 \item W zwi±zku z powy¿szym, sieæ neuronowa z jedn± warstw± ukryt± i sigmoidaln± funkcj± aktywacji jest w stanie nauczyæ siê funkcji charakterystycznej dowolnego zbioru bêd±cego przeciêciem pó³przestrzeni (w szczególno¶ci - kostki $k-$wymiarowej, gdzie $k \leq n$).
 \item Sieci neuronowe z dwiema warstwami ukrytymi potrafi± nauczyæ siê zatem przybli¿onej funkcji charakterystycznej dowolnej funkcji bêd±c± sum±, przeciêciem zbiorów których funkcje charakterystyczne mog± zostaæ uzyskane przy pomocy sieci z podpunktu 3. W szczególno¶ci - z dowolnym przybli¿eniem - dowolny zbiór otwarty $\mathcal{U} \subset \mathbb{R}^{n}.$ 
@@ -627,11 +654,11 @@ Oba powy¿sze wnioski rozwiniemy w kolejnych rozdzia³ach.
 
 \subsection{Reprezentacja rozproszona}
 
-Idea dzia³ania sieci opiera siê na budowaniu opisanej w poprzedniej podsekcji - struktury \textit{cech} potrzebnych do rozwi±zania zadanego problemu. Z jednej strony - stanowi to klucz do zrozumienia ogromnego sukcesu sieci neuronowych w ostatnim czasie. Fakt, ¿e jeden spójny algorytm uczenia mo¿e wyrêczyæ badacza z wyszukiwania cech niezbêdnych do rozwi±zania danego problemu (np. przy wspomnianym we wstêpie zagadnieniu rozpoznawania obrazu ekstrakcja takich cech by³a przez wiele lat ciê¿k± i dobrze p³atn± prac±), przerzucaj±c ciê¿ar pracy na zaprojektowanie odpowiedniej architektury sieci, funkcji kosztu dla procesu optymalizacji, a potem na moc obliczeniow± wspó³czesnych komputerów. Widzimy zatem, ¿e automatycznie budowany zbiór cech stanowi klucz do zrozumienia dzia³ania wielowarstwowych sieci neuronowych.
+Idea dzia³ania sieci opiera siê na uczeniu opisanej w poprzedniej podsekcji - struktury \textit{cech} potrzebnych do rozwi±zania zadanego problemu. Z jednej strony - stanowi to klucz do zrozumienia ogromnego sukcesu sieci neuronowych w ostatnim czasie. Fakt, ¿e jeden spójny algorytm uczenia mo¿e wyrêczyæ badacza z wyszukiwania cech niezbêdnych do rozwi±zania danego problemu (np. przy wspomnianym we wstêpie zagadnieniu rozpoznawania obrazu ekstrakcja takich cech by³a przez wiele lat ciê¿k± i dobrze p³atn± prac±), przerzucaj±c ciê¿ar pracy na zaprojektowanie odpowiedniej architektury sieci, funkcji kosztu dla procesu optymalizacji, a potem na moc obliczeniow± wspó³czesnych komputerów. Widzimy zatem, ¿e automatycznie budowany zbiór cech stanowi klucz do zrozumienia dzia³ania wielowarstwowych sieci neuronowych.
 
 W klasycznych warstwowych sieciach neuronowych typu \textit{feed-forward} zbiór tych cech stanowi hierarchiczny konglomerat cech, w którym cechy reprezentowane w danej warstwie tworzone s± przez transfomacj cech reprezentowanych w warstwie poprzedniej \ref{cnn-feat}, \cite{zeiler-fergus}. Jeden z przyk³adów takiej hierarchiczo¶ci przedstawi³em w szkicu dowodu aproksymacyjnego z poprzedniej podsekcji.  
 
-Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy. Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag \cite{unfolding-rnn}.
+Koncepcyjnie - zrezygnowanie z warstwowo¶ci, przy zachowaniu typu \textit{feed-forward} pozwala budowaæ nowe cechy przy pomocy konceptów wyuczonych przez ni¿sze warstwy (por. \figurename{ \ref{cnn-feat}}). Dalsza relaksacja za³o¿eñ, czyli dopuszczenie cyklów w architekturze pozwala na budowanie cech oraz definicyjnych powi±zañ miêdzy nimi. W praktyce jednak, obliczeniowe w³asno¶ci architektury \textit{feed-forward} sprawiaj±, ¿e to w³a¶nie te sieci stanowi± wspó³cze¶nie awangardê w¶ród najskuteczniejszych rozwi±zañ zadañ \textit{machine learningu}. Nawet sieci rekurencyjne prezentuje siê z tej przyczyny, w tej formie, dodaj±c odpowiednie ograniczenia i warunki na warto¶ci odpowiednich wag \cite{unfolding-rnn}.
 
 \begin{figure}\label{cnn-feat}
 \centering 
@@ -657,7 +684,7 @@ Jednym z najpopularniejszych zastosowañ metod \textit{g³êbokiego uczenia} s± tzw
 
 \section{Inwariancja}
 
-W rozdziale opisuj±cym szczegó³y dzia³ania sieci neuronowych wspomniali¶my o tym, ¿e struktura sieci neuronowej wraz z wagami j± parametryzuj±cymi koduje pewn± ustalon± hierarchiê cech niezbêdnych do rozwi±zania postawionego przed ni± problemu. Powinny one zatem odwzorowywaæ wiêkszo¶æ w³asno¶ci, które posiadaj± rzeczywiste struktury rozwa¿anych problemów. Jedn± z takich w³asno¶ci jest tzw. w³asno¶æ \textit{inwariancji}, czyli zamkniêto¶æ pewnej cechy na przekszta³canie argumentów przy pomocy ustalonej rodziny przekszta³ceñ. I tak np. cecha bycia okiem przez fragment obrazu lub zdjêcia jest zamkniêta na przekszta³cenia skalowania, przesuniêcia oraz obroty. Kwestia bycia d¼wiêkiem s³owa \textit{mama} jest zamkniêta na zmiany tonu g³osu, g³o¶no¶æ, a tak¿e umiejscowanie na ¶cie¿ce d¼wiêkowej. Przyk³ady mo¿na mno¿yæ - jednak zauwa¿my, ¿e w³asno¶æ inwariancji poci±ga za sob± dwie bardzo powa¿ne konsekwencje:
+W rozdziale opisuj±cym szczegó³y dzia³ania sieci neuronowych wspomniali¶my o tym, ¿e struktura sieci neuronowej wraz z wagami j± parametryzuj±cymi koduje pewn± ustalon± hierarchiê cech niezbêdnych do rozwi±zania postawionego przed ni± problemu. Powinny one zatem odwzorowywaæ wiêkszo¶æ w³asno¶ci, które posiadaj± rzeczywiste struktury rozwa¿anych problemów. Jedn± z takich w³asno¶ci jest tzw. w³asno¶æ \textit{inwariancji}, czyli zamkniêto¶æ pewnej cechy na przekszta³canie argumentów przy pomocy ustalonej rodziny przekszta³ceñ. I tak np. cecha bycia okiem przez fragment obrazu lub zdjêcia jest zamkniêta na przekszta³cenia skalowania, przesuniêcia oraz obroty. Kwestia bycia d¼wiêkiem s³owa \textit{mama} jest zamkniêta na zmiany tonu g³osu, g³o¶no¶æ, a tak¿e umiejscowienie na ¶cie¿ce d¼wiêkowej. Przyk³ady mo¿na mno¿yæ - jednak zauwa¿my, ¿e w³asno¶æ inwariancji poci±ga za sob± dwie bardzo powa¿ne konsekwencje:
 
 \begin{itemize}
 \item Je¶li uda nam siê uchwyciæ inwariancjê przy pomocy struktury sieci, mo¿emy uzyskaæ kompresjê wiedzy, gdy¿ mnogo¶æ cech, spo¶ród których ka¿da powsta³a jako przekszta³cenie innej, bêdzie reprezentowana w sieci jako jedna.
@@ -668,37 +695,37 @@ W rozdziale opisuj±cym szczegó³y dzia³ania sieci neuronowych wspomniali¶my o tym
 \end{itemize}
 \end{itemize}
 
-Aby zrozumieæ skalê problemu, spróbujmy sobie wyobraziæ przypadek w którym chcieliby¶my nauczyæ sieæ neuronow± rozpoznawania oka na obrazku, w przypadku w którym nasza sieæ nie mog³aby realizowaæ w³asno¶ci \textit{inwariancji} ze wzglêdu na przesuniêcia na obrazku. W skrajnym przypadku musieliby¶my kodowaæ w³asno¶æ bycia ¶rodkiem oka dla ka¿dego piksela z osobno, co sprawia, ¿e problem jest o rz±d wielko¶ci trudniejszy, ni¿ w przypadku gdy mogliby¶my cechê bycia okiem zakodowaæ raz i \textit{zamkn±æ} nasz± strukturê ze wzglêdu na przekszta³cenie translacji.
+Aby zrozumieæ skalê problemu, spróbujmy sobie wyobraziæ przypadek, w którym chcieliby¶my nauczyæ sieæ neuronow± rozpoznawania oka na obrazku, w przypadku w którym nasza sieæ nie mog³aby realizowaæ w³asno¶ci \textit{inwariancji} ze wzglêdu na przesuniêcia na obrazku. W skrajnym przypadku musieliby¶my kodowaæ w³asno¶æ bycia ¶rodkiem oka dla ka¿dego piksela z osobno, co sprawia, ¿e problem jest o rz±d wielko¶ci trudniejszy, ni¿ w przypadku gdy mogliby¶my cechê bycia okiem zakodowaæ raz i \textit{zamkn±æ} nasz± strukturê ze wzglêdu na przekszta³cenie translacji.
 
 \section{Architektura sieci konwolucyjnych}
 
-Sieci konwolucyjne to opisana w \cite{conv} i rozwiniêta przez Yana LeCuna oraz Geoffrey'a Hintona architektura, która pozwala uchwyciæ inawariancjê ze wzglêdu na translacje w obrêbie wektora wej¶æ. Matematyczna struktura stoj±ca za sieciami konwolucyjnymi jest banalnie prosta. Oznaczmy przez $P_{i_{1}, i_{2}, \dots. i_{k}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, gdzie $n \geq k$ operator rzutowania, tzn. 
+Sieci konwolucyjne to opisana w \cite{conv} i rozwiniêta przez Yana LeCuna oraz Geoffrey'a Hintona architektura, która pozwala uchwyciæ inawariancjê ze wzglêdu na translacje w obrêbie wektora wej¶æ. Matematyczna struktura stoj±ca za sieciami konwolucyjnymi jest banalnie prosta. Oznaczmy przez $P_{i_{1}, i_{2}, \dots. i_{k}}\!: \mathbb{R}^{n} \rightarrow \mathbb{R}^{k}$, gdzie $n \geq k$, operator rzutowania, tzn. 
 
 $$P_{i_{1}, i_{2}, \dots. i_{k}}\left(x_{1}, x_{2}, \dots, x_{n}\right) = \left(x_{i_1}, x_{i_2}, \dots, x_{i_k}\right).$$
 
-Przez \textit{warstwê konwolucyjn±} z wagami $w_{0}, w_{1}, \dots, w_{n}$, funkcj± aktywacji $\phi$ i rzutowaniami:
+Przez \textit{pojedyncz± warstwê konwolucyjn±} z wagami $w_{0}, w_{1}, \dots, w_{n}$, funkcj± aktywacji $\phi$ i rzutowaniami:
 
 $$\mathsf{P} = \left(\left\{i^{(1)}_{1}, i^{(1)}_{2}, \dots, i^{(1)}_{k}\right\}, \left\{i^{(2)}_{1}, i^{(2)}_{2}, \dots, i^{(2)}_{k}\right\}, \dots, \left\{i^{(l)}_{1}, i^{(l)}_{2}, \dots, i^{(l)}_{k}\right\}\right).$$ 
 
 bêdziemy rozumieæ funkcjê $f^{conv}_{\mathsf{P}} : \mathbb{R}^{n} \rightarrow \mathbb{R}^{k},$ dla której $i-$ta wspó³rzêdna wektora $\left[f^{conv}_{\mathsf{P}}\left(x_{1}, x_{2}, \dots. x_{n}\right)\right]_{i}$ zadana jest wzorem :
 
 $$\left[f^{conv}_{\mathsf{P}}\left((x_{1}, x_{2}, \dots. x_{n}\right)\right]_{i} = 
-\phi\left(w_{0} + \sum_{j = 1}^{k} w_{i}x_{i_{j}} \right).$$
+\phi\left(w_{0} + \sum_{j = 1}^{k} w_{j}x_{j^{(i)}} \right).$$
 
 Zwróæmy uwagê, ¿e powy¿sz± warstwê mo¿na zinterpretowaæ jako warstwê, w której ka¿dy neuron po³±czony jest tylko i wy³±cznie z pewnym $k$-elementowym podzbiorem indeksów argumentu, a tak¿e, ¿e wszystkie neurony wspó³dziel± wagi miêdzy sob±. Pozwala to na inwariancjê w tym sensie, ¿e wagi $w_0, w_1, \dots, w_n$ uczestnicz± w wykrywaniu pewnej cechy w kodowanych przez rzutowania regionach obrazu. 
 
-Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo ogólna. W szczególno¶ci nie do koñca jasnym mo¿e byæ sk±d wziê³o siê okre¶lenie sieci jako \textit{konwolucyjnej}. Pewnym wyt³umaczeniem mog± byæ przyk³ady na poni¿szym obrazku przedstawiaj±ce dwie historycznie pierwsze topologie sieci konwolucyjnych.
+Przedstawiona przez nas definicja konwolucyjnych sieci neuronowych jest bardzo ogólna. W szczególno¶ci nie do koñca jasnym mo¿e byæ sk±d wziê³o siê okre¶lenie sieci jako \textit{konwolucyjnej}. Pewnym wyt³umaczeniem mog± byæ przyk³ady na poni¿szym obrazku przedstawiaj±ce dwie historycznie pierwsze topologie sieci konwolucyjnych (por. \figurename{ \ref{2d-conv}}, \figurename{ \ref{1d-conv}}).
 
-\begin{figure}
+\begin{figure}\label{2d-conv}
 \centering 
 \includegraphics[scale=0.7]{2d_conv.png}
 \caption{Przyk³ad dwuwymiarowej sieci konwolucyjnej. Obliczenia mo¿na interpretowaæ jako z³o¿enie splotu wag $w_1,\dots,w_n$ z warto¶ciami z dwuwymiarowej macierzy oraz funkcji aktywacji.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}\label{1d-conv}
 \centering 
 \includegraphics[scale=0.7]{1d_conv.png}
-\caption{Przyk³ad dwuwymiarowej sieci konwolucyjnej. Obliczenia mo¿na interpretowaæ jako z³o¿enie splotu wag $w_1,\dots,w_n$ z warto¶ciami z wektora oraz funkcji aktywacji.}
+\caption{Przyk³ad jednowymiarowej sieci konwolucyjnej. Obliczenia mo¿na interpretowaæ jako z³o¿enie splotu wag $w_1,\dots,w_n$ z warto¶ciami z wektora oraz funkcji aktywacji.}
 \end{figure}
 
 Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadzi to do uczenia inwariantnych ze wzglêdu na translacjê cech z innych inwariantnych na przesuniêcia konceptów nauczonych przez ni¿sze warstwy. 
@@ -708,13 +735,14 @@ Oczywi¶cie warstwy konwolucyjne mo¿na ze sob± sk³adaæ, jedna po drugiej. Prowadz
 Definicja sieci konwolucyjnych przedstawiona powy¿ej jest bardzo ogólna - w wiêkszo¶ci przypadków mo¿na rzutowania przedstawiæ w sposób znacznie bardziej zwiêz³y. W poni¿szych rozwa¿aniach ograniczymy siê do tzw. \textit{konwolucji dwuwymiarowych} które mo¿na interpretowaæ jako konwolucje obrazkowe. Przyjmijmy ponadto kilka dodatkowych za³o¿eñ:
 
 \begin{itemize}
-\item Wej¶ciem oraz wyj¶ciem z warstwy konwolucyjnej bêd± macierze o kszta³cie $(w, h, c)$, gdzie $w$ to szeroko¶æ obrazka, $h$ to wysoko¶æ, natomiast $c$ to tzw. wymiar cech (lub kana³ów - ang. \textit{channels}). Ostatni wymiar mo¿emy interpretowaæ w sposób nastêpuj±cy:
+\item \textit{Warstw± konwolucyjna} bêdziemy okre¶laæ zbiór wielu \textit{pojedynczych warstw konwolucyjnych} opartych na tym samym rzutowaniu $\mathsf{P}$.
+\item Wej¶ciem oraz wyj¶ciem z warstwy konwolucyjnej bêd± macierze o kszta³cie $(w, h, c)$, gdzie $w$ to szeroko¶æ obrazka, $h$ to wysoko¶æ, natomiast $c$ to tzw. wymiar cech (lub kana³ów - ang. \textit{channels}) bêd±cy równie¿ wymiarem wzd³u¿ którego sk³adane s± \textit{pojedyncze wartswy konwolucyjne}. Ostatni wymiar mo¿emy tak¿e interpretowaæ w nastêpuj±cy sposób:
 \begin{itemize}
-\item W wypadku gdy argumentami ca³ej sieci s± obraz \textit{RGB} wymiar kana³ów ma warto¶æ $3$ i mo¿emy je interpretowaæ jako wektor zawieraj±cy warto¶ci poszczególnych kolorów,
-\item W wypadku gdy argumentami ca³ej sieci s± obraz czarnobia³y -  wymiar kana³ów ma warto¶æ $1$ i mo¿emy je interpretowaæ jako jednowymiarowy wektor zawieraj±cy warto¶æ odcienia szaro¶ci (ang. \textit{grayscale}),
+\item W wypadku gdy argumentami ca³ej sieci s± kolorowe obrazy typu \textit{RGB} wymiar kana³ów ma warto¶æ $3$ i mo¿emy je interpretowaæ jako wektor zawieraj±cy warto¶ci poszczególnych kolorów,
+\item W wypadku gdy argumentami ca³ej sieci s± obrazy czarnobia³e -  wymiar kana³ów ma warto¶æ $1$ i mo¿emy je interpretowaæ jako jednowymiarowy wektor zawieraj±cy warto¶æ odcienia szaro¶ci (ang. \textit{grayscale}),
 \item W wypadku warstw niewej¶ciowych - wymiar kana³ów nale¿y interpretowaæ jako kana³ trzymaj±cy warto¶ci otrzymane z obliczeñ w poprzedniej warstwie.
 \end{itemize}
-\item Przez \textit{filtr} bêdziemy rozumieæ pojedyncz± wspó³rzêdn± z wektora wyj¶ciowego rzutowañ. Jest on to¿samy z trójwymiarow± macierz± o wymiarach $(f_w, f_h, c)$ gdzie $f_w$ bêdziemy okre¶laæ mianem \textit{szeroko¶ci} filtra, $f_h$ bêdziemy okre¶laæ mianem \textit{wysoko¶ci} filtra, natomiast $c$ jest równe warto¶ci wymiaru kana³ów warstwy wej¶ciowej filtra wraz z funkcj± aktywacji.
+\item Przez \textit{filtr} bêdziemy rozumieæ  \textit{pojedyncz± warstwê konwolucyjn±}. Jest on to¿samy z trójwymiarow± macierz± o wymiarach $(f_w, f_h, c)$ ($f_w$ bêdziemy okre¶laæ mianem \textit{szeroko¶ci} filtra, $f_h$ bêdziemy okre¶laæ mianem \textit{wysoko¶ci} filtra, natomiast $c$ jest równe warto¶ci wymiaru kana³ów warstwy wej¶ciowej filtra) wraz z funkcj± aktywacji.
 \item Rzutowaniem o kroku (ang. \textit{stride}) $(s_w, s_h)$ oraz rozmiarze filtra $(f_w, f_h, c)$ bêdziemy nazywaæ zbiór (dla wszystkich poni¿szych przypadków $c'\in\{0, \dots, c- 1\}$, $k \in \{0, \dots, f_w - 1)$ oraz $l \in \{0, \dots, f_h - 1\}$  zak³adamy, ¿e dla wymiarów wykraczaj±cych poza rozmiar macierzy $x_{i, j, k} = 0$ oraz ustalamy liczenie jej wymiarów od $0$):
 \begin{itemize}
 \item $\left\{\left(s_w * i + k, s_h * j + l, c'): i \in \{0, \dots,\lfloor\frac{w}{s_w}\rfloor\}, j \in \{0,\dots,\lfloor\frac{h}{s_h}\rfloor\}\right)\right\}$ dla tzw. \textit{braku dope³nienia}, (ang. \textit{valid padding}),
@@ -732,11 +760,11 @@ Rzutowania te mo¿na zinterpretowaæ jako wycinanie prostok±tów rozmiaru $(f_w, f_
 
 \subsection{Pooling}
 
-W sporej czê¶ci zastosowañ krokiem wiêkszo¶ci warstw jest wektor $(1, 1)$, co przy u¿yciu dope³nienia identyczno¶ciowego powoduje, ¿e rozmiary $(w, h)$ macierzy wej¶ciowej i wyj¶ciowej s± identyczne. W zwi±zku z tym, ¿e rozmiar $c$ obydwu tych macierzy jest czêsto wiêkszy od $100$ powoduje to powa¿ne problemy pamiêciowe przy obliczeniach wykonywanych w sieci. Jednym z rozwi±zañ tego problemu jest zastosowanie tzw. \textit{poolingu}. Mo¿emy zinterpretowaæ go jako filtr konwolucyjny dla którego zachodzi $(f_w, f_h) \sim (s_w, s_h)$. Powoduje to $(s_w * s_h)$-krotne zmniejszenie rozmiaru macierzy wyj¶ciowej i pozwala ograniczyæ pamiêæ potrzebn± do wykonania obliczeñ.
+W sporej czê¶ci zastosowañ jako krok wiêkszo¶ci warstw sieci ustala siê wektor $(1, 1)$, co przy u¿yciu dope³nienia identyczno¶ciowego powoduje, ¿e rozmiary $(w, h)$ macierzy wej¶ciowej i wyj¶ciowej s± identyczne. W zwi±zku z tym, ¿e wymiar $c$ obydwu tych macierzy jest czêsto wiêkszy od $100$ powoduje to powa¿ne problemy pamiêciowe przy obliczeniach wykonywanych w sieci. Jednym z rozwi±zañ tego problemu jest zastosowanie tzw. \textit{poolingu}. Mo¿emy zinterpretowaæ go jako filtr konwolucyjny dla którego zachodzi $(f_w, f_h) \approx (s_w, s_h)$. Powoduje to $(s_w * s_h)$-krotne zmniejszenie rozmiaru macierzy wyj¶ciowej i pozwala ograniczyæ pamiêæ potrzebn± do wykonania obliczeñ.
 
-Dwa najczê¶ciej spotykane rodzaje \textit{poolingu} to tzw. \textit{max pooling} w którym funkcj± aktywacj± jest funkcja $\max$ oraz \textit{sum pooling} - gdzie jako aktywacjê stosuje siê sumê po wszystkich elementach rzutowania.
+Dwa najczê¶ciej spotykane rodzaje \textit{poolingu} to tzw. \textit{max pooling} w którym funkcj± aktywacj± jest funkcja $\max$ oraz \textit{mean pooling, avg (average) pooling} - gdzie jako aktywacjê stosuje siê ¶redni± wszystkich elementów rzutowania (por \figurename{ \ref{pool}}).
 
-\begin{figure}
+\begin{figure}\label{pool}
 \centering 
 \includegraphics[scale=0.5]{pools.png}
 \caption{Przyk³ad obrazuj±cy dzia³anie \textit{poolingu}.}
@@ -748,12 +776,12 @@ Specjalnym przypadkiem \textit{poolingu} jest tzw. \textit{pooling globalny} (an
 
 \section{Przegl±d najpopularniejszych architektur konwolucyjnych}
 
-Spo³eczno¶æ badaczy sieci konwolucyjnych jest w dzisiejszych czasach bardzo szeroka i nie sposób opisaæ wszystkie trendy i rozwi±zania stosowane przy ich projektowaniu i wykorzystywaniu. Dlatego w tej sekcji przyjrzymy siê najwa¿niejszym historycznie sieciom wraz z analiz± ich najwa¿niejszych rozwi±zañ.
+Spo³eczno¶æ badaczy sieci konwolucyjnych jest w dzisiejszych czasach bardzo szeroka i nie sposób opisaæ wszystkie trendy i rozwi±zania stosowane przy ich projektowaniu i wykorzystywaniu. Dlatego w tej sekcji przyjrzymy siê najwa¿niejszym historycznie sieciom i przeanalizujemy zastosowane w nich rozwi±zania.
 
 \subsection{Pierwsze sieci konwolucyjne}
 
-Biologicz± podstawê dzia³ania konwolucyjny sieci neuronowych sformu³owano ok. 1968r. gdy odkryto, ¿e widzenie odbywa siê przy pomocy tzw. pól receptywnych (ang. \textit{receptive fields} \cite{receptive-field}). Jednak za prawdziw± datê ich powstania uznaje siê 1986r. i pracê \cite{backprop} (\textit{nota bene} tê sam± w której zdefiniowano \textit{wsteczn± propagacjê}). Przez wiele lat jednak brak dostatecznie du¿ych zbiorów danych oraz mocy obliczeniowej nie pozwala³ sieciom konwolucyjnym na pokazanie pe³nego potencja³u. Chlubnym wyj±tkiem by³a sieæ LeNet \cite{lenet} autorstwa Yana LeCuna, która dziêki wsparciu biologów pracuj±cych nad percepcj± wzrokow± w mózgu by³a w stanie uzyskaæ satysfakcjonuj±ce rezultaty.
-\begin{figure}
+Biologicz± podstawê dzia³ania konwolucyjnych sieci neuronowych sformu³owano ok. 1968r. gdy odkryto, ¿e widzenie odbywa siê przy pomocy tzw. pól receptywnych (ang. \textit{receptive fields} \cite{receptive-field}). Jednak za prawdziw± datê ich powstania uznaje siê 1986r. i pracê \cite{backprop} (\textit{nota bene} tê sam± w której zdefiniowano \textit{wsteczn± propagacjê}). Przez wiele lat jednak brak dostatecznie du¿ych zbiorów danych oraz mocy obliczeniowej nie pozwala³ sieciom konwolucyjnym na pokazanie pe³nego potencja³u. Chlubnym wyj±tkiem by³a sieæ LeNet \cite{lenet} autorstwa Yana LeCuna, która dziêki wsparciu biologów pracuj±cych nad percepcj± wzrokow± w mózgu by³a w stanie uzyskaæ satysfakcjonuj±ce rezultaty (por. \figurename{ \ref{lenet}}).
+\begin{figure}\label{lenet}
 \centering 
 \includegraphics[scale=0.5]{lenet.png}
 \caption{Schemat architektury sieci \textit{LeNet-5}.}
@@ -761,19 +789,19 @@ Biologicz± podstawê dzia³ania konwolucyjny sieci neuronowych sformu³owano ok. 19
 
 \subsection{AlexNet}
 
-Za pierwsz± z tzw. \textit{nowoczesnych} sieci konwolucyjnych uznaje siê tzw. sieæ \textit{AlexNet} \cite{alex-net} autorstwa Alexa Krizhevskiego. Osi±gnê³a ona fantastyczne rezultaty w ImageNet Large Scale Visual Recognition Challange 2012 \cite{imagenet} (przez wielu uznawanym za najwa¿niejszy konkurs rozpoznawania obrazu na ¶wiecie) bij±c o kilkana¶cie procent dotychczasowe rekordy algorytmów opartch o klasyczne metody wizji komputerowej. Rozpali³a tym wyobra¼nie badaczy kompletnie zmieniaj±c krajobraz ¶rodowiska specjalistów od wizji komputerowej. W ci±gu 3 lat - sieci konwolucyjne z interesuj±cej ciekawostki sta³y siê dominuj±cym rozwi±zaniem w kategorii rozpoznania obrazu. Przeanalizujmy najwa¿niejsze innowacje wprowadzone przez A. Krizhevskiego w swojej pracy:
-\begin{figure}
+Za pierwsz± z tzw. \textit{nowoczesnych} sieci konwolucyjnych uznaje siê tzw. sieæ \textit{AlexNet} \cite{alex-net} (por. \figurename{ \ref{alex-net}}) autorstwa Alexa Krizhevskiego. Osi±gnê³a ona fantastyczne rezultaty w ImageNet Large Scale Visual Recognition Challange 2012 \cite{imagenet} (przez wielu uznawanym za najwa¿niejszy konkurs rozpoznawania obrazu na ¶wiecie), bij±c o kilkana¶cie procent dotychczasowe rekordy algorytmów opartch o klasyczne metody wizji komputerowej. Rozpali³a tym wyobra¼niê badaczy kompletnie zmieniaj±c krajobraz ¶rodowiska specjalistów od wizji komputerowej. W ci±gu 3 lat - sieci konwolucyjne z interesuj±cej ciekawostki sta³y siê dominuj±cym rozwi±zaniem w kategorii rozpoznania obrazu. Przeanalizujmy najwa¿niejsze innowacje wprowadzone przez A. Krizhevskiego w swojej pracy:
+\begin{figure}\label{alex-net}
 \centering 
 \includegraphics[scale=0.9]{alex-net.png}
 \caption{Schemat architektury sieci \textit{AlexNet}.}
 \end{figure}
 \subsubsection{Recitified Linear unit - ReLU}
-Pierwsz± z niach by³o wprowadzenie nowej funkcji aktywacji - tzw. \textit{ReLU} (ang. \textit{Rectified Linear Unit)}. Jest ona zadana nies³ychanie prostym wzorem:
+Pierwsz± z niach by³o wprowadzenie nowej funkcji aktywacji - tzw. \textit{ReLU} (ang. \textit{Rectified Linear Unit)} (por. \figurename{ \ref{relu}}). Jest ona zadana nies³ychanie prostym wzorem:
 $$Relu(x) = x\mathbb{I}_{x > 0},$$
 z równie prostym wzorem na s³ab± pochodn±:
 $$Relu'(x) = \mathbb{I}_{x > 0}.$$
-Co wiêcej - obliczenia potrzebne do ich policzenia s± niewyobra¿alnie proste - sprowadzaj± siê \textit{de facto} do wykonania pojedynczego porównania - przez co obliczenia wykonywane przy obliczaniu jej warto¶ci, a tak¿e przy wstecznej propagacji by³y znacznie szybsze do popularnych w tym czasie funkcji $\tanh$ oraz funkcji sigmoidalnej (które wymaga³y chocia¿by obliczenia funkcji $exp$).
-\begin{figure}
+Co wiêcej - obliczenia potrzebne do ich policzenia s± niewyobra¿alnie proste - sprowadzaj± siê \textit{de facto} do wykonania pojedynczego porównania - przez co obliczenia wykonywane przy obliczaniu jej warto¶ci, a tak¿e przy wstecznej propagacji by³y znacznie szybsze do popularnych w tym czasie funkcji $\tanh$ oraz funkcji sigmoidalnej (które wymaga³y chocia¿by obliczenia funkcji eksponencjalnej).
+\begin{figure}\label{relu}
 \centering 
 \includegraphics[scale=0.8]{relu.png}
 \caption{Wykres funkcji i s³abej pochodnej \textit{ReLU}.}
@@ -781,12 +809,12 @@ Co wiêcej - obliczenia potrzebne do ich policzenia s± niewyobra¿alnie proste - s
 
 \paragraph{Leaky ReLU}
 
-Jedn± z najwiêkszych wad funkcji \textit{ReLU} by³a kompletna saturacja dla ujemnych warto¶ci argumentów. Aby temu zaradziæ wprowadzono tzw. funkcjê \textit{Leaky ReLU}. Jest to tak w³a¶ciwie rodzina funkcji parametryzowana parametrem $\alpha \in (0, 1)$ zadana wzorem:
+Jedn± z najwiêkszych wad funkcji \textit{ReLU} by³a kompletna saturacja dla ujemnych warto¶ci argumentów. Aby temu zaradziæ wprowadzono tzw. funkcjê \textit{Leaky ReLU} (por. \figurename{ \ref{leaky-relu}}). Jest to tak w³a¶ciwie rodzina funkcji parametryzowana parametrem $\alpha \in (0, 1)$ zadana wzorem:
 $$LeakyReLu_\alpha(x) = x(\mathbb{I}_{x > 0} + \alpha\mathbb{I}_{x \leq 0}),$$
 z pochodn±:
 $$LeakyReLu'_\alpha(x) = \mathbb{I}_{x > 0} + \alpha\mathbb{I}_{x \leq 0}.$$
 Dziêki mniejszej warto¶ci wspó³czynnika kierunkowego funkcja jednocze¶nie nie posiada w³asno¶ci kompletnej saturacji i nie jest liniowa. Ponadto jej obliczenie jej i jej gradientu nadal jest szybkie gdy¿ sprowadza siê w najgorszym przypadku do porównania i mno¿enia przez sta³±.
-\begin{figure}
+\begin{figure}\label{leaky-relu}
 \centering 
 \includegraphics[scale=0.5]{leaky-relu.png}
 \caption{Wykres funkcji \textit{Leaky ReLU}.}
@@ -795,17 +823,17 @@ Dziêki mniejszej warto¶ci wspó³czynnika kierunkowego funkcja jednocze¶nie nie po
 \subsubsection{Obliczenia na kartach graficznych}
 
 Kolejn± przyczyn± niewyobra¿alnego sukcesu \textit{AlexNet} by³ fakt, ¿e obliczenia by³y efektywnie przeniesione na dwie karty graficzne. W zwi±zku z tym, ¿e podstaw± obliczeñ w sieciach neuronowych s± mno¿enia macierzy - które s± równie¿ podstaw± wy¶wietlania obrazu przy pomocy jednostek \textit{GPU} (ang. \textit{Graphic Process Unit}) - Krizhevsky postanowi³ u¿yæ ogromnej mocy obliczeniowej i optymalizacji dostarczanych przez g³ównych producentów kart graficznych w celu przyspieszenia trenowania sieci. Ostatecznie trening \textit{AlexNet} trwa³ ok. 2 tygodni co jak na tamten okres by³o czasem niewiarygodnie krótkim.
-\begin{figure}
+\begin{figure}\label{gpu-speed-up}
 \centering 
 \includegraphics[scale=0.4]{gpu-cpu.png}
 \caption{Przyspieszanie kart graficznych oraz zwiêkszanie ró¿nicy pomiêdzy obliczeniami wykonywanymi na GPU / CPU.}
 \end{figure}
 
-Co warto wspomnieæ - od tego czasu wielu producentów kart graficznych (szczególnie NVidia) po¶wiêca bardzo wiele pracy na optymalizacjê nowoczesnych kart graficznych specyficznie do \textit{Deep Learningu} dziêki czemu obliczenia algorytmów sieci neuronowych z roku na rok przyspieszaj± coraz bardziej.
+Co warto wspomnieæ - od tego czasu wielu producentów kart graficznych (szczególnie NVidia) po¶wiêca bardzo wiele pracy na optymalizacjê nowoczesnych kart graficznych specyficznie do \textit{Deep Learningu} dziêki czemu obliczenia algorytmów sieci neuronowych z roku na rok przyspieszaj± coraz bardziej (por. \figurename{ \ref{gpu-speed-up}}).
 
 \subsubsection{Augmentacja obrazów}
 
-Kolejn± technik± która przynios³a ogromne poprawienie rezultatów by³a tzw. \textit{augmentacja obrazów}. W kolejnych iteracjach obrazki podawane sieci by³y poddawane rozmaitym operacjom, w tym m.in.:
+Kolejn± technik±, która przynios³a ogromne poprawienie rezultatów by³a tzw. \textit{augmentacja obrazów}. W kolejnych iteracjach obrazki podawane sieci by³y poddawane rozmaitym operacjom, w tym m.in. (por. \figurename{ \ref{aug}}):
 \begin{itemize}
 \item powiêkszanie - zmniejszanie o losowy czynnik,
 \item wycinanie losowego prostok±ta z obrazu,
@@ -814,7 +842,7 @@ Kolejn± technik± która przynios³a ogromne poprawienie rezultatów by³a tzw. \text
 \item przesuniêcie kolorów o losowy sk³adnik.
 \end{itemize}
 Wymaga³o to od sieci uchwycenia inwariancji nietylko ze wzglêdu na przesuniêcia, ale tak¿e mnogo¶æ innych transformacji - ograniczaj±c w ten sposób zjawisko przeuczenia. Co wiêcej - w zwi±zku z tym, ¿e zbiór potencjalnych operacji jest nieograniczony (np. ze wzglêdu na mo¿liwe k±ty obrotu czy warto¶ci przesuniêcia) - augmentacja czyni zbiór danych treningowych potencjalnie nieskoñczonym.
-\begin{figure}
+\begin{figure}\label{aug}
 \centering 
 \includegraphics[scale=1.4]{augmentation.png}
 \caption{Przyk³ady obrazków uzyskanych z pojedynczego obrazka ze zbioru treningowego przy pomocy losowych augmentacji.}
@@ -822,8 +850,8 @@ Wymaga³o to od sieci uchwycenia inwariancji nietylko ze wzglêdu na przesuniêcia,
 
 \subsubsection{Dropout}
 
-Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶wiadczaj± zjawiska przeuczenia. Jednym z rodzajów takiego przeuczenia jest wyodrêbnianie siê w sieci konglomeratu jednostek które ucz± siê \textit{de facto} na pamiêæ podrodziny przyk³adów. Uwa¿a siê, ¿e zjawisko takie pogarsza generalizacjê - dlatego w swojej pracy Krizhevsky po raz pierwszy zastosowa³ specjaln± metodê stworzon± w celu unikniêcia tego zjawiska. Technika ta zwana \textit{dropoutem} \cite{dropout} polega na losowym (z prawdopodobieñstem $p \in (0, 1)$) wy³±czeniu podczas pojedynczej iteracji uczenia ka¿dego neuronu z osobna. Dziêki temu - tworzenie siê takiego zespo³u jednostek sieci jest utrudniane przez to, ¿e w ka¿dej z iteracji czê¶æ takiej podsieci jest losowo wy³±czana.
-\begin{figure}
+Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶wiadczaj± zjawiska przeuczenia. Jednym z rodzajów takiego przeuczenia jest wyodrêbnianie siê w sieci konglomeratu jednostek które ucz± siê \textit{de facto} na pamiêæ podrodziny przyk³adów. Uwa¿a siê, ¿e zjawisko takie pogarsza generalizacjê - dlatego w swojej pracy Krizhevsky po raz pierwszy zastosowa³ specjaln± metodê stworzon± w celu unikniêcia tego zjawiska. W technice tej podczas kolejnych iteracji uczenia ka¿dy neuron jest wy³±czany z prawdopodobieñstwem $p\in(0, 1)$. Dziêki temu - tworzenie siê takiego zespo³u jednostek sieci jest utrudniane przez to, ¿e w ka¿dej z iteracji czê¶æ takiej podsieci jest losowo wy³±czana (por. \figurename{ \ref{dropout}}).
+\begin{figure}\label{dropout}
 \centering 
 \includegraphics[scale=0.5]{dropout-nn.png}
 \caption{Przyk³ady architektury sieci w której zastosowane technikê \textit{dropout}.}
@@ -831,26 +859,26 @@ Sieci neuronowe - w zwi±zku ze sw± potencjalnie ogromn± pojemno¶ci± - czêsto do¶
 
 \subsection{VGG}
 
-Kolejn± wa¿n± sieci± w historii rozwoju nowoczesnych g³êbokich sieci konwolucyjnych by³a tzw. sieæ \textit{VGG} \cite{vgg} autorstwa K. Simonyana i A. Zissermana z Oksfordzkiej grupy \textit{Visual Geometry Group} (sk±d nazwa). Wystêpuje ona w ró¿nych wersjach - w zale¿no¶ci od ilo¶ci warstw - \textit{VGG-16} oraz \textit{VGG-19}. Co ciekawe - znajduje siê w tym zestawieniu ze wzglêdu na znacz±ce poprawienie rezultatu - w roku og³oszenia nie pobi³a nawet rekordu w ImageNet 2014 \cite{imagenet}. To co okaza³o siê kluczowym dla jej popularno¶ci to niewiarygodnie prosta teleskopowa architektura - w której kolejne filtry maj± ten sam rozmiar ($(f_w, f_h) = (3, 3)$), a wyst±pienie \textit{poolingu maksymalnego} kompensowane jest podwojeniem ilo¶ci filtrów. Uk³ad ten sta³ siê na tyle inspiruj±cy, ¿e po dzi¶ dzieñ architektura jest zwykle pierwszym wyborem pocz±tkuj±cych \textit{developerów} sieci konwolucyjnych oraz naukowców z innych dziedzin próbuj±cych wykorzystaæ \textit{deep learning} do swoich zastosowañ. 
-\begin{figure}
+Kolejn± wa¿n± sieci± w historii rozwoju nowoczesnych g³êbokich sieci konwolucyjnych by³a tzw. sieæ \textit{VGG} \cite{vgg} autorstwa K. Simonyana i A. Zissermana z Oksfordzkiej grupy \textit{Visual Geometry Group} (sk±d nazwa). Wystêpuje ona w ró¿nych wersjach - w zale¿no¶ci od liczby warstw - \textit{VGG-16} oraz \textit{VGG-19}. Co ciekawe, znajduje siê w tym zestawieniu ze wzglêdu na znacz±ce poprawienie rezultatu - w roku og³oszenia nie pobi³a nawet rekordu w ImageNet 2014 \cite{imagenet}. To, co okaza³o siê kluczowym dla jej popularno¶ci to niewiarygodnie prosta teleskopowa architektura, w której kolejne filtry maj± ten sam rozmiar ($(f_w, f_h) = (3, 3)$), a wyst±pienie \textit{poolingu maksymalnego} kompensowane jest podwojeniem ilo¶ci filtrów (por. \figurename{ \ref{vgg}}). Uk³ad ten sta³ siê na tyle inspiruj±cy, ¿e po dzi¶ dzieñ architektura jest zwykle pierwszym wyborem pocz±tkuj±cych \textit{developerów} sieci konwolucyjnych oraz naukowców z innych dziedzin próbuj±cych wykorzystaæ \textit{deep learning} do swoich zastosowañ. 
+\begin{figure}\label{vgg}
 \centering 
 \includegraphics[scale=0.5]{vgg-19.png}
 \caption{Schemat architektury sieci \textit{VGG-19}.}
 \end{figure}
 
-Co warte podkre¶lenia - aktualnie architektura powoli staje siê lekko archaiczna ze wzglêdu na du¿± ilo¶æ obliczeñ wykonywanych przy maksymalnej rozdzielczo¶ci (w tym przypadku równej $(224, 224)$), co powoduje powa¿ne problemy natury pamiêciowej i czasowej.
+Co warte podkre¶lenia - aktualnie architektura staje siê lekko archaiczna ze wzglêdu na du¿± ilo¶æ obliczeñ wykonywanych przy maksymalnej rozdzielczo¶ci (w tym przypadku równej $(224, 224)$), co powoduje powa¿ne problemy natury pamiêciowej i czasowej.
 
 \subsection{GoogLeNet}
 
-W tym samym roku co \textit{VGG} powsta³a inna rewolucyjna sieæ zwanna \textit{GoogLeNet} (aluzja do \textit{LeNet}) lub \textit{Incepcj±} (od tytu³u artyku³u \textit{Going Deeper with Convolutions} \cite{inception} oraz popularnego filmu \textit{Incepcja} \cite{inception-movie}). Przyjrzyjmy siê bli¿ej rewolucyjnym zmian± zastosowanym w \textit{Incepcji}:
-\begin{figure}
+W tym samym roku co \textit{VGG} powsta³a inna rewolucyjna sieæ zwanna \textit{GoogLeNet} (aluzja do \textit{LeNet}) lub \textit{Incepcj±} (od tytu³u artyku³u \textit{Going Deeper with Convolutions} \cite{inception} oraz popularnego filmu \textit{Incepcja} \cite{inception-movie}). Przyjrzyjmy siê bli¿ej rewolucyjnym zmianom zastosowanym w \textit{Incepcji} (por. \figurename{ \ref{inc-v1}})"
+\begin{figure}\label{inc-v1}
 \centering 
 \includegraphics[scale=0.9]{inception-net.png}
 \caption{Schemat architektury sieci \textit{Google Inception v1}}
 \end{figure}
 \subsubsection{£odyga (ang. \textit{stem}) sieci}
 
-Przez \textit{³odygê} (ang. \textit{stem}) sieci rozumiemy pocz±tkowe warstwy sieci konwolucyjnej które dokonuj± znacz±cej redukcji wymiarowo¶ci na przestrzeni 2-4 warstw. Tak jak wspominali¶my przy okazji sieci \textit{VGG} pocz±tkowe warstwy sieci cierpi± z powodów pamiêciowych poniewa¿ rozdzielczo¶æ map cech jest wtedy najwiêksza. Autorzy zastosowali po kolei: 
+Przez \textit{³odygê} (ang. \textit{stem}) sieci rozumiemy pocz±tkowe warstwy sieci konwolucyjnej które dokonuj± znacz±cej redukcji wymiarowo¶ci na przestrzeni 2-4 warstw. Tak jak wspominali¶my przy okazji sieci \textit{VGG}, pocz±tkowe warstwy sieci s± powodem problemów pamiêciowych poniewa¿ rozdzielczo¶æ map cech jest wtedy najwiêksza. Autorzy zastosowali po kolei: 
 
 \begin{enumerate}
 \item Du¿e filtry z dwukrotnym \textit{krokiem}: $(f_w, f_h) = (7, 7)$ i $(s_w, s_h) = (2, 2)$, 
@@ -859,20 +887,20 @@ Przez \textit{³odygê} (ang. \textit{stem}) sieci rozumiemy pocz±tkowe warstwy si
 \item \textit{Max Pooling} z $(f_w, f_h) = (3, 3)$ i $(s_w, s_h) = (2, 2)$.
 \end{enumerate}
 
-Dziêki tej technice po zaledwie czterech warstwach rozmiary przestrzenne map cech zosta³y zmniejszone po $8$-kroæ (z $(224, 224)$ do $(28, 28)$) co pozwala na znacznie efektywniejsze pamiêciowo i czasowe obliczenia w g³ebszych czê¶ciach sieci.
+Dziêki tej technice po zaledwie czterech warstwach rozmiary przestrzenne map cech zosta³y zmniejszone po $8$-kroæ (z $(224, 224)$ do $(28, 28)$) co pozwala na znacznie efektywniejsze pamiêciowo i czasowo obliczenia w g³ebszych czê¶ciach sieci.
 
 \subsubsection{Konwolucja $(f_w, f_h) = (1, 1)$ - redukcja wymiarowo¶ci}
 
 Na pierwszy rzut oka konwolucja z $(f_w, f_h) = (1, 1)$ mo¿e nie mieæ wiêkszego sensu - gdy¿ jest \textit{de facto} przekszta³ceniem filtrów z pojedynczego piksela mapy cech. Pozwala jednakowo¿ wykonaæ dwie bardzo przydatne czynno¶ci:
 
 \begin{itemize}
-\item Pozwala na skuteczn± rozmiaru wyj¶cia z filtrów - mog±c byæ interpretowana jako swoisty semantyczny \textit{pooling} w wymiarze kana³ów.
-\item Pozwala na adaptowalne dopasowanie wyj¶cia z wielu warstw sieci konwolucjynch w taki sposób aby posiada³y dok³adnie tak± sam± ilo¶æ filtrów wyj¶ciowych.
+\item Pozwala na skuteczn± redukcjê rozmiaru wyj¶cia z filtrów - mog±c byæ interpretowana jako swoisty semantyczny \textit{pooling} w wymiarze kana³ów.
+\item Pozwala na adaptowalne dopasowanie wyj¶cia z wielu warstw sieci konwolucjynch w taki sposób aby posiada³y dok³adnie tak± sam± liczbê filtrów wyj¶ciowych.
 \end{itemize}
 
-Szczególnie ta druga w³asno¶æ uczyni konwolucjê przydatnych zarówno dla \textit{GoogLeNet} jak i opisanego w pó¼niejszych czê¶ciach pracy \textit{ResNeta}.
+Szczególnie ta druga w³asno¶æ uczyni konwolucjê przydatn± zarówno dla \textit{GoogLeNet} jak i opisanego w pó¼niejszych czê¶ciach pracy \textit{ResNeta}.
 
-\subsubsection{Klasyfikatory pomocnicze}
+\subsubsection{Klasyfikatory pomocnicze}\label{auxiliary-classifiers}
 
 Kolejn± bardzo interesuj±c± modyfikacj± by³o wprowadzenie tzw. \textit{klasyfikatorów pomocniczych}. Klasyfikatory pomocnicze to dodatkowe wyj¶cia z sieci (umieszczane w warstwach bli¿szych warstwie wej¶ciowej) w których dodawane s± pomocnicze warstwy wyj¶ciowe rozmiaru takiego samego jak ostateczne wyj¶cie z sieci - maj±ce optymalizowaæ dok³adnie tê sam± funkcjê kosztu co jednostki wyj¶ciowe sieci (czêsto nadaje siê tym kosztom ni¿sz± wagê). Celami stosowania klasyfikatorów pomocniczych s±:
 
@@ -883,42 +911,42 @@ Kolejn± bardzo interesuj±c± modyfikacj± by³o wprowadzenie tzw. \textit{klasyfika
 
 \subsubsection{Blok incepcyjny - \textit{sieæ w sieci}}
 	
-Najwa¿niejszym wk³adem \textit{Incepcji} by³o jednakowo¿ wprowadzenie specjalnych bloków incepcyjnych - w których ró¿nego rodzaju konwolucje by³y stosowane do tej samej warstwy wej¶ciowej - po czym wyniki z³±czane by³y wzd³u¿ wymiaru kana³ów. Pozwala³o to na wykrywanie cech w ró¿nych skalach, a przez to, ¿e obliczenia mog³y byæ wykonywane równolegle - równocze¶nie zwiêkszano skuteczno¶æ i pojemno¶æ sieci bez zbytniego spowalniania obliczeñ. 
+Najwa¿niejszym wk³adem \textit{Incepcji} by³o jednakowo¿ wprowadzenie specjalnych bloków incepcyjnych - w których ró¿nego rodzaju konwolucje by³y stosowane do tej samej warstwy wej¶ciowej - po czym wyniki z³±czane by³y wzd³u¿ wymiaru kana³ów (por. \figurename{ \ref{inception-block}}). Pozwala³o to na wykrywanie cech w ró¿nych skalach, a przez to, ¿e obliczenia mog³y byæ wykonywane równolegle - równocze¶nie zwiêkszano skuteczno¶æ i pojemno¶æ sieci bez zbytniego spowalniania obliczeñ. 
 
 \subsubsection{Kolejne wersji Incepcji}
 
 Warto wspomnieæ, ¿e sieæ ta jest bujnie rozwijana. Obecnie dostêpne jest jej ju¿ kilkana¶cie wersji. Opisywanie ich wykracza poza ramy tej pracy - o szczegó³ach mo¿na przeczytaæ w \cite{batch-normalization}, \cite{inception-v3} (warto wspomnieæ o udziale naukowca z naszego wydzia³u - Zbigniewa Wojny) oraz \cite{inception-v4}.
 
-\begin{figure}
+\begin{figure}\label{inception-block}
 \centering 
 \includegraphics[scale=0.9]{inception-block.jpeg}
 \caption{Przyk³ad bloku incepcyjnego - \textit{sieci w sieci}.}
 \end{figure}
 
-\subsection{Sieci residualne ResNet}
+\subsection{Sieci residualne ResNet}\label{residual-connections}
 
-Ostatni± z nowoczesnych architektur któr± opiszemy w tej pracy jest \textit{architektura po³±czeñ residualnych - ResNet} \cite{resnet}. Opracowana w laboratoriach firmy Microsoft sieæ wystêpuje w kilkunastu wersjach w zale¿no¶ci od ilo¶ci warstw - \textit{ResNet 18, ResNet 34, ResNet 50, ResNet 101 i ResNet 151}. W architekturze tej wykorzystywane s± elementy opisane ju¿ wcze¶niej - czyli klasyfikatory pomocnicze oraz ³odyga. Rewolucyjnym elementem architektur residualnych jest natomiast tzw. \textit{po³±czenie residualne} (ang. \textit{residual connection}) które pozwoli³o na osi±ganie niewyobra¿alnych wcze¶niej g³êboko¶ci.
+Ostatni± z nowoczesnych architektur, któr± opiszemy w tej pracy jest \textit{architektura po³±czeñ residualnych - ResNet} \cite{resnet}. Opracowana w laboratoriach firmy Microsoft sieæ wystêpuje w kilkunastu wersjach w zale¿no¶ci od liczby warstw - \textit{ResNet 18, ResNet 34, ResNet 50, ResNet 101 i ResNet 151}. W architekturze tej wykorzystywane s± elementy opisane ju¿ wcze¶niej - czyli klasyfikatory pomocnicze oraz ³odyga. Rewolucyjnym elementem architektur residualnych jest natomiast tzw. \textit{po³±czenie residualne} (ang. \textit{residual connection}) które pozwoli³o na osi±ganie niewyobra¿alnych wcze¶niej g³êboko¶ci.
 
 \subsubsection{Po³±czenia residualne}
 
 \textit{Po³±czeniem residualnym} nazywamy blok warstw konwolucyjnych w którym wyj¶cie z tego bloku zostaje poddane jednej z dwóch nastêpuj±cych operacji:
 
 \begin{itemize}
-\item dodania do warstwy wej¶ciowej (wymagane jest aby wyj¶cie mia³o dok³adnie taki sam rozmiar $(w, h, c)$ jak wej¶cie,
-\item do³±czenia do warstwy wej¶ciowej (wymagane jest aby wyj¶cie mia³o takie same $w$ i $h$ jak wej¶cie).
+\item dodania do warstwy wej¶ciowej wyj¶cia z tej warstwy (wymagane jest aby wyj¶cie mia³o dok³adnie taki sam rozmiar $(w, h, c)$ jak wej¶cie (por. \figurename{ \ref{residual}}).
+\item do³±czenia do warstwy wej¶ciowej wyj¶cia z tej warstwy (wymagane jest aby wyj¶cie mia³o takie same $w$ i $h$ jak wej¶cie).
 \end{itemize}
 
 W architekturach $ResNet$ wykorzystywany jest blok z operacj± dodawania. Intuicyjnym wyt³umaczeniem skuteczno¶ci dzia³ania po³±czeñ residualnych w tym wypadku jest to, ¿e sieæ uczy siê ci±gu kolejnych zaburzeñ poprzednich warstw które prowadz± do dobrego wyniku, zamiast ci±gu transformacji prowadz±cego do celu (transformacje te mog± kompletnie gubiæ naturê swoich argumentów - czêsto znacznie u³atwiaj±c± rozwi±zanie zadania). Dziêki temu - problemy z przekazywaniem sygna³u ucz±cego w ni¿sze warstwy sieci s± znacznie mniejsze - co pozwala na znacz±ce zwiêkszenie g³êboko¶ci sieci.
 
-\begin{figure}
+\begin{figure}\label{residual}
 \centering 
 \includegraphics[scale=0.9]{residual.png}
 \caption{Przyk³ad po³±czenia residualnego.}
 \end{figure}
 
-\chapter{Implementacja - zastosowanie CNN do rozpoznawania raka jelita grubego}
+\chapter{Implementacja - zastosowanie sieci konwolucyjnych do rozpoznawania nowotworu jelita grubego}
 
-W poni¿szym rozdziale opiszemy zastosowanie sieci konwolucyjnej do rozpoznania typu tkanki pobranej z jelita grubego. Rozwi±zanie to osi±gnê³o doskona³e wyniki porównywalne z wynikami przedstawionymi w renomowanym czasopi¶mie naukowym \textit{Nature} \cite{nature-cancer}. W kolejnych rozdzia³ach opiszemy rozwi±zywany problem, zbiór danych, architekturê sieci oraz porównamy wyniki modelu z najlepszymi obecnie wynikami uzyskanymi na podanymi w \cite{nature-cancer}.
+W poni¿szym rozdziale opiszemy zastosowanie sieci konwolucyjnej do rozpoznania typu tkanki pobranej z jelita grubego. Rozwi±zanie to osi±gnê³o doskona³e wyniki, porównywalne z wynikami przedstawionymi w renomowanym czasopi¶mie naukowym \cite{nature-cancer}. W kolejnych rozdzia³ach opiszemy rozwi±zywany problem, zbiór danych, architekturê sieci oraz porównamy wyniki modelu z najlepszymi uzyskanymi obecnie wynikami \cite{nature-cancer}.
 
 \section{Opis problemu}
 
@@ -926,26 +954,27 @@ Rak jelita grubego (³ac. \textit{carcinoma intestini crassi}) jest jednym z najc
 
 \section{Opis zbioru danych i dotychczasowych wyników}
 
-W \cite{nature-cancer} - badacze przygotowali pierwszy zbiór danych do analizy i porównywania wyników modeli przeznaczonych do rozpoznawania komórek rakowych w tkankach jelita grubego. Poni¿ej opiszemy przedstawiony zbior danych oraz wyniki uzyskane przez badaczy.
+W \cite{nature-cancer} badacze przygotowali pierwszy zbiór danych do analizy i porównywania wyników modeli przeznaczonych do rozpoznawania komórek rakowych w tkankach jelita grubego. Poni¿ej opiszemy przedstawiony zbiór danych oraz wyniki uzyskane przez badaczy.
 
-\subsection{Zbiór danych}
+\subsection{Zbiór danych}\label{dataset}
 
-Zbiór danych - opisany w \cite{nature-cancer} sk³ada siê z 5000 kolorowych zdjêæ o rozmiarze $(150, 150)$. Ka¿dy z nich przynale¿y do dok³adnie jednej z 8 kategorii:
+Zbiór danych - opisany w \cite{nature-cancer} sk³ada siê z 5000 kolorowych zdjêæ o rozmiarze $(150, 150)$. Ka¿de z nich przynale¿y do dok³adnie jednej z 8 kategorii:
 
-\begin{enumerate}
-\item guz w tkance nab³onkowej (ang. \textit{Tumour epithelium}),
+\begin{enumerate}[label=\alph*.]
+\item guz w tkance nab³onkowej (ang. \textit{tumour epithelium}),
 \item zr±b prosty (ang. \textit{simple stroma}),
-\item zr±b z³o¿ony (ang. \textit{complexed stroma}),
+\item zr±b z³o¿ony (ang. \textit{complex stroma}),
 \item komórki odporno¶ciowe (ang. \textit{immune cells}),
 \item martwa tkanka (ang. \textit{debris}),
-\item tkanka t³uszczowa (ang. \textit{adipose tissue}),
+\item gruczo³y ¶luzowe (ang. \text{mucosal glands}),
+\item gruczo³y ¶luzowe (ang. \textit{adipose tissue}),
 \item t³o.
-
+\end{enumerate}
 Wszystkie klasy reprezentowane s± równolicznie, a zatem w zbiorze testowym mamy po 625 obrazków ka¿dego typu.
 
 \paragraph{Sposób zebrania} 
 
-Wszystkie obrazki zosta³y wyciête ze zdjêæ tkanek nowotworowych, zrobionych mikroskopem elektronowym o rozdzielczo¶ci $0.5\mu m$. Kolor obrazków zosta³ uzyskany przy pomocy barwienie hematoksylin± i eozyn±.
+Wszystkie obrazki zosta³y wyciête ze zdjêæ tkanek nowotworowych, zrobionych mikroskopem elektronowym o rozdzielczo¶ci $0.5\mu m$. Kolor obrazków zosta³ uzyskany poprzez barwienie hematoksylin± i eozyn±.
 
 \begin{figure}
 \centering 
@@ -953,7 +982,6 @@ Wszystkie obrazki zosta³y wyciête ze zdjêæ tkanek nowotworowych, zrobionych mikr
 \caption{Przyk³ady obrazków z ka¿dej z klas.}
 \end{figure}
 
-\end{enumerate}
 
 \section{Opis sieci i eksperymentu}
 
@@ -971,7 +999,7 @@ Sieæ u¿yta podczas eksperymentów wzorowana by³a na popularnej \textit{ResNet 18}
 
 \paragraph{Wej¶cie}
 
-Wej¶cie do sieci ma rozmiar $(128, 128, 3)$ (rozmiar zosta³ dobrany w celu trzymania siê popularnej w spo³eczno¶ci sieci neuronowej konwencji w której rozmiar wej¶cia jest podzielny przez $32$). Obrazki s± zmniejszane przy pomocy interpolacji dwuliniowej TODO \cite{bilinear-interpolation}.
+Wej¶cie do sieci ma rozmiar $(128, 128, 3)$ (rozmiar zosta³ dobrany w celu trzymania siê popularnej w spo³eczno¶ci sieci neuronowych konwencji, wed³ug której rozmiar wej¶cia powinien byæ podzielny przez $32$). Obrazki s± zmniejszane przy pomocy interpolacji dwuliniowej \cite{bilinear-interpolation}.
 
 \paragraph{£odyga}
 
@@ -988,12 +1016,12 @@ Blok 1 zaczyna siê 3-krotnym powtórzeniem nastêpuj±cego schematu:
 
 \begin{enumerate}
 \item warstwy konwolucyjnej \textit{K} o parametrach filtra $(f_w, f_h, c)\!=\!(3, 3, 64)$ oraz krokach $(s_w, s_h)\!=\!(1, 1)$,
-\item po³±czenia residualnego w którym wej¶cie do warstwy \textit{K} dodawane jest do jej wyniku. 
+\item po³±czenia residualnego, w którym wej¶cie do warstwy \textit{K} dodawane jest do jej wyniku. 
 \end{enumerate}
-Warto zauwa¿yæ, ¿e powy¿sza operacja jest mo¿liwa poniewa¿ wej¶cie oraz wyj¶cie warstwy \textit{K} maj± taki sam rozmiar. Zakoñczeniem Bloku 1 jest rozga³êzienie do dwóch odnóg:
+Warto zauwa¿yæ, ¿e powy¿sza operacja jest mo¿liwa poniewa¿ wej¶cie i wyj¶cie warstwy \textit{K} maj± taki sam rozmiar. Zakoñczeniem Bloku 1 jest rozga³êzienie do dwóch odnóg:
 
 \begin{enumerate}
-\item \textit{globalnego poolingu u¶rednionego} zakoñczonego wartstw± liniow± o rozmiarze wyj¶cia $(8,)$ z funkcj± aktywacji typu $Softmax$ (blok ten jest wej¶ciem do Bloku 2),
+\item \textit{globalnego poolingu u¶rednionego} zakoñczonego warstw± liniow± o rozmiarze wyj¶cia $(8,)$ z funkcj± aktywacji typu $Softmax$ (blok ten jest wej¶ciem do Bloku 2),
 \item \textit{poolingiem u¶rednionym} o rozmiarze filtra $(f_w, f_h)\!=\!(2, 2)$ i kroku $(s_w, s_h)\!=\!(2, 2)$.
 \end{enumerate}
 
@@ -1003,9 +1031,9 @@ Blok 2 (analogicznie do Bloku 1) - zaczyna siê 3-krotnym powtórzeniem nastêpuj±c
 
 \begin{enumerate}
 \item warstwy konwolucyjnej \textit{K} o parametrach filtra $(f_w, f_h, c)\!=\!(3, 3, 64)$ oraz krokach $(s_w, s_h)\!=\!(1, 1)$,
-\item po³±czenia residualnego w którym wej¶cie do warstwy \textit{K} dodawane jest do jej wyniku. 
+\item po³±czenia residualnego, w którym wej¶cie do warstwy \textit{K} dodawane jest do jej wyniku. 
 \end{enumerate}
-Blok 2 zakoñczony jest \textit{globalnym poolingiem u¶rednionym}, z³o¿onym z funkcj± liniow± o rozmiarze wyj¶cia $(8,)$ z funkcj± aktywacji $Softmax$. Zakoñczenie to jest jednocze¶nie wyj¶ciem ostatecznym z sieci.
+Blok 2 zakoñczony jest \textit{globalnym poolingiem u¶rednionym} z³o¿onym z funkcj± liniow± o rozmiarze wyj¶cia $(8,)$, z funkcj± aktywacji $Softmax$. Zakoñczenie to jest jednocze¶nie wyj¶ciem ostatecznym z sieci.
 
 \begin{figure}
 \centering 
@@ -1021,29 +1049,102 @@ Blok 2 zakoñczony jest \textit{globalnym poolingiem u¶rednionym}, z³o¿onym z fun
 
 \paragraph{Interpretacja wyj¶æ}
 
-Obydwa wyj¶cia zinterpretowane powy¿ej mo¿na zinterpretowaæ jako rozk³ad prawdopodobieñstwa tego, ¿e podany obrazek przedstawia jedn± z klas opisanych w (TODO ref). Kolejno¶æ kolejnych wspó³rzêdnych jest identyczna jak ta, w (TODO ref).
+Obydwa wyj¶cia opisane powy¿ej mo¿na zinterpretowaæ jako rozk³ad prawdopodobieñstwa tego, ¿e podany obrazek przedstawia jedn± z klas opisanych w \ref{dataset}. Kolejno¶æ wspó³rzêdnych jest identyczna jak ta, w \ref{dataset}.
 
 \paragraph{Normalizacja porcjowa oraz funkcja aktywacji} 
 
-Wyj¶cie z ka¿dej warstwy konwolucyjnej poddane jest normalizacji porcjowej. Do znormalizowanego wyniku warstwy wyj¶ciowej zaaplikowana jest funkcja aktywacji typu \textit{Leaky ReLU}. Schemat ten powsta³ na podstawie TODO \cite{yolo}.
+Wyj¶cie z ka¿dej warstwy konwolucyjnej poddane jest normalizacji porcjowej. Do znormalizowanego wyniku warstwy wyj¶ciowej zaaplikowana jest funkcja aktywacji typu \textit{Leaky ReLU}. Schemat ten powsta³ na podstawie \cite{yolo}.
 
 \subsection{Szczegó³y funkcji kosztu}
 
 Ostateczna funkcja kosztu zadana jest nastêpuj±ym wzorem:
 
 $$J_\mathcal{X} = -\sum_{x \in \mathcal{X}}\left(0.9 \sum_{i=1}^8 w_i o_i^{out}\log o_i^{out} +0.1\sum_{i=1}^8 w_i o_i^{aux}\log o_i^{aux}\right),$$
-gdzie $o^{out}$ jest wynikiem ostatecznego wyj¶cia z sieci, natomiast $o^{aux}$ jest wyj¶ciem z wyj¶cia pomocniczego. $w$ jest nastomiast wektorem wag, zadany wzorem $w_1 = 5$ oraz $w_i = 1$ dla $i = 2, \dots, 8$.
+gdzie $o^{out}$ jest wynikiem ostatecznego wyj¶cia z sieci, natomiast $o^{aux}$ jest wyj¶ciem z wyj¶cia pomocniczego. $w$ jest nastomiast wektorem wag zadanym wzorem $w_1 = 5$ oraz $w_i = 1$ dla $i = 2, \dots, 8$. Mo¿na zatem zinterpretowaæ obydwa czynniki w powy¿szym wzorze jako ¶redni± wa¿on± \textit{wa¿onych kategorycznych entropii krzy¿owych} (por. \ref{categorical-cross-entropy}) z wektorem wag $w$.  
+
+Intuicyjnie powy¿sza funkcja kosztu nadaje du¿o wiêksze znaczenie (waga $0.9$) funkcji straty g³ównego wyj¶cia, jednocze¶nie przesy³aj±c lekki sygna³ ucz±cy (waga $0.1$) bezpo¶rednio do Bloku 1. Zapobiega to zjawisku znikaj±cego gradientu oraz sprawia, ¿e cechy uczone przez warstwy Bloku 1 same w sobie posiadaj± w³asno¶ci predykcyjne. Waga $w_i = 5$ nadaje znaczne wiêksze znaczenie odpowiedniej klasyfikacji guza. Ma to podnie¶æ skuteczno¶æ modelu w rozpoznawaniu obrazków tego typu.
 
 \subsection{Szczegó³y algorytmu optymalizacyjnego}
 
-Algorytmem ucz±cym by³o stochastyczne uczenie gradientowe (ang. \textit{stochastic gradient descent}) z rozmiarem porcji równym $128$, \textit{momentum} równym $0.9$ oraz \textit{sta³ej uczenia} równej $0.1$. Zastosowany zosta³ równie¿ schemat \textit{redukcji sta³ej uczenia w wypadku wysokiej i sta³ej warto¶ci funkcji kosztu} - \textit{sta³a uczenia} by³a zmniejszana 10-krotnie je¶li na wydzielonym zbiorze testowym (o rozmiarze 20\% zbioru treningowego) maksymalna dok³adno¶æ modelu nie uleg³a zwiêkszeniu w ci±gu 10 epok.
+Algorytmem ucz±cym by³o stochastyczne uczenie gradientowe (ang. \textit{stochastic gradient descent}) z rozmiarem porcji równym $128$, \textit{momentum} równym $0.9$ oraz \textit{sta³± uczenia} równ± $0.1$. Zastosowany zosta³ równie¿ schemat \textit{redukcji sta³ej uczenia w wypadku wysokiej i sta³ej warto¶ci funkcji kosztu} - \textit{sta³a uczenia} by³a zmniejszana 10-krotnie je¶li na wydzielonym zbiorze testowym (o rozmiarze 20\% zbioru treningowego) maksymalna dok³adno¶æ (ang. \textit{accuracy}) modelu nie uleg³a zwiêkszeniu w ci±gu 10 epok.
 
-\subsection{Szczegó³y procesu uczenia}
+\subsection{Szczegó³y procesu uczenia}\label{learning}
 
-Sieæ by³a uczona przez 200 epok. W celu unikniêcia utkniêcia w \textit{s³abym minimum} - je¶li po 10 epokach warto¶æ funkcji kosztu nie by³a mniejsza od $2.0$ - uczenie by³o restartowane. Ostatecznym modelem po 200 epokach by³ model który osi±gn±³ najlepsz± dok³adno¶æ na wspomnianym wcze¶niej wydzielonym $20\%$ podzbiorze zbioru treningowego.
+Sieæ by³a uczona przez 200 epok. W celu unikniêcia utkniêcia w \textit{s³abym minimum} je¶li po 10 epokach warto¶æ funkcji kosztu nie by³a mniejsza od $2.0$ - uczenie by³o restartowane. Ostatecznym modelem po 200 epokach by³ model który osi±gn±³ najlepsz± dok³adno¶æ na wspomnianym w poprzedniej podsekcji wydzielonym 20-procentowym podzbiorze zbioru treningowego.
+
+\subsection{Szczegó³y implementacji}
+
+Model zosta³ zaimplementowany przy pomocy pakietu \texttt{Keras} \cite{keras} opartym na pakiecie \texttt{TensorFlow} \cite{tensorflow}. Trening przeprowadzony zosta³ dziêki pomocy firmy Microsoft w ramach grantu TODO opisz, dziêki czemu zakupiony zosta³ czas obliczeniowy na maszynie wirtualnej typu \texttt{Azure NC-6} \cite{azure-nc-6}. 
 
 \section{Porównanie wyników}
 
+W \cite{nature-cancer} oprócz zbioru danych, autorzy zaproponowali tak¿e metodê klasyfikacji obrazków w dwóch kategoriach:
+
+\begin{itemize}
+\item Przyporz±dkowania danego obrazku do prawid³owej kategorii,
+\item Sprawdzenie czy dany obrazek nale¿y do klasy guza tkanki nab³onkowej.
+\end{itemize}
+
+Dla klasyfikacji 8-klasowej autorzy przedstawili dok³adno¶æ, a tak¿e ¶rednie \textit{AUC}. W wypadku klasyfikacji \textit{guz vs reszta} autorzy przedstawili tylko dok³adno¶æ.
+
+Wyniki zosta³y uzyskane przy pomocy 10-krotnej walidacji krzy¿owej. 
+
+\subsection{Wyniki uzyskane przez autorów zbioru danych}
+
+W pierwszej z kategorii (klasyfikacji 8-klasowej) najlepszy przedstawiony przez autorów model uzyska³ dok³adno¶æ (ang. \textit{accuracy}) na poziomie $87.4\%$ oraz ¶rednie $AUC$ równe $0.976$. W kategorii rozpoznania raka autorzy uzyskali wynik dok³adno¶ci równy $98.6\%$.
+
+\subsection{Wyniki uzyskane przez model opisany w tej pracy}
+
+\paragraph{Szczegó³y uzyskiwania ostatecznych rezultatów}
+
+Wynikiem obu wyj¶æ z sieci jest rozk³ad prawdopodobieñstwa nad potencjalnymi 8 klasami. Ostateczn± predykcjê uzyskujemy poprzez:
+
+\begin{enumerate}
+\item W przypadku klasyfikacji 8-klasowej: wybranie klasy dla której ostateczne wyj¶cie z sieci by³o najwy¿sze. W wypadku remisów wybierana jest klasa o najni¿szym indeksie,
+\item W przypadku wykrywania komórek guza: Klasa guza przyporz±dkowywana jest wtedy gdy wynik przypisany klasie guza przez ostateczne wyj¶cie przekroczy warto¶æ $0.5$.
+\end{enumerate}
+
+W niniejszej pracy powtórzyli¶my eksperyment wykonany przez autorów artyku³u \cite{nature-cancer}.
+
+Model opisany w tej pracy w kategorii klasyfikacji 8-klasowej uzyska³ skuteczno¶æ na poziomie $92\%$ oraz ¶rednie \textit{AUC} na poziomie $0.974$. W kategorii rozpoznawania guzów uzyska³ natomiast skuteczno¶æ na poziomie $98.2\%$. 
+
+\subsubsection{Porównanie}
+
+Model opisany w tej pracy znacz±co podniós³ wynik dok³adno¶ci w kategorii rozpoznania klasy zdjêæ (wzrost o $4.6\%$) i osi±gn±³ porównywalne (acz minimalnie gorsze rezultaty) w kategorii ¶redniego \textit{AUC} oraz dok³adno¶ci w wykrywaniu komórek rakowych. Co godne podkre¶lenia - podczas analizy wyników okaza³o siê, ¿e w jednym z eksperymentów walidacji krzy¿owej model najprawdopodobniej utkn±³ w nieoptymalnym minimum uzyskuj±c wyra¼nie gorsze wyniki dok³adno¶ci w klasyfikacji 8-klasowej ($78\%$ przy ¶redniej z pozosta³ych eksperymentów $93.5\%$)oraz klasyfikacji \textit{guz vs reszta} ($97.2\%$ przy ¶redniej z pozosta³ych eksperymentów $98.2\%$). Sta³o siê to pomimo zastosowania specjalnego warunku stopu opisanego w \ref{learning}. Oczekujemy, ¿e poprawienie tego warunku powinno pomóc w unikniêciu takiej sytuacji w przysz³o¶ci. Po analizie wyników okaza³o siê, ¿e spowodowa³o to równie¿ znaczne obni¿enie i nietypowe zachowanie krzywej ROC w wypadku rozpoznania klasy t³a (zobacz \ref{roc-marcin}).
+ 
+
+\begin{figure}
+\includegraphics[scale=0.65]{kather-cm.png}
+\caption{Macierz b³êdów uzyskana w kategorii klasyfikacji 8-klasowej przez \cite{nature-cancer}.}
+\end{figure}
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.27]{marcin-cm.png}
+\caption{Macierz b³êdów uzyskana przez model opisany w tej pracy.}
+\end{figure}
+
+\begin{figure}
+\centering 
+\includegraphics[scale=0.65]{roc-kather.png}
+\caption{Krzywe ROC uzyskane przez autorów \cite{nature-cancer}.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.42]{marcin-roc.png}\label{roc-marcin}
+\caption{Krzywe ROC uzyskane przez model opisany w tej pracy.}
+\end{figure}
+
+\chapter{Dyskusja}
+
+Oznaczanie komórek rakowych na obrazach uzyskanych przy pomocy mikroskopu elektronowego stanowi kluczow± czynno¶æ w diagnozie i badaniu przyczyn raka jelita grubego. Automatyzacja tej techniki przy pomocy sztucznej inteligencji pozwala na jej znaczne przyspieszenie oraz znacz±ce zmniejszenie kosztów. Wed³ug naszej wiedzy stworzony przez nas model jest pierwszym modelem \textit{deep learningowym} wytrenowanym wy³±cznie na zbiorze danych z \cite{nature-cancer} - inne prace stosuj±ce tê technikê wykorzystywa³y tê kolekcjê jak± jedn± z wielu w celu zwiêkszenia ilo¶ci przyk³adów treningowych.
+
+\section*{Kolejne kroki}
+
+Modele g³êbokiego uczenia odnosz± liczne sukcesy w rozpoznawaniu obrazów \cite{resnet, inception}, d¼wiêków i muzyki \cite{wavenet} czy jêzyka naturalnego \cite{deep-learning-translation} - jednak zazwyczaj zbiory danych wymagane do ich efektywnego uczenia s± o rz±d rozmiaru wiêksze ($> 50000$) ni¿ zbiór na którym zosta³ wytrenowany zaimplementowany model. Fakt, ¿e architektura opisana w tej pracy czyni mo¿liwym analizê histopatologiczn± w oparciu o tak ma³e zbiory danych pozwala ¿ywiæ nadziejê, ¿e zastosowanie jej do podobnych kolekcji zdjêæ tkanek innych narz±dów powinno daæ podobnie zadowalaj±ce rezultaty.
+
+Planowane jest dalsze rozwijanie architektury w celu poprawy jej rezultatów oraz jej adaptacja do wykorzystania w paradygmacie tzw. \textit{bayesowskiego deep-learningu} w oparciu o technikê \textit{wariacyjnego dropoutu} \cite{variational-dropout}. Dziêki tej technice model dostarcza nie tylko predykcjê klasy obrazka, ale równie¿ estymacjê niepewno¶ci swojego wyniku. Dziêki temu mo¿liwy staje siê np. scenariusz zastosowania techniki \textit{active learning} \cite{active-learning} dziêki której obrazki co do których model ma najwiêksze w±tpliwo¶ci bêd± kierowane do rêcznego oznaczania. Pozwoli to na dalsz± poprawê skuteczno¶ci modelu oraz niemal automatyczne powiêkszanie istniej±cych zbiorów danych. Perspektywa kompletnego wyrugowania ludzkiego tagowania z rozpoznawania raka jelita grubego jawi siê zatem jako znacznie bli¿sza. 
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
@@ -1277,6 +1378,65 @@ Scientific Reports 6, Article number: 27988 (2016)
 \bibitem{wiki-cancer}
 Rak jelita grubego,
 Wikipedia Polska
+
+\bibitem{keras}
+Keras,
+Francois Chollet et al.,
+2015,
+https://github.com/fchollet/keras
+
+\bibitem{tensorflow}
+TensorFlow: Large-scale machine learning on heterogeneous systems,
+Martín Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo,
+Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis,
+Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow,
+Andrew Harp, Geoffrey Irving, Michael Isard, Rafal Jozefowicz, Yangqing Jia,
+Lukasz Kaiser, Manjunath Kudlur, Josh Levenberg, Dan Mané, Mike Schuster,
+Rajat Monga, Sherry Moore, Derek Murray, Chris Olah, Jonathon Shlens,
+Benoit Steiner, Ilya Sutskever, Kunal Talwar, Paul Tucker,
+Vincent Vanhoucke, Vijay Vasudevan, Fernanda Viégas,
+Oriol Vinyals, Pete Warden, Martin Wattenberg, Martin Wicke,
+Yuan Yu, and Xiaoqiang Zheng,
+2015. Software available from tensorflow.org
+
+\bibitem{azure-nc-6}
+Azure N-Series preview availability,
+https://azure.microsoft.com/en-us/blog/azure-n-series-preview-availability/
+
+\bibitem{choromanska}
+The Loss Surfaces of Multilayer Networks,
+A. Choromanska et al.,
+arXiv:1412.0233
+
+\bibitem{bilinear-interpolation}
+Comparision of Interpolating Methods for Image Resampling,
+J. A. Parker et al.,
+IEEE Trans Med Imaging. 1983;2(1):31-9.
+
+\bibitem{yolo}
+YOLO9000: Better, Faster, Stronger,
+J. Redmond, A. Fahradi,
+arXiv:1612.08242
+
+\bibitem{wavenet}
+WaveNet: A Generative Model for Raw Audio,
+A. vd Oord et al.,
+arXiv:1609.03499
+
+\bibitem{deep-learning-translation}
+Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation,
+Y. Wu et al.,
+arXiv:1609.08144
+
+\bibitem{active-learning}
+Deep Bayesian Active Learning with Image Data,
+Y. Gal et al.,
+arXiv:1703.02910
+
+\bibitem{variational-dropout}
+Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning,
+Y. Gal et al.,
+arXiv:1506.02142
 
 \end{thebibliography}
 

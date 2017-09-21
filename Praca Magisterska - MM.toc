@@ -17,66 +17,74 @@
 \contentsline {subsubsection}{Losowa inicjalizacja}{16}
 \contentsline {subsubsection}{Lokalne minima}{16}
 \contentsline {subsubsection}{Redukcja sta\IeC {\l }ej uczenia w wypadku wysokiej i sta\IeC {\l }ej warto\'sci funkcji kosztu (ang. \textit {learning rate reduction on plateau})}{17}
-\contentsline {subsection}{\numberline {2.1.6}Stochastyczna optymalizacja gradientowa}{17}
+\contentsline {subsubsection}{Momentum}{17}
+\contentsline {subsection}{\numberline {2.1.6}Stochastyczna optymalizacja gradientowa}{18}
 \contentsline {subsection}{\numberline {2.1.7}Metaoptymalizacja}{18}
-\contentsline {section}{\numberline {2.2}Sztuczne Sieci neuronowe}{18}
+\contentsline {section}{\numberline {2.2}Sztuczne Sieci neuronowe}{19}
 \contentsline {subsection}{\numberline {2.2.1}Biologiczna motywacja}{19}
 \contentsline {subsection}{\numberline {2.2.2}Regresja logistyczna}{19}
-\contentsline {subsubsection}{Sigmoidalna funkcja aktywacji}{19}
-\contentsline {subsubsection}{Logistyczna funkcja kosztu - (ang. \textit {log-loss})}{20}
-\contentsline {subsubsection}{Uog\'olnienie funkcji \textit {log-loss} do zagadnienia multiklasyfikacji}{20}
-\contentsline {subsubsection}{Uog\'olnienie powy\.zszych funkcji kosztu do dowolnego modelu}{21}
-\contentsline {section}{\numberline {2.3}Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}{21}
-\contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{21}
-\contentsline {subsection}{\numberline {2.3.2}Wielowarstwowa sie\'c neuronowa jako uniwersalny aproksymator}{22}
-\contentsline {subsection}{\numberline {2.3.3}Algorytm wstecznej propagacji}{23}
-\contentsline {subsubsection}{Zjawisko przesuni\k ecia warto\'sci (ang. \textit {covariate shift}) i technika normalizacji porcjowej (ang. \textit {Batch Normalization})}{25}
-\contentsline {subsection}{\numberline {2.3.4}Interpretacja probabilistyczna sieci neuronowych}{25}
-\contentsline {subsection}{\numberline {2.3.5}Regularyzacja sieci neuronowych}{27}
-\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{2}$}{27}
-\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{1}$}{27}
-\contentsline {subsection}{\numberline {2.3.6}Czym r\'o\.zni\k a si\k e powy\.zsze kary?}{28}
-\contentsline {subsection}{\numberline {2.3.7}Intuicje dotycz\k ace warstw sieci neuronowych}{28}
-\contentsline {subsection}{\numberline {2.3.8}Reprezentacja rozproszona}{29}
-\contentsline {subsubsection}{G\IeC {\l }\k eboka hierarchiczna struktura przyczyn\k a sukcesu algorytm\'ow z rodziny Deep Learning}{29}
-\contentsline {chapter}{\numberline {3}Sieci konwolucyjne}{31}
-\contentsline {section}{\numberline {3.1}Inwariancja}{31}
-\contentsline {section}{\numberline {3.2}Architektura sieci konwolucyjnych}{32}
-\contentsline {subsection}{\numberline {3.2.1}Najpopularniejsze rzutowania}{33}
-\contentsline {subsection}{\numberline {3.2.2}Pooling}{34}
-\contentsline {subsubsection}{Pooling globalny (ang. \textit {global pooling})}{35}
-\contentsline {section}{\numberline {3.3}Przegl\k ad najpopularniejszych architektur konwolucyjnych}{35}
-\contentsline {subsection}{\numberline {3.3.1}Pierwsze sieci konwolucyjne}{35}
-\contentsline {subsection}{\numberline {3.3.2}AlexNet}{35}
-\contentsline {subsubsection}{Recitified Linear unit - ReLU}{36}
-\contentsline {paragraph}{Leaky ReLU}{36}
-\contentsline {subsubsection}{Obliczenia na kartach graficznych}{37}
-\contentsline {subsubsection}{Augmentacja obraz\'ow}{38}
-\contentsline {subsubsection}{Dropout}{38}
-\contentsline {subsection}{\numberline {3.3.3}VGG}{39}
-\contentsline {subsection}{\numberline {3.3.4}GoogLeNet}{39}
-\contentsline {subsubsection}{\IeC {\L }odyga (ang. \textit {stem}) sieci}{41}
-\contentsline {subsubsection}{Konwolucja $(f_w, f_h) = (1, 1)$ - redukcja wymiarowo\'sci}{41}
-\contentsline {subsubsection}{Klasyfikatory pomocnicze}{41}
-\contentsline {subsubsection}{Blok incepcyjny - \textit {sie\'c w sieci}}{42}
-\contentsline {subsubsection}{Kolejne wersji Incepcji}{42}
-\contentsline {subsection}{\numberline {3.3.5}Sieci residualne ResNet}{42}
-\contentsline {subsubsection}{Po\IeC {\l }\k aczenia residualne}{42}
-\contentsline {chapter}{\numberline {4}Implementacja - zastosowanie CNN do rozpoznawania raka jelita grubego}{45}
-\contentsline {section}{\numberline {4.1}Opis problemu}{45}
-\contentsline {section}{\numberline {4.2}Opis zbioru danych i dotychczasowych wynik\'ow}{45}
-\contentsline {subsection}{\numberline {4.2.1}Zbi\'or danych}{45}
-\contentsline {paragraph}{Spos\'ob zebrania}{46}
-\contentsline {section}{\numberline {4.3}Opis sieci i eksperymentu}{46}
-\contentsline {subsection}{\numberline {4.3.1}Opis architektury sieci}{46}
-\contentsline {paragraph}{Wej\'scie}{47}
-\contentsline {paragraph}{\IeC {\L }odyga}{47}
-\contentsline {paragraph}{Blok 1}{47}
-\contentsline {paragraph}{Blok 2}{47}
-\contentsline {paragraph}{Interpretacja wyj\'s\'c}{47}
-\contentsline {paragraph}{Normalizacja porcjowa oraz funkcja aktywacji}{47}
-\contentsline {subsection}{\numberline {4.3.2}Szczeg\'o\IeC {\l }y funkcji kosztu}{48}
-\contentsline {subsection}{\numberline {4.3.3}Szczeg\'o\IeC {\l }y algorytmu optymalizacyjnego}{48}
-\contentsline {subsection}{\numberline {4.3.4}Szczeg\'o\IeC {\l }y procesu uczenia}{48}
-\contentsline {section}{\numberline {4.4}Por\'ownanie wynik\'ow}{50}
-\contentsline {chapter}{Bibliografia}{51}
+\contentsline {subsubsection}{Sigmoidalna funkcja aktywacji}{20}
+\contentsline {subsubsection}{Logistyczna funkcja kosztu - (ang. \textit {log-loss})}{21}
+\contentsline {subsubsection}{Uog\'olnienie funkcji \textit {log-loss} do zagadnienia multiklasyfikacji}{21}
+\contentsline {subsubsection}{Uog\'olnienie powy\.zszych funkcji kosztu do dowolnego modelu}{22}
+\contentsline {section}{\numberline {2.3}Klasyczne sieci neuronowe oraz algorytm wstecznej propagacji}{22}
+\contentsline {subsection}{\numberline {2.3.1}Topologie sieci}{22}
+\contentsline {subsection}{\numberline {2.3.2}Wielowarstwowa sie\'c neuronowa jako uniwersalny aproksymator}{23}
+\contentsline {subsection}{\numberline {2.3.3}Algorytm wstecznej propagacji}{24}
+\contentsline {subsubsection}{Zjawisko znikaj\k acego gradientu (ang. \textit {vanishing gradient problem})}{25}
+\contentsline {subsubsection}{Zjawisko przesuni\k ecia warto\'sci (ang. \textit {covariate shift}) i technika normalizacji porcjowej (ang. \textit {Batch Normalization})}{26}
+\contentsline {subsection}{\numberline {2.3.4}Interpretacja probabilistyczna sieci neuronowych}{26}
+\contentsline {subsection}{\numberline {2.3.5}Regularyzacja sieci neuronowych}{28}
+\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{2}$}{28}
+\contentsline {subsubsection}{Kara zwi\k azana z $\delimiter 69645069 \Theta \delimiter 86422285 _{1}$}{28}
+\contentsline {subsection}{\numberline {2.3.6}Czym r\'o\.zni\k a si\k e powy\.zsze kary?}{29}
+\contentsline {subsection}{\numberline {2.3.7}Intuicje dotycz\k ace warstw sieci neuronowych}{29}
+\contentsline {subsection}{\numberline {2.3.8}Reprezentacja rozproszona}{30}
+\contentsline {subsubsection}{G\IeC {\l }\k eboka hierarchiczna struktura przyczyn\k a sukcesu algorytm\'ow z rodziny Deep Learning}{30}
+\contentsline {chapter}{\numberline {3}Sieci konwolucyjne}{33}
+\contentsline {section}{\numberline {3.1}Inwariancja}{33}
+\contentsline {section}{\numberline {3.2}Architektura sieci konwolucyjnych}{34}
+\contentsline {subsection}{\numberline {3.2.1}Najpopularniejsze rzutowania}{35}
+\contentsline {subsection}{\numberline {3.2.2}Pooling}{36}
+\contentsline {subsubsection}{Pooling globalny (ang. \textit {global pooling})}{37}
+\contentsline {section}{\numberline {3.3}Przegl\k ad najpopularniejszych architektur konwolucyjnych}{37}
+\contentsline {subsection}{\numberline {3.3.1}Pierwsze sieci konwolucyjne}{37}
+\contentsline {subsection}{\numberline {3.3.2}AlexNet}{37}
+\contentsline {subsubsection}{Recitified Linear unit - ReLU}{38}
+\contentsline {paragraph}{Leaky ReLU}{38}
+\contentsline {subsubsection}{Obliczenia na kartach graficznych}{39}
+\contentsline {subsubsection}{Augmentacja obraz\'ow}{40}
+\contentsline {subsubsection}{Dropout}{41}
+\contentsline {subsection}{\numberline {3.3.3}VGG}{41}
+\contentsline {subsection}{\numberline {3.3.4}GoogLeNet}{41}
+\contentsline {subsubsection}{\IeC {\L }odyga (ang. \textit {stem}) sieci}{43}
+\contentsline {subsubsection}{Konwolucja $(f_w, f_h) = (1, 1)$ - redukcja wymiarowo\'sci}{43}
+\contentsline {subsubsection}{Klasyfikatory pomocnicze}{43}
+\contentsline {subsubsection}{Blok incepcyjny - \textit {sie\'c w sieci}}{44}
+\contentsline {subsubsection}{Kolejne wersji Incepcji}{44}
+\contentsline {subsection}{\numberline {3.3.5}Sieci residualne ResNet}{44}
+\contentsline {subsubsection}{Po\IeC {\l }\k aczenia residualne}{44}
+\contentsline {chapter}{\numberline {4}Implementacja - zastosowanie sieci konwolucyjnych do rozpoznawania nowotworu jelita grubego}{47}
+\contentsline {section}{\numberline {4.1}Opis problemu}{47}
+\contentsline {section}{\numberline {4.2}Opis zbioru danych i dotychczasowych wynik\'ow}{47}
+\contentsline {subsection}{\numberline {4.2.1}Zbi\'or danych}{47}
+\contentsline {paragraph}{Spos\'ob zebrania}{48}
+\contentsline {section}{\numberline {4.3}Opis sieci i eksperymentu}{48}
+\contentsline {subsection}{\numberline {4.3.1}Opis architektury sieci}{48}
+\contentsline {paragraph}{Wej\'scie}{49}
+\contentsline {paragraph}{\IeC {\L }odyga}{49}
+\contentsline {paragraph}{Blok 1}{49}
+\contentsline {paragraph}{Blok 2}{49}
+\contentsline {paragraph}{Interpretacja wyj\'s\'c}{49}
+\contentsline {paragraph}{Normalizacja porcjowa oraz funkcja aktywacji}{50}
+\contentsline {subsection}{\numberline {4.3.2}Szczeg\'o\IeC {\l }y funkcji kosztu}{50}
+\contentsline {subsection}{\numberline {4.3.3}Szczeg\'o\IeC {\l }y algorytmu optymalizacyjnego}{50}
+\contentsline {subsection}{\numberline {4.3.4}Szczeg\'o\IeC {\l }y procesu uczenia}{52}
+\contentsline {subsection}{\numberline {4.3.5}Szczeg\'o\IeC {\l }y implementacji}{52}
+\contentsline {section}{\numberline {4.4}Por\'ownanie wynik\'ow}{52}
+\contentsline {subsection}{\numberline {4.4.1}Wyniki uzyskane przez autor\'ow zbioru danych}{52}
+\contentsline {subsection}{\numberline {4.4.2}Wyniki uzyskane przez model opisany w tej pracy}{52}
+\contentsline {paragraph}{Szczeg\'o\IeC {\l }y uzyskiwania ostatecznych rezultat\'ow}{52}
+\contentsline {subsubsection}{Por\'ownanie}{53}
+\contentsline {chapter}{\numberline {5}Dyskusja}{57}
+\contentsline {chapter}{Bibliografia}{59}
